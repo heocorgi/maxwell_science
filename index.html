@@ -15,7 +15,7 @@
     *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;color:var(--ink);background:var(--white);font-family:"DM Sans","Noto Sans KR",sans-serif;line-height:1.7;word-break:keep-all}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.container{width:min(var(--max),calc(100% - 44px));margin:auto}.section{padding:96px 0}.soft{background:var(--paper)}.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--teal);font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.eyebrow:before{content:"";width:22px;height:1px;background:var(--gold)}h1,h2,h3,p{margin-top:0}.heading{margin-bottom:35px}.heading h2{margin:10px 0;color:var(--navy);font-size:clamp(29px,4vw,43px);line-height:1.3;letter-spacing:-.045em}.heading p{margin:bottom:0;color:var(--muted)}
     
     /* 헤더 및 상단 로고 (흰 배경 자동 투명화 적용) */
-    .header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(228,232,236,.9)}
+    .header{position:sticky;top:0;z-index:20;background:#ffffff;border-bottom:1px solid var(--line)}
     .nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}
     .brand{display:flex;align-items:center;gap:10px}
     .brand img{display:block;width:156px;height:58px;object-fit:contain;object-position:left center}
@@ -42,7 +42,7 @@
     /* 푸터 및 하단 로고 (네이비 배경과 자연스럽게 어우러지도록 반전+스크린 합성 적용) */
     .footer{padding:32px 0;background:#0c1728;color:#9eacbf}
     .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
-    .footer img{display:block;width:140px;height:54px;object-fit:contain;object-position:left center;filter:brightness(0) invert(1);opacity:.9}
+    .footer img{display:block;width:140px;height:54px;object-fit:contain;object-position:center;background:#ffffff;padding:6px 12px;border-radius:8px}
     .footer-info{font-size:11px}.footer-info p{margin:2px 0}.footer-info a{color:#fff}.copy{font-size:10px;display:flex;align-items:center;gap:12px}.admin-trigger{color:#6a7b91;font-size:11px;cursor:pointer;border:1px solid rgba(255,255,255,.15);padding:3px 8px;border-radius:5px;background:transparent}.admin-trigger:hover{color:#fff;border-color:#fff}
 
     /* 우측 하단 고정 카카오톡 플로팅 버튼 */
@@ -296,11 +296,12 @@
         reviewNote: "※ 사이트 구성 예시 문구입니다. 실제 수강 후기로 교체해 주세요."
       },
       schedules: [
+        { day: "토요일", time: "오전 10시", title: "중등 하이탑", target: "초등5 / 초등6", tag: "11/1 개강 예정", style: "normal" },
         { day: "토요일", time: "오전 10시", title: "중3 하이탑", target: "중2", tag: "계속반 · 상담 후 입반", style: "normal" },
         { day: "토요일", time: "오후 2시", title: "중2 하이탑", target: "초6 / 중1", tag: "계속반 · 상담 후 입반", style: "normal" },
-        { day: "토요일", time: "오후 5시 30분", title: "중3 하이탑", target: "중2", tag: "10/10 시작반 안내", style: "gold" },
+        { day: "토요일", time: "오후 5시 30분", title: "중3 하이탑", target: "중2", tag: "10/10 개강", style: "gold" },
         { day: "일요일", time: "오전 10시", title: "물리학", target: "중2 / 중3", tag: "계속반 · 상담 후 입반", style: "normal" },
-        { day: "일요일", time: "오후 1시 30분", title: "영과고 특별반 (중등 물화)", target: "초등 5 / 초등 6", tag: "11/1 시작 예정", style: "gold" }
+        { day: "일요일", time: "오후 1시 30분", title: "영과고 특별반 (중등 물화)", target: "초등 5 / 초등 6", tag: "11/1 개강 예정", style: "gold" }
       ],
       reviews: [
         { stars: "★★★★★", text: "복잡하게 느껴졌던 과학 개념을 차근차근 설명해 주셔서 이해하기 쉬웠어요. 배운 내용을 문제에 적용하는 연습도 도움이 됐습니다.", author: "중등부 수강생 · 예시 후기" },
