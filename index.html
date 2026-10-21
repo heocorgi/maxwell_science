@@ -11,24 +11,55 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
-    :root{--navy:#101e35;--navy2:#1b2d49;--teal:#117f99;--gold:#c49a56;--paper:#f7f7f4;--ink:#19283d;--muted:#718096;--line:#e4e8ec;--white:#fff;--shadow:0 18px 52px rgba(16,30,53,.09);--max:1160px}
-    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;color:var(--ink);background:var(--white);font-family:"DM Sans","Noto Sans KR",sans-serif;line-height:1.7;word-break:keep-all}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.container{width:min(var(--max),calc(100% - 44px));margin:auto}.section{padding:96px 0}.soft{background:var(--paper)}.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--teal);font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.eyebrow:before{content:"";width:22px;height:1px;background:var(--gold)}h1,h2,h3,p{margin-top:0}.heading{margin-bottom:35px}.heading h2{margin:10px 0;color:var(--navy);font-size:clamp(29px,4vw,43px);line-height:1.3;letter-spacing:-.045em}.heading p{margin-bottom:0;color:var(--muted)}
-    .header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.94);backdrop-filter:blur(14px);border-bottom:1px solid rgba(228,232,236,.9)}.nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--navy);font-size:18px}.brand img{display:block;width:152px;height:62px;object-fit:contain;object-position:left center}.nav-links{display:flex;align-items:center;gap:28px;margin:0;padding:0;list-style:none}.nav-links a{font-size:13px;font-weight:700;color:#4e5d70;transition:.2s}.nav-links a:hover,.nav-links a.current{color:var(--teal)}.nav-cta,.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 18px;border:1px solid transparent;border-radius:8px;background:var(--navy);color:white;font-size:13px;font-weight:800;cursor:pointer;transition:.2s}.nav-cta:hover,.button:hover{background:var(--teal);transform:translateY(-1px)}.button.outline{border-color:var(--line);background:#fff;color:var(--navy)}.button.outline:hover{border-color:var(--teal);color:var(--teal);background:#fff}.hamb{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--navy)}
+    :root{--navy:#101e35;--navy2:#1b2d49;--teal:#117f99;--gold:#c49a56;--kakao:#FEE500;--kakao-ink:#191919;--paper:#f7f7f4;--ink:#19283d;--muted:#718096;--line:#e4e8ec;--white:#fff;--shadow:0 18px 52px rgba(16,30,53,.09);--max:1160px}
+    *{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:88px}body{margin:0;color:var(--ink);background:var(--white);font-family:"DM Sans","Noto Sans KR",sans-serif;line-height:1.7;word-break:keep-all}a{color:inherit;text-decoration:none}button,input,select,textarea{font:inherit}.container{width:min(var(--max),calc(100% - 44px));margin:auto}.section{padding:96px 0}.soft{background:var(--paper)}.eyebrow{display:inline-flex;align-items:center;gap:9px;color:var(--teal);font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}.eyebrow:before{content:"";width:22px;height:1px;background:var(--gold)}h1,h2,h3,p{margin-top:0}.heading{margin-bottom:35px}.heading h2{margin:10px 0;color:var(--navy);font-size:clamp(29px,4vw,43px);line-height:1.3;letter-spacing:-.045em}.heading p{margin:bottom:0;color:var(--muted)}
+    
+    /* 헤더 및 상단 로고 (흰 배경 자동 투명화 적용) */
+    .header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(14px);border-bottom:1px solid rgba(228,232,236,.9)}
+    .nav{height:78px;display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand img{display:block;width:156px;height:58px;object-fit:contain;object-position:left center;mix-blend-mode:multiply}
+    .nav-links{display:flex;align-items:center;gap:28px;margin:0;padding:0;list-style:none}
+    .nav-links a{font-size:13px;font-weight:700;color:#4e5d70;transition:.2s}
+    .nav-links a:hover,.nav-links a.current{color:var(--teal)}
+    
+    /* 버튼 공통 및 카카오톡 버튼 스타일 */
+    .nav-cta,.button{display:inline-flex;align-items:center;justify-content:center;gap:9px;padding:12px 18px;border:1px solid transparent;border-radius:8px;background:var(--navy);color:white;font-size:13px;font-weight:800;cursor:pointer;transition:.2s}
+    .nav-cta:hover,.button:hover{background:var(--teal);transform:translateY(-1px)}
+    .button.outline{border-color:var(--line);background:#fff;color:var(--navy)}
+    .button.outline:hover{border-color:var(--teal);color:var(--teal);background:#fff}
+    .button.kakao,.nav-cta.kakao{background:var(--kakao);color:var(--kakao-ink);border-color:rgba(0,0,0,.06)}
+    .button.kakao:hover,.nav-cta.kakao:hover{background:#f5dc00;color:#000;transform:translateY(-1px)}
+    .hamb{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--navy)}
+
     .hero{position:relative;overflow:hidden;min-height:570px;display:flex;align-items:center;background:linear-gradient(110deg,rgba(13,26,47,.96) 0%,rgba(17,43,66,.92) 59%,rgba(16,65,82,.73) 100%);background-position:center 40%;background-size:cover;color:white}.hero:after{content:"";position:absolute;right:-140px;top:-200px;width:600px;height:600px;border:1px solid rgba(196,154,86,.28);border-radius:50%;box-shadow:0 0 0 42px rgba(196,154,86,.05),0 0 0 90px rgba(196,154,86,.035)}.hero-content{position:relative;z-index:1;max-width:720px;padding:78px 0}.hero .eyebrow{color:#dfbd82}.hero h1{margin:20px 0 17px;font-size:clamp(43px,6.6vw,76px);line-height:1.16;letter-spacing:-.06em}.hero h1 em{font-style:normal;color:#73c0d0}.hero p{max-width:590px;margin-bottom:28px;color:rgba(255,255,255,.77);font-size:17px}.hero-notice{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;padding:10px 16px;border:1px solid rgba(223,189,130,.4);border-radius:8px;background:rgba(16,30,53,.65);color:#f3dfb9;font-size:13px;font-weight:600}.hero-actions{display:flex;flex-wrap:wrap;gap:12px}.hero .button{padding:14px 20px;background:var(--gold);color:#102039}.hero .button.outline{border-color:rgba(255,255,255,.35);background:transparent;color:white}.hero-meta{display:flex;gap:21px;flex-wrap:wrap;margin-top:28px;color:rgba(255,255,255,.72);font-size:12px}.hero-meta i{margin-right:6px;color:#77c7d0}
     .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:55px;align-items:center}.about-copy h2{margin:12px 0 18px;font-size:clamp(31px,4vw,47px);line-height:1.32;letter-spacing:-.05em;color:var(--navy)}.about-copy p{color:var(--muted)}.quote{margin-top:24px;padding:16px 19px;border-left:3px solid var(--gold);background:#f7f6f1;color:var(--navy2);font-weight:700}.pillars{display:grid;grid-template-columns:1fr 1fr;gap:13px}.pillar{padding:22px 20px;border:1px solid var(--line);border-radius:12px;background:#fff;transition:.2s}.pillar:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.pillar i{color:var(--teal);font-size:18px}.pillar h3{margin:13px 0 5px;font-size:15px;color:var(--navy)}.pillar p{margin:0;color:var(--muted);font-size:12px}
     .location{display:grid;grid-template-columns:.78fr 1.22fr;gap:22px;margin-top:36px;padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff}.location-info{padding:8px}.location-info h3{margin:5px 0 13px;color:var(--navy);font-size:19px}.location-info p{display:flex;gap:10px;margin:9px 0;color:#617086;font-size:13px}.location-info i{width:17px;margin-top:5px;color:var(--teal)}.map-frame{min-height:260px;overflow:hidden;border-radius:10px;background:#edf1f5}.map-frame iframe{display:block;width:100%;height:100%;min-height:260px;border:0}
     .teacher-grid{display:grid;grid-template-columns:.85fr 1.15fr;max-width:870px;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:white;box-shadow:var(--shadow)}.teacher-photo{min-height:360px;background:#1b263e}.teacher-photo img{display:block;width:100%;height:100%;min-height:360px;object-fit:cover;object-position:54% 20%}.teacher-info{align-self:center;padding:38px}.teacher-info .role{display:inline-block;padding:5px 10px;border-radius:5px;background:#e8f4f5;color:var(--teal);font-size:11px;font-weight:800}.teacher-info h3{margin:14px 0 18px;color:var(--navy);font-size:33px;line-height:1.2}.teacher-info ul{margin:0;padding:0;list-style:none}.teacher-info li{position:relative;margin:11px 0;padding-left:20px;color:#59697f;font-size:14px}.teacher-info li:before{content:"";position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--gold)}.teacher-motto{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);color:var(--navy);font-size:14px;font-weight:800}
     .reviews{display:grid;grid-template-columns:1fr 1fr;gap:15px}.review{padding:20px 22px;border:1px solid var(--line);border-radius:11px;background:#fff}.review .stars{color:var(--gold);font-size:12px;letter-spacing:2px}.review blockquote{margin:10px 0 13px;color:#55647a;font-size:13px}.review small{color:var(--muted);font-size:11px}.review-note{margin-top:16px;color:#8a94a1;font-size:11px}
-    .cta{padding:57px 0;background:var(--navy);color:white}.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:28px}.cta h2{margin:0 0 6px;font-size:clamp(24px,3vw,34px);letter-spacing:-.04em}.cta p{margin:0;color:rgba(255,255,255,.68);font-size:13px}.cta .button{background:var(--gold);color:var(--navy)}
-    .footer{padding:32px 0;background:#0c1728;color:#9eacbf}.footer-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}.footer img{width:130px;height:56px;object-fit:contain;border-radius:6px;background:rgba(255,255,255,.95);padding:4px 8px}.footer-info{font-size:11px}.footer-info p{margin:2px 0}.footer-info a{color:#fff}.copy{font-size:10px;display:flex;align-items:center;gap:12px}.admin-trigger{color:#6a7b91;font-size:11px;cursor:pointer;border:1px solid rgba(255,255,255,.15);padding:3px 8px;border-radius:5px;background:transparent}.admin-trigger:hover{color:#fff;border-color:#fff}
+    .cta{padding:57px 0;background:var(--navy);color:white}.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:28px}.cta h2{margin:0 0 6px;font-size:clamp(24px,3vw,34px);letter-spacing:-.04em}.cta p{margin:0;color:rgba(255,255,255,.68);font-size:13px}.cta-buttons{display:flex;gap:10px;flex-wrap:wrap}
+    
+    /* 푸터 및 하단 로고 (네이비 배경과 자연스럽게 어우러지도록 반전+스크린 합성 적용) */
+    .footer{padding:32px 0;background:#0c1728;color:#9eacbf}
+    .footer-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+    .footer img{display:block;width:140px;height:54px;object-fit:contain;object-position:left center;filter:grayscale(1) invert(1) contrast(1.8);mix-blend-mode:screen;opacity:.92}
+    .footer-info{font-size:11px}.footer-info p{margin:2px 0}.footer-info a{color:#fff}.copy{font-size:10px;display:flex;align-items:center;gap:12px}.admin-trigger{color:#6a7b91;font-size:11px;cursor:pointer;border:1px solid rgba(255,255,255,.15);padding:3px 8px;border-radius:5px;background:transparent}.admin-trigger:hover{color:#fff;border-color:#fff}
+
+    /* 우측 하단 고정 카카오톡 플로팅 버튼 */
+    .floating-kakao{position:fixed;right:24px;bottom:24px;z-index:40;display:inline-flex;align-items:center;gap:8px;padding:13px 18px;border-radius:50px;background:var(--kakao);color:var(--kakao-ink);font-size:13px;font-weight:800;box-shadow:0 10px 28px rgba(16,30,53,.22);transition:.2s}
+    .floating-kakao:hover{transform:translateY(-3px);background:#f5dc00}
+
+    /* PC용 전화번호 안내 토스트 모달 */
+    .toast-popup{position:fixed;bottom:84px;right:24px;z-index:60;display:none;padding:16px 20px;border-radius:12px;background:var(--navy);color:#fff;font-size:13px;box-shadow:var(--shadow);border:1px solid rgba(255,255,255,.15)}
+    .toast-popup.show{display:block;animation:fadeIn .2s ease}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
     .view{display:none;min-height:70vh}.view.active{display:block}.page-hero{padding:74px 0 62px;color:#fff;background:linear-gradient(110deg,#101e35,#155d70)}.page-hero h1{margin:11px 0;font-size:clamp(35px,5vw,54px);letter-spacing:-.05em}.page-hero p{max-width:600px;margin:0;color:rgba(255,255,255,.72)}.schedule-box{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:white}.schedule-table{width:100%;min-width:650px;border-collapse:collapse}.schedule-table th,.schedule-table td{padding:17px 18px;border-bottom:1px solid var(--line);text-align:left}.schedule-table th{background:#f2f6f7;color:#566579;font-size:12px}.schedule-table td{font-size:13px;color:#4d5b6e}.schedule-table tr:last-child td{border-bottom:0}.schedule-table td:first-child,.schedule-table td:nth-child(3){font-weight:800;color:var(--navy)}.tag{display:inline-block;padding:5px 9px;border-radius:5px;background:#e7f2f4;color:#16788e;font-size:11px;font-weight:800}.tag.gold{background:#fbf3e7;color:#9b7134}.notice{margin-top:15px;color:var(--muted);font-size:12px}.poster-link{display:inline-flex;margin-top:24px;align-items:center;gap:8px;color:var(--teal);font-size:13px;font-weight:800}
     .science-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:16px}.science-card{min-height:232px;display:flex;flex-direction:column;justify-content:space-between;padding:23px;border:1px solid var(--line);border-radius:12px;background:white;transition:.2s;cursor:pointer}.science-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.science-card.featured{border:0;color:#fff;background:linear-gradient(145deg,#123b56,#12819a)}.science-meta{color:var(--muted);font-size:11px}.science-card.featured .science-meta{color:rgba(255,255,255,.7)}.science-meta span{margin-right:8px;color:var(--teal);font-weight:800}.science-card.featured .science-meta span{color:#f0cb8d}.science-card h3{margin:22px 0 9px;color:var(--navy);font-size:19px;line-height:1.45}.science-card.featured h3{color:#fff}.science-card p{margin:0;color:var(--muted);font-size:12px}.science-card.featured p{color:rgba(255,255,255,.75)}.science-card .read-more{margin-top:18px;color:var(--teal);font-size:12px;font-weight:800;display:inline-flex;align-items:center;gap:6px}.science-card.featured .read-more{color:#f2d69f}.empty-news{grid-column:1/-1;padding:42px;text-align:center;border:1px dashed #cad4dd;border-radius:12px;color:var(--muted)}.empty-news i{display:block;margin-bottom:12px;color:var(--teal);font-size:25px}
-    /* 과학 정보 상세 모달 */
     .modal-backdrop{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(16,30,53,.65);backdrop-filter:blur(4px)}.modal-backdrop.open{display:flex}.modal-box{width:min(680px,100%);max-height:85vh;overflow-y:auto;padding:34px;border-radius:16px;background:#fff;box-shadow:var(--shadow)}.modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--line)}.modal-close{border:1px solid var(--line);background:#fff;border-radius:8px;width:36px;height:36px;cursor:pointer;color:var(--navy)}.modal-body{color:var(--ink);font-size:15px;line-height:1.8;white-space:pre-line}
-    /* 관리자(Admin) 전용 스타일 */
     .admin-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}.admin-card{padding:26px;border:1px solid var(--line);border-radius:14px;background:#fff}.admin-card.full{grid-column:1/-1}.admin-card h3{margin-bottom:14px;color:var(--navy);font-size:18px;display:flex;align-items:center;gap:8px}.form-row{margin-bottom:12px}.form-row label{display:block;margin-bottom:5px;font-size:12px;font-weight:700;color:var(--navy2)}.form-row input,.form-row select,.form-row textarea{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;font-size:13px}.form-row textarea{min-height:95px;resize:vertical}.item-list{margin-top:16px;border-top:1px solid var(--line);padding-top:12px;max-height:240px;overflow-y:auto}.item-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:12px}.item-row button{padding:4px 9px;border:1px solid #e53e3e;border-radius:5px;background:#fff;color:#e53e3e;font-size:11px;cursor:pointer}.code-Export{width:100%;height:180px;padding:12px;border:1px solid var(--line);border-radius:8px;background:#0f172a;color:#e2e8f0;font-family:monospace;font-size:12px}
     @media(max-width:850px){.nav-links{gap:15px}.nav-links a{font-size:12px}.nav-cta{padding:10px 12px;font-size:12px}.about-grid{gap:30px}.location{grid-template-columns:1fr 1.2fr}.science-grid,.admin-grid{grid-template-columns:1fr 1fr}.science-card.featured{grid-column:1/-1}}
-    @media(max-width:660px){html{scroll-padding-top:70px}.container{width:calc(100% - 34px)}.nav{height:68px}.brand img{width:130px;height:54px}.hamb{display:block}.nav-cta{display:none}.nav-links{position:absolute;display:none;top:67px;left:0;right:0;align-items:stretch;gap:0;padding:8px 20px 14px;background:white;border-bottom:1px solid var(--line);box-shadow:0 14px 24px rgba(16,30,53,.09)}.nav-links.open{display:flex;flex-direction:column}.nav-links a{display:block;padding:10px 0;font-size:14px}.hero{min-height:500px;background-position:58% center}.hero-content{padding:66px 0}.hero h1{font-size:clamp(39px,11vw,57px)}.hero p{font-size:15px}.section{padding:70px 0}.about-grid,.location,.teacher-grid,.reviews,.science-grid,.admin-grid{grid-template-columns:1fr}.pillars{gap:9px}.pillar{padding:17px 15px}.location{padding:15px}.map-frame,.map-frame iframe{min-height:230px}.teacher-photo{min-height:320px;max-height:420px}.teacher-photo img{min-height:320px;max-height:420px;object-position:54% 17%}.teacher-info{padding:26px}.cta-inner,.footer-inner{align-items:flex-start;flex-direction:column}.cta .button{width:100%}.footer-info{line-height:1.7}.science-card.featured{grid-column:auto}.page-hero{padding:58px 0 48px}}
+    @media(max-width:660px){html{scroll-padding-top:70px}.container{width:calc(100% - 34px)}.nav{height:68px}.brand img{width:130px;height:50px}.hamb{display:block}.nav-cta{display:none}.nav-links{position:absolute;display:none;top:67px;left:0;right:0;align-items:stretch;gap:0;padding:8px 20px 14px;background:white;border-bottom:1px solid var(--line);box-shadow:0 14px 24px rgba(16,30,53,.09)}.nav-links.open{display:flex;flex-direction:column}.nav-links a{display:block;padding:10px 0;font-size:14px}.hero{min-height:500px;background-position:58% center}.hero-content{padding:66px 0}.hero h1{font-size:clamp(39px,11vw,57px)}.hero p{font-size:15px}.section{padding:70px 0}.about-grid,.location,.teacher-grid,.reviews,.science-grid,.admin-grid{grid-template-columns:1fr}.pillars{gap:9px}.pillar{padding:17px 15px}.location{padding:15px}.map-frame,.map-frame iframe{min-height:230px}.teacher-photo{min-height:320px;max-height:420px}.teacher-photo img{min-height:320px;max-height:420px;object-position:54% 17%}.teacher-info{padding:26px}.cta-inner,.footer-inner{align-items:flex-start;flex-direction:column}.cta-buttons,.cta .button{width:100%}.footer-info{line-height:1.7}.science-card.featured{grid-column:auto}.page-hero{padding:58px 0 48px}.floating-kakao{right:16px;bottom:16px;padding:11px 15px;font-size:12px}}
     @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
   </style>
 </head>
@@ -46,12 +77,13 @@
         <li><a href="#reviews" data-scroll="reviews">수강 후기</a></li>
         <li><a href="#science" data-view="science">과학 정보</a></li>
       </ul>
-      <a class="nav-cta" href="tel:01020660824"><i class="fa-solid fa-phone"></i> 010-2066-0824</a>
+      <!-- 1. 우측 상단 카카오톡 상담 연결 버튼 -->
+      <a class="nav-cta kakao" href="#" data-kakao><i class="fa-solid fa-comment"></i> 카카오톡 상담</a>
     </nav>
   </header>
 
   <main>
-    <!-- 홈: 소개, 선생님, 후기 -->
+    <!-- 홈 뷰 -->
     <div class="view active" id="homeView">
       <section class="hero" id="home">
         <div class="container"><div class="hero-content">
@@ -59,8 +91,11 @@
           <h1>재미가 <em>이해</em>로,<br>이해가 <em>실력</em>으로</h1>
           <p>중등부터 고등까지, 과학을 정확히 이해하고 스스로 문제를 풀어내는 힘을 기릅니다. 학생에게 집중하는 수업과 체계적인 선행 학습으로 함께하겠습니다.</p>
           <div class="hero-notice" id="heroNoticeBox" style="display:none"><i class="fa-solid fa-bullhorn"></i> <span id="heroNoticeText"></span></div>
-          <div class="hero-actions"><a class="button" href="tel:01020660824"><i class="fa-solid fa-phone"></i> 수업 상담 010-2066-0824</a><a class="button outline" href="#schedule" data-view="schedule">시간표 확인 <i class="fa-solid fa-arrow-right"></i></a></div>
-          <div class="hero-meta"><span><i class="fa-solid fa-location-dot"></i> 목동 현대월드타워 603호</span><span><i class="fa-solid fa-flask"></i> 중등 · 고등 과학</span></div>
+          <div class="hero-actions">
+            <a class="button" href="tel:01020660824" data-phone><i class="fa-solid fa-phone"></i> 수업 상담 010-2066-0824</a>
+            <a class="button outline" href="#schedule" data-view="schedule">시간표 확인 <i class="fa-solid fa-arrow-right"></i></a>
+          </div>
+          <div class="hero-meta"><span><i class="fa-solid fa-location-dot"></i> 목동 현대월드타워 603호 맥스웰과학교습소</span><span><i class="fa-solid fa-flask"></i> 중등 · 고등 과학</span></div>
         </div></div>
       </section>
 
@@ -75,9 +110,18 @@
               <article class="pillar"><i class="fa-solid fa-chart-line"></i><h3>이해를 실력으로</h3><p>배운 개념을 문제에 적용하는 연습을 이어갑니다.</p></article>
             </div>
           </div>
+          <!-- 지도 영역: 맥스웰과학교습소 네이버 지도 링크 및 위치 반영 -->
           <div class="location">
-            <div class="location-info"><span class="eyebrow">Location</span><h3>맥스웰 과학 오시는 길</h3><p><i class="fa-solid fa-location-dot"></i><span>서울 양천구 목동 현대월드타워 603호</span></p><p><i class="fa-solid fa-phone"></i><a href="tel:01020660824">010-2066-0824</a></p><a class="button outline" href="https://map.naver.com/p/search/목동%20현대월드타워" target="_blank" rel="noopener">네이버 지도에서 보기 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></div>
-            <div class="map-frame"><iframe title="목동 현대월드타워 지도" src="https://maps.google.com/maps?q=%EB%AA%A9%EB%8F%99%20%ED%98%84%EB%8C%80%EC%9B%94%EB%93%9C%ED%83%80%EC%9B%8C&t=&z=16&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></div>
+            <div class="location-info">
+              <span class="eyebrow">Location</span>
+              <h3>맥스웰과학교습소 오시는 길</h3>
+              <p><i class="fa-solid fa-location-dot"></i><span>서울 양천구 목동 현대월드타워 603호 맥스웰과학교습소</span></p>
+              <p><i class="fa-solid fa-phone"></i><a href="tel:01020660824" data-phone>010-2066-0824 (클릭 시 번호 복사/연결)</a></p>
+              <a class="button outline" href="https://map.naver.com/p/search/%EB%A7%A5%EC%8A%A4%EC%9B%B0%EA%B3%BC%ED%95%99%EA%B5%90%EC%8A%B5%EC%86%8C?c=15.00,0,0,0,dh&placePath=%2Fhome%3Ffrom%3Dmap%26fromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202610211414%26locale%3Dko%26svcName%3Dmap_pcv5%26searchText%3D%EB%A7%A5%EC%8A%A4%EC%9B%B0%EA%B3%BC%ED%95%99%EA%B5%90%EC%8A%B5%EC%86%8C" target="_blank" rel="noopener">네이버 지도에서 보기 <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+            <div class="map-frame">
+              <iframe title="맥스웰과학교습소 지도" src="https://maps.google.com/maps?q=%EB%AA%A9%EB%8F%99%20%ED%98%84%EB%8C%80%EC%9B%94%EB%93%9C%ED%83%80%EC%9B%8C%20%EB%A7%A5%EC%8A%A4%EC%9B%B0%EA%B3%BC%ED%95%99%EA%B5%90%EC%8A%B5%EC%86%8C&t=&z=16&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
           </div>
         </div>
       </section>
@@ -94,7 +138,20 @@
           <p class="review-note" id="reviewNoteText"></p>
         </div>
       </section>
-      <section class="cta"><div class="container cta-inner"><div><h2>과학 수업 상담이 필요하신가요?</h2><p>학생의 학년과 학습 목표에 맞춰 안내해 드립니다.</p></div><a class="button" href="tel:01020660824"><i class="fa-solid fa-phone"></i> 010-2066-0824 전화 상담</a></div></section>
+
+      <!-- 2. 맨 아래 우측 상담 영역 (카카오톡 상담 버튼으로 변경) -->
+      <section class="cta">
+        <div class="container cta-inner">
+          <div>
+            <h2>과학 수업 상담이 필요하신가요?</h2>
+            <p>학생의 학년과 학습 목표에 맞춰 카카오톡 또는 전화로 친절히 안내해 드립니다.</p>
+          </div>
+          <div class="cta-buttons">
+            <a class="button kakao" href="#" data-kakao><i class="fa-solid fa-comment"></i> 카카오톡 상담하기</a>
+            <a class="button outline" style="background:transparent;color:#fff;border-color:rgba(255,255,255,.3)" href="tel:01020660824" data-phone><i class="fa-solid fa-phone"></i> 010-2066-0824</a>
+          </div>
+        </div>
+      </section>
     </div>
 
     <!-- 시간표 뷰 -->
@@ -104,7 +161,10 @@
         <div class="schedule-box"><table class="schedule-table"><thead><tr><th>요일</th><th>시간</th><th>수업명</th><th>대상</th><th>구분</th></tr></thead><tbody id="scheduleTableBody"></tbody></table></div>
         <p class="notice" id="scheduleNoticeText"></p>
         <a class="poster-link" id="posterLinkBtn" href="assets/26년 10월 프로그램 3.png" target="_blank"><span id="posterLinkLabel">프로그램 포스터 보기</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
-        <div style="margin-top:32px"><a class="button" href="tel:01020660824"><i class="fa-solid fa-phone"></i> 개강 및 반 편성 문의</a></div>
+        <div style="margin-top:32px;display:flex;gap:10px;flex-wrap:wrap">
+          <a class="button kakao" href="#" data-kakao><i class="fa-solid fa-comment"></i> 카카오톡 개강 문의</a>
+          <a class="button" href="tel:01020660824" data-phone><i class="fa-solid fa-phone"></i> 전화 문의 (010-2066-0824)</a>
+        </div>
       </div></div>
     </section>
 
@@ -119,16 +179,15 @@
       <div class="page-hero"><div class="container"><span class="eyebrow" style="color:#e5c588">ADMIN STUDIO</span><h1>콘텐츠 관리 및 글 작성</h1><p>코드를 직접 수정하지 않고 학원 일정, 시간표, 수강 후기, 과학 정보를 작성하고 반영할 수 있습니다.</p></div></div>
       <div class="section soft"><div class="container">
         <div class="admin-grid">
-          <!-- 1. 학원 운영 일정 및 공지 관리 -->
           <div class="admin-card">
-            <h3><i class="fa-solid fa-calendar-check" style="color:var(--teal)"></i> 1. 학원 운영 일정 · 공지사항</h3>
+            <h3><i class="fa-solid fa-calendar-check" style="color:var(--teal)"></i> 1. 학원 운영 일정 · 카카오톡 링크</h3>
+            <div class="form-row"><label>카카오톡 오픈채팅 또는 채널 주소 (URL)</label><input type="text" id="admKakaoUrl" placeholder="예: https://open.kakao.com/o/sXXXXXXX"></div>
             <div class="form-row"><label>메인 화면 상단 한 줄 공지 (비워두면 숨김)</label><input type="text" id="admHeroNotice" placeholder="예: 10월·11월 신규 개강반 모집 중입니다."></div>
             <div class="form-row"><label>시간표 하단 운영 안내 문구</label><textarea id="admScheduleNotice"></textarea></div>
             <div class="form-row"><label>포스터 버튼 이름</label><input type="text" id="admPosterLabel" placeholder="예: 10월 프로그램 포스터 보기"></div>
-            <button class="button" type="button" onclick="saveNotices()">운영 일정 적용 (미리보기)</button>
+            <button class="button" type="button" onclick="saveNotices()">설정 적용 (미리보기)</button>
           </div>
 
-          <!-- 2. 시간표 추가/삭제 -->
           <div class="admin-card">
             <h3><i class="fa-solid fa-clock" style="color:var(--teal)"></i> 2. 시간표 관리</h3>
             <div class="form-row"><label>요일 및 시간</label><div style="display:flex;gap:8px"><input type="text" id="admSchDay" placeholder="예: 토요일"><input type="text" id="admSchTime" placeholder="예: 오전 10시"></div></div>
@@ -138,7 +197,6 @@
             <div class="item-list" id="admScheduleList"></div>
           </div>
 
-          <!-- 3. 수강 후기 추가/삭제 -->
           <div class="admin-card">
             <h3><i class="fa-solid fa-comment-dots" style="color:var(--teal)"></i> 3. 수강 후기 관리</h3>
             <div class="form-row"><label>별점 표기</label><input type="text" id="admRevStars" value="★★★★★"></div>
@@ -148,45 +206,45 @@
             <div class="item-list" id="admReviewList"></div>
           </div>
 
-          <!-- 4. 과학 정보(게시글) 작성/삭제 -->
           <div class="admin-card">
             <h3><i class="fa-solid fa-atom" style="color:var(--teal)"></i> 4. 과학 정보 글 작성</h3>
             <div class="form-row"><label>분류(카테고리) 및 작성일</label><div style="display:flex;gap:8px"><input type="text" id="admSciCat" placeholder="예: 물리 · 개념노트"><input type="text" id="admSciDate" placeholder="예: 2026.10"></div></div>
             <div class="form-row"><label>글 제목</label><input type="text" id="admSciTitle" placeholder="예: 전자기 유도와 패러데이 법칙 쉽게 이해하기"></div>
             <div class="form-row"><label>카드 한 줄 요약 (목록에 표시됨)</label><input type="text" id="admSciSummary" placeholder="예: 자석과 코일만으로 전기가 만들어지는 원리를 알아봅니다."></div>
-            <div class="form-row"><label>본문 내용 (클릭 시 팝업으로 표시됨)</label><textarea id="admSciBody" placeholder="학생들과 학부모님이 읽을 수 있는 상세 내용을 자유롭게 작성하세요."></textarea></div>
+            <div class="form-row"><label>본문 내용 (클릭 시 팝업으로 표시됨)</label><textarea id="admSciBody" placeholder="상세 내용을 자유롭게 작성하세요."></textarea></div>
             <div class="form-row"><label><input type="checkbox" id="admSciFeatured" style="width:auto;margin-right:6px"> 대표 강조 글(파란색 큰 카드)로 지정</label></div>
             <button class="button" type="button" onclick="addScienceItem()">+ 과학 정보 등록</button>
             <div class="item-list" id="admScienceList"></div>
           </div>
 
-          <!-- 5. 코드 내보내기 및 GitHub 직접 업로드 -->
           <div class="admin-card full">
-            <h3><i class="fa-solid fa-cloud-arrow-up" style="color:var(--teal)"></i> 5. 변경사항 저장 및 반영하기 (2가지 방법 중 선택)</h3>
-            <p style="font-size:13px;color:var(--muted);margin-bottom:14px">
-              <strong>[방법 A: 깃허브 관리자에게 전달]</strong> 아래 <b>'관리자 전달용 데이터 복사'</b> 버튼을 눌러 복사된 코드를 카카오톡이나 이메일로 전달해 주세요. (깃허브 관리자는 <code>index.html</code> 하단의 <code>SITE_DATA</code> 부분에 그대로 덮어쓰기만 하면 됩니다.)
-            </p>
+            <h3><i class="fa-solid fa-cloud-arrow-up" style="color:var(--teal)"></i> 5. 변경사항 저장 및 반영하기</h3>
             <textarea class="code-Export" id="exportCodeBox" readonly></textarea>
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
               <button class="button" type="button" onclick="copyExportCode()"><i class="fa-solid fa-copy"></i> 관리자 전달용 데이터 복사</button>
               <button class="button outline" type="button" onclick="showView('home')">홈 화면에서 미리보기 확인</button>
             </div>
             <hr style="border:0;border-top:1px solid var(--line);margin:24px 0">
-            <p style="font-size:13px;color:var(--muted);margin-bottom:12px">
-              <strong>[방법 B: 웹사이트에서 깃허브로 즉시 자동 업로드]</strong> 깃허브 저장소 정보와 토큰(PAT)을 입력하고 누르면 깃허브에 접속할 필요 없이 현재 작성한 내용으로 웹사이트가 즉시 업데이트됩니다.
-            </p>
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px">
-              <input type="text" id="ghRepo" placeholder="깃허브아이디/저장소명 (예: user/maxwell)" style="padding:10px;border:1px solid var(--line);border-radius:8px;font-size:12px">
+              <input type="text" id="ghRepo" placeholder="깃허브아이디/저장소명" style="padding:10px;border:1px solid var(--line);border-radius:8px;font-size:12px">
               <input type="text" id="ghBranch" value="main" placeholder="브랜치명 (기본: main)" style="padding:10px;border:1px solid var(--line);border-radius:8px;font-size:12px">
-              <input type="password" id="ghToken" placeholder="GitHub Personal Access Token (ghp_...)" style="padding:10px;border:1px solid var(--line);border-radius:8px;font-size:12px">
+              <input type="password" id="ghToken" placeholder="GitHub Token (ghp_...)" style="padding:10px;border:1px solid var(--line);border-radius:8px;font-size:12px">
             </div>
-            <button class="button" style="background:var(--gold);color:var(--navy)" type="button" onclick="uploadToGitHub()"><i class="fa-solid fa-rocket"></i> 웹사이트에 바로 업로드 (GitHub 자동 반영)</button>
+            <button class="button" style="background:var(--gold);color:var(--navy)" type="button" onclick="uploadToGitHub()"><i class="fa-solid fa-rocket"></i> 웹사이트에 바로 업로드</button>
             <p id="ghStatusMsg" style="margin-top:10px;font-size:12px;font-weight:700;color:var(--teal)"></p>
           </div>
         </div>
       </div></div>
     </section>
   </main>
+
+  <!-- 우측 하단 고정 카카오톡 상담 버튼 -->
+  <a class="floating-kakao" href="#" data-kakao aria-label="카카오톡 상담">
+    <i class="fa-solid fa-comment"></i> 카카오톡 상담
+  </a>
+
+  <!-- PC용 전화번호 복사 안내 토스트 -->
+  <div class="toast-popup" id="phoneToast"></div>
 
   <!-- 과학 정보 본문 읽기 모달 -->
   <div class="modal-backdrop" id="scienceModal">
@@ -206,8 +264,8 @@
     <div class="container footer-inner">
       <a href="#home" data-home><img id="footerLogo" src="assets/학원 로고(배경 제거).jfif" alt="MAXWELL SCIENCE"></a>
       <div class="footer-info">
-        <p><i class="fa-solid fa-location-dot"></i> 서울 양천구 목동 현대월드타워 603호</p>
-        <p><i class="fa-solid fa-phone"></i> 상담 <a href="tel:01020660824">010-2066-0824</a></p>
+        <p><i class="fa-solid fa-location-dot"></i> 서울 양천구 목동 현대월드타워 603호 맥스웰과학교습소</p>
+        <p><i class="fa-solid fa-phone"></i> 상담 <a href="tel:01020660824" data-phone>010-2066-0824</a></p>
         <p><a href="https://blog.naver.com/maxwell_science/224438771028" target="_blank" rel="noopener">네이버 블로그 상담 및 안내 <i class="fa-solid fa-arrow-up-right-from-square"></i></a></p>
       </div>
       <div class="copy">
@@ -220,17 +278,19 @@
   <script>
     /* =========================================================================
        [관리자 데이터 영역 - SITE_DATA]
-       웹사이트 관리자 화면(#admin)에서 복사한 코드를 아래 블록에 그대로 덮어쓰세요!
+       kakaoUrl 에 카카오톡 오픈채팅 링크(https://open.kakao.com/...)를 입력해 주세요!
        ========================================================================= */
     const SITE_DATA = {
-      adminPin: "0824", // 관리자 글쓰기 접속 비밀번호 (원하시는 번호로 변경 가능)
+      adminPin: "0824",
+      phoneNumber: "010-2066-0824",
+      kakaoUrl: "", // 예: "https://open.kakao.com/o/sXXXXXXX" (비워두면 클릭 시 안내창이 뜹니다)
       images: {
         logo: "assets/학원 로고(배경 제거).jfif",
         heroPoster: "assets/26년 10월 프로그램 3.png",
         teacher: "assets/학원 포스터 예시.jfif"
       },
       notices: {
-        heroBanner: "", // 메인 배너 공지 (입력 시 노출)
+        heroBanner: "",
         scheduleNotice: "일정은 제공된 2026년 프로그램 포스터 기준입니다. 10/10 시작반은 개강일이 지났으니 현재 반 운영 여부를 문의해 주세요. 계속반도 상담 후 입반할 수 있습니다.",
         posterLabel: "10월 프로그램 포스터 보기",
         reviewNote: "※ 사이트 구성 예시 문구입니다. 실제 수강 후기로 교체해 주세요."
@@ -250,15 +310,13 @@
     };
     /* ================= [SITE_DATA 영역 끝] ================= */
 
-    // 한글/띄어쓰기/괄호 파일명 안전 변환 및 루트 폴더 자동 탐색 헬퍼
     function safeUrl(path) {
-      return encodeURI(path).replace(/\(/g, '%28').replace(/\)/g, '%29');
+      return encodeURI(path).replace(/\(/g, '\%28').replace(/\)/g, '%29');
     }
     function bindImgWithFallback(imgEl, rawPath) {
       if (!imgEl || !rawPath) return;
       imgEl.src = safeUrl(rawPath);
       imgEl.onerror = function () {
-        // 만약 assets/ 폴더가 아니라 최상위(루트) 폴더에 이미지가 있을 경우 자동 재시도
         if (rawPath.startsWith('assets/')) {
           imgEl.onerror = null;
           imgEl.src = safeUrl(rawPath.replace(/^assets\//, ''));
@@ -266,9 +324,45 @@
       };
     }
 
-    // 화면 렌더링 함수
+    // 모바일 여부 판별 (모바일이면 실제 전화 연결, PC면 번호 복사 안내)
+    function isMobileDevice() {
+      return /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    }
+
+    let toastTimer = null;
+    function showToast(msg) {
+      const toast = document.getElementById('phoneToast');
+      toast.innerHTML = msg;
+      toast.classList.add('show');
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => toast.classList.remove('show'), 4000);
+    }
+
+    // 전화 버튼 제어 (PC에서 무반응/앱선택 창 뜨는 오류 완벽 방지)
+    document.querySelectorAll('[data-phone]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        if (!isMobileDevice()) {
+          e.preventDefault();
+          navigator.clipboard?.writeText(SITE_DATA.phoneNumber);
+          showToast(`📞 <b>상담 전화번호(${SITE_DATA.phoneNumber})</b>가 복사되었습니다.<br><span style="font-size:11px;color:#cbd5e1">휴대전화로 연락 주시거나 카카오톡 상담을 이용해 주세요.</span>`);
+        }
+      });
+    });
+
+    // 카카오톡 버튼 제어
+    document.querySelectorAll('[data-kakao]').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        if (SITE_DATA.kakaoUrl && SITE_DATA.kakaoUrl.trim() !== '') {
+          window.open(SITE_DATA.kakaoUrl.trim(), '_blank', 'noopener');
+        } else {
+          navigator.clipboard?.writeText(SITE_DATA.phoneNumber);
+          showToast(`💬 <b>카카오톡 상담 안내</b><br>연락처 <b>${SITE_DATA.phoneNumber}</b> (번호 복사됨)로 카톡 친구 추가 후 문의해 주세요!<br><span style="font-size:11px;color:#cbd5e1">(관리자 페이지에서 오픈채팅 링크를 등록하면 즉시 연결됩니다.)</span>`);
+        }
+      });
+    });
+
     function renderSite() {
-      // 1. 이미지 연결
       bindImgWithFallback(document.getElementById('headerLogo'), SITE_DATA.images.logo);
       bindImgWithFallback(document.getElementById('footerLogo'), SITE_DATA.images.logo);
       bindImgWithFallback(document.getElementById('teacherImg'), SITE_DATA.images.teacher);
@@ -277,7 +371,6 @@
       heroEl.style.backgroundImage = `linear-gradient(110deg,rgba(13,26,47,.96) 0%,rgba(17,43,66,.92) 59%,rgba(16,65,82,.73) 100%), url("${posterUrl}")`;
       document.getElementById('posterLinkBtn').href = posterUrl;
 
-      // 2. 운영 일정 및 공지
       const heroNoticeBox = document.getElementById('heroNoticeBox');
       if (SITE_DATA.notices.heroBanner && SITE_DATA.notices.heroBanner.trim() !== '') {
         heroNoticeBox.style.display = 'inline-flex';
@@ -289,7 +382,6 @@
       document.getElementById('posterLinkLabel').textContent = SITE_DATA.notices.posterLabel || '프로그램 포스터 보기';
       document.getElementById('reviewNoteText').textContent = SITE_DATA.notices.reviewNote || '';
 
-      // 3. 시간표 렌더링
       const tbody = document.getElementById('scheduleTableBody');
       tbody.innerHTML = SITE_DATA.schedules.map(item => `
         <tr>
@@ -301,7 +393,6 @@
         </tr>
       `).join('');
 
-      // 4. 수강 후기 렌더링
       const reviewsList = document.getElementById('reviewsList');
       reviewsList.innerHTML = SITE_DATA.reviews.map(r => `
         <article class="review">
@@ -311,7 +402,6 @@
         </article>
       `).join('');
 
-      // 5. 과학 정보 렌더링
       const scienceGrid = document.getElementById('scienceGrid');
       if (!SITE_DATA.sciencePosts || SITE_DATA.sciencePosts.length === 0) {
         scienceGrid.innerHTML = `<div class="empty-news"><i class="fa-solid fa-atom"></i>첫 번째 과학 이야기를 준비하고 있습니다.<br>새로운 소식은 이 페이지에 차곡차곡 업데이트됩니다.</div>`;
@@ -335,7 +425,6 @@
       return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
-    // 과학 정보 상세 모달 열기/닫기
     function openScienceModal(idx) {
       const post = SITE_DATA.sciencePosts[idx];
       if (!post) return;
@@ -348,7 +437,6 @@
       document.getElementById('scienceModal').classList.remove('open');
     }
 
-    // 네비게이션 및 뷰 전환
     const views = {
       home: document.getElementById('homeView'),
       schedule: document.getElementById('scheduleView'),
@@ -384,7 +472,6 @@
     });
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // 관리자 모드 진입 및 편집 기능
     function openAdminMode() {
       const pin = prompt('관리자 비밀번호를 입력하세요 (기본값: 0824)');
       if (pin !== SITE_DATA.adminPin) {
@@ -395,6 +482,7 @@
     }
 
     function refreshAdminLists() {
+      document.getElementById('admKakaoUrl').value = SITE_DATA.kakaoUrl || '';
       document.getElementById('admHeroNotice').value = SITE_DATA.notices.heroBanner || '';
       document.getElementById('admScheduleNotice').value = SITE_DATA.notices.scheduleNotice || '';
       document.getElementById('admPosterLabel').value = SITE_DATA.notices.posterLabel || '';
@@ -425,11 +513,12 @@
     }
 
     function saveNotices() {
+      SITE_DATA.kakaoUrl = document.getElementById('admKakaoUrl').value.trim();
       SITE_DATA.notices.heroBanner = document.getElementById('admHeroNotice').value.trim();
       SITE_DATA.notices.scheduleNotice = document.getElementById('admScheduleNotice').value.trim();
       SITE_DATA.notices.posterLabel = document.getElementById('admPosterLabel').value.trim();
       renderSite();
-      alert('운영 일정 및 공지가 미리보기에 반영되었습니다. 하단의 코드 복사 또는 GitHub 업로드를 진행해 주세요.');
+      alert('설정이 미리보기에 반영되었습니다. 하단의 코드 복사 또는 GitHub 업로드를 진행해 주세요.');
     }
 
     function addScheduleItem() {
@@ -483,16 +572,15 @@
       const box = document.getElementById('exportCodeBox');
       box.select();
       navigator.clipboard.writeText(box.value);
-      alert('관리자 전달용 데이터 코드가 복사되었습니다! 카카오톡이나 메일로 깃허브 관리자에게 전달해 주세요.');
+      alert('관리자 전달용 데이터 코드가 복사되었습니다!');
     }
 
-    // GitHub API를 통한 웹사이트 직접 업로드 기능
     async function uploadToGitHub() {
       const repo = document.getElementById('ghRepo').value.trim();
       const branch = document.getElementById('ghBranch').value.trim() || 'main';
       const token = document.getElementById('ghToken').value.trim();
       const statusEl = document.getElementById('ghStatusMsg');
-      if (!repo || !token) return alert('깃허브 저장소명(아이디/저장소)과 토큰을 입력해 주세요.');
+      if (!repo || !token) return alert('깃허브 저장소명과 토큰을 입력해 주세요.');
 
       statusEl.textContent = '⏳ GitHub 서버에 최신 내용을 업로드하고 있습니다...';
       try {
@@ -500,7 +588,7 @@
         const getRes = await fetch(`${apiUrl}?ref=${branch}`, {
           headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github+json' }
         });
-        if (!getRes.ok) throw new Error('저장소 또는 index.html 파일을 찾을 수 없습니다. 정보를 확인해 주세요.');
+        if (!getRes.ok) throw new Error('저장소 또는 index.html 파일을 찾을 수 없습니다.');
         const fileData = await getRes.json();
         const currentHtml = decodeURIComponent(escape(atob(fileData.content.replace(/\n/g, ''))));
 
@@ -520,7 +608,6 @@
       }
     }
 
-    // 초기 실행
     renderSite();
   </script>
 </body>
