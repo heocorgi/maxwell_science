@@ -107,9 +107,26 @@
     .toast-popup.show{display:block;animation:fadeIn .2s ease}
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-    /* 서브 뷰 (시간표 & 과학 정보) */
+    /* 서브 뷰 (시간표 & 과학 정보) - 포스터형 3단 분리 시간표 스타일 */
     .view{display:none;min-height:70vh}.view.active{display:block}.page-hero{padding:74px 0 62px;color:#fff;background:linear-gradient(110deg,#101e35,#155d70)}.page-hero h1{margin:11px 0;font-size:clamp(35px,5vw,54px);letter-spacing:-.05em}.page-hero p{max-width:640px;margin:0;color:rgba(255,255,255,.78)}
-    .schedule-box{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:white}.schedule-table{width:100%;min-width:650px;border-collapse:collapse}.schedule-table th,.schedule-table td{padding:17px 18px;border-bottom:1px solid var(--line);text-align:left}.schedule-table th{background:#f2f6f7;color:#566579;font-size:12px}.schedule-table td{font-size:13px;color:#4d5b6e}.schedule-table tr:last-child td{border-bottom:0}.schedule-table td:first-child,.schedule-table td:nth-child(3){font-weight:800;color:var(--navy)}.tag{display:inline-block;padding:5px 9px;border-radius:5px;background:#e7f2f4;color:#16788e;font-size:11px;font-weight:800}.tag.gold{background:#fbf3e7;color:#9b7134}.notice{margin-top:15px;color:var(--muted);font-size:12px}.poster-link{display:inline-flex;margin-top:24px;align-items:center;gap:8px;color:var(--teal);font-size:13px;font-weight:800}
+    .schedule-groups{display:flex;flex-direction:column;gap:34px}
+    .schedule-box{overflow-x:auto;border:1px solid var(--line);border-top:2.5px solid var(--navy);border-bottom:2px solid var(--navy);border-radius:10px;background:white;box-shadow:0 8px 24px rgba(16,30,53,.04)}
+    .schedule-group-header{padding:14px 20px;text-align:center;font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.03em;border-bottom:1px solid var(--line)}
+    .schedule-group-header.type-middle{background:#e4f5fc}
+    .schedule-group-header.type-high{background:#fdf1d6}
+    .schedule-group-header.type-exam{background:#e5f3e6}
+    .schedule-table{width:100%;min-width:680px;border-collapse:collapse;table-layout:fixed}
+    .schedule-table th,.schedule-table td{padding:16px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
+    .schedule-table th{background:#f3f5f7;color:var(--navy);font-size:13.5px;font-weight:800;letter-spacing:-.02em}
+    .schedule-table td{font-size:14px;color:#334155;font-weight:500;line-height:1.45}
+    .schedule-table tr:last-child td{border-bottom:0}
+    .schedule-table td.col-target{font-weight:700;color:var(--navy2)}
+    .schedule-table td.col-subject{font-weight:800;color:var(--navy)}
+    .schedule-table td.col-book{white-space:pre-line;font-size:13px;color:#475569}
+    .tag{display:inline-block;padding:5px 11px;border-radius:6px;background:#f1f5f9;color:#334155;font-size:12.5px;font-weight:800}
+    .tag.gold{background:#e6f3f8;color:#1d6fa5}
+    .notice{margin-top:20px;color:var(--navy2);font-size:13.5px;font-weight:700}
+    .poster-link{display:inline-flex;margin-top:18px;align-items:center;gap:8px;color:var(--teal);font-size:13px;font-weight:800}
     
     /* 업그레이드된 과학 정보 (선행 커리큘럼 / 시험 분석 / 영과고 입시) 카드 그리드 */
     .science-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
@@ -304,11 +321,11 @@
       </section>
     </div>
 
-    <!-- 시간표 뷰 -->
+    <!-- [수정 완료] 시간표 뷰 (중등 과정 / 고등 과정 / 내신 3단 분리 및 6열 구성) -->
     <section class="view" id="scheduleView">
       <div class="page-hero"><div class="container"><span class="eyebrow" style="color:#e5c588">CLASS SCHEDULE</span><h1>수업 시간표</h1><p>평일 그룹 수업 모집 중입니다! 문의 부탁드립니다!</p></div></div>
       <div class="section"><div class="container">
-        <div class="schedule-box"><table class="schedule-table"><thead><tr><th>요일</th><th>시간</th><th>수업명</th><th>대상</th><th>구분</th></tr></thead><tbody id="scheduleTableBody"></tbody></table></div>
+        <div class="schedule-groups" id="scheduleGroupsContainer"></div>
         <p class="notice" id="scheduleNoticeText"></p>
         <a class="poster-link" id="posterLinkBtn" href="assets/maxwell.program.nov2.png" target="_blank"><span id="posterLinkLabel">11월 프로그램 포스터 보기</span> <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
         <div style="margin-top:32px;display:flex;gap:10px;flex-wrap:wrap">
@@ -348,10 +365,42 @@
           </div>
 
           <div class="admin-card">
-            <h3><i class="fa-solid fa-clock" style="color:var(--teal)"></i> 2. 시간표 관리</h3>
-            <div class="form-row"><label>요일 및 시간</label><div style="display:flex;gap:8px"><input type="text" id="admSchDay" placeholder="예: 토요일"><input type="text" id="admSchTime" placeholder="예: 오전 10시"></div></div>
-            <div class="form-row"><label>수업명 및 대상</label><div style="display:flex;gap:8px"><input type="text" id="admSchTitle" placeholder="예: 중3 하이탑"><input type="text" id="admSchTarget" placeholder="예: 중2"></div></div>
-            <div class="form-row"><label>구분 배지 문구 및 색상</label><div style="display:flex;gap:8px"><input type="text" id="admSchTag" placeholder="예: 계속반 · 상담 후 입반"><select id="admSchStyle" style="width:140px"><option value="normal">민트(기본)</option><option value="gold">골드(강조)</option></select></div></div>
+            <h3><i class="fa-solid fa-clock" style="color:var(--teal)"></i> 2. 시간표 관리 (과정별 분리)</h3>
+            <div class="form-row">
+              <label>과정 구분 및 대상</label>
+              <div style="display:flex;gap:8px">
+                <select id="admSchSection" style="width:140px">
+                  <option value="중등 과정">중등 과정</option>
+                  <option value="고등 과정">고등 과정</option>
+                  <option value="내신">내신</option>
+                </select>
+                <input type="text" id="admSchTarget" placeholder="대상 (예: 초5,6)">
+              </div>
+            </div>
+            <div class="form-row">
+              <label>과목 및 교재</label>
+              <div style="display:flex;gap:8px">
+                <input type="text" id="admSchSubject" placeholder="과목 (예: 중1 과학)">
+                <input type="text" id="admSchBook" placeholder="교재 (예: 하이탑)">
+              </div>
+            </div>
+            <div class="form-row">
+              <label>요일 및 수업시간</label>
+              <div style="display:flex;gap:8px">
+                <input type="text" id="admSchDay" placeholder="요일 (예: 일)" style="width:110px">
+                <input type="text" id="admSchTime" placeholder="수업시간 (예: 오후 1시-4시)">
+              </div>
+            </div>
+            <div class="form-row">
+              <label>개강 문구 및 강조 색상</label>
+              <div style="display:flex;gap:8px">
+                <input type="text" id="admSchTag" placeholder="예: 11/8 개강 또는 계속반">
+                <select id="admSchStyle" style="width:140px">
+                  <option value="normal">일반(계속반)</option>
+                  <option value="gold">파란강조(신규개강)</option>
+                </select>
+              </div>
+            </div>
             <button class="button" type="button" onclick="addScheduleItem()">+ 시간표 행 추가</button>
             <div class="item-list" id="admScheduleList"></div>
           </div>
@@ -496,65 +545,59 @@
       },
       "notices": {
             "heroBanner": "11월 신규 개강반 모집 중입니다",
-            "scheduleNotice": "계속반은 상담 후 입반할 수 있습니다. 자세한 내용은 문의 부탁드립니다.",
+            "scheduleNotice": "평일 그룹 수업 : 상담 후 개설 · 입반 전 상담 필수 (02-2646-1879 / 현대월드타워 603호)",
             "posterLabel": "11월 프로그램 포스터 보기",
             "reviewNote": "※ 카드를 클릭하면 전체 내용과 첨부된 사진을 자세히 보실 수 있습니다."
       },
       "schedules": [
             {
-                  "day": "토요일",
-                  "time": "오전 10시",
-                  "title": "중1 하이탑",
-                  "target": "초5 / 초6",
-                  "tag": "12/5 개강 예정",
+                  "section": "중등 과정",
+                  "target": "초5,6",
+                  "subject": "중1 과학",
+                  "book": "하이탑",
+                  "day": "일",
+                  "time": "오후 1시-4시",
+                  "tag": "11/8 개강",
                   "style": "gold"
             },
             {
-                  "day": "토요일",
-                  "time": "오전 10시",
-                  "title": "중3 하이탑",
+                  "section": "중등 과정",
+                  "target": "초6, 중1",
+                  "subject": "중2 과학",
+                  "book": "하이탑\n(+세페이드)",
+                  "day": "토",
+                  "time": "오후 2시-5시",
+                  "tag": "계속반",
+                  "style": "normal"
+            },
+            {
+                  "section": "중등 과정",
                   "target": "중2",
-                  "tag": "계속반 · 상담 후 입반",
+                  "subject": "중3 과학",
+                  "book": "하이탑",
+                  "day": "토",
+                  "time": "오후 5:30-8:30",
+                  "tag": "계속반",
                   "style": "normal"
             },
             {
-                  "day": "토요일",
-                  "time": "오후 2시",
-                  "title": "중2 하이탑/세페이드",
-                  "target": "초6 / 중1",
-                  "tag": "계속반 · 상담 후 입반",
+                  "section": "고등 과정",
+                  "target": "중2,3",
+                  "subject": "고등 물리학",
+                  "book": "완자",
+                  "day": "일",
+                  "time": "오전 10시-1시",
+                  "tag": "계속반",
                   "style": "normal"
             },
             {
-                  "day": "토요일",
-                  "time": "오후 5시 30분",
-                  "title": "중3 하이탑",
+                  "section": "내신",
                   "target": "중2",
-                  "tag": "계속반 · 상담 후 입반",
-                  "style": "normal"
-            },
-            {
-                  "day": "토요일",
-                  "time": "오후 5시 30분",
-                  "title": "중2 내신 대비",
-                  "target": "중2",
-                  "tag": "11/ 8 개강 예정",
-                  "style": "gold"
-            },
-            {
-                  "day": "일요일",
-                  "time": "오전 10시",
-                  "title": "고등 물리학",
-                  "target": "중2 / 중3",
-                  "tag": "계속반 · 상담 후 입반",
-                  "style": "normal"
-            },
-            {
-                  "day": "일요일",
-                  "time": "오후 1시",
-                  "title": "영과고 특별반 (중등 물화생지)",
-                  "target": "초5 / 초6",
-                  "tag": "11/8 개강 예정",
+                  "subject": "중2 내신 대비",
+                  "book": "오투+자체교재",
+                  "day": "토",
+                  "time": "오후 5:30-8:30",
+                  "tag": "11/14 개강",
                   "style": "gold"
             }
       ],
@@ -863,6 +906,69 @@
       }).join('');
     }
 
+    // 포스터 디자인과 동일하게 중등 과정 / 고등 과정 / 내신 3단 표로 분리 렌더링
+    function renderSchedules() {
+      const container = document.getElementById('scheduleGroupsContainer');
+      if (!container) return;
+
+      const groupDefs = [
+        { key: '중등 과정', headerCls: 'type-middle' },
+        { key: '고등 과정', headerCls: 'type-high' },
+        { key: '내신', headerCls: 'type-exam' }
+      ];
+
+      const allSchedules = SITE_DATA.schedules || [];
+      const knownKeys = groupDefs.map(g => g.key);
+      const extraKeys = [...new Set(allSchedules.map(s => s.section || '중등 과정'))].filter(k => !knownKeys.includes(k));
+      const finalGroups = [
+        ...groupDefs,
+        ...extraKeys.map(k => ({ key: k, headerCls: 'type-middle' }))
+      ];
+
+      container.innerHTML = finalGroups.map(group => {
+        const rows = allSchedules.filter(item => (item.section || '중등 과정') === group.key);
+        if (rows.length === 0) return '';
+
+        return `
+          <div class="schedule-box">
+            <div class="schedule-group-header ${group.headerCls}">${escapeHtml(group.key)}</div>
+            <table class="schedule-table">
+              <colgroup>
+                <col style="width:15%">
+                <col style="width:20%">
+                <col style="width:19%">
+                <col style="width:10%">
+                <col style="width:20%">
+                <col style="width:16%">
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>대상</th>
+                  <th>과목</th>
+                  <th>교재</th>
+                  <th>요일</th>
+                  <th>수업시간</th>
+                  <th>개강</th>
+                </tr>
+              </thead>
+              <tbody>
+                ${rows.map(item => `
+                  <tr>
+                    <td class="col-target">${escapeHtml(item.target)}</td>
+                    <td class="col-subject">${escapeHtml(item.subject || item.title)}</td>
+                    <td class="col-book">${escapeHtml(item.book || '-')}</td>
+                    <td>${escapeHtml(item.day)}</td>
+                    <td>${escapeHtml(item.time)}</td>
+                    <td><span class="tag ${item.style === 'gold' ? 'gold' : ''}">${escapeHtml(item.tag)}</span></td>
+                  </tr>
+                `).join('')}
+              </tbody>
+            </table>
+          </div>
+        `;
+      }).join('');
+    }
+
     function renderSite() {
       applyCleanLogo(SITE_DATA.images.logo);
       bindImgWithFallback(document.getElementById('teacherImg'), SITE_DATA.images.teacher);
@@ -876,21 +982,11 @@
       } else {
         heroNoticeBox.style.display = 'none';
       }
-      document.getElementById('scheduleNoticeText').innerHTML = `<i class="fa-solid fa-circle-info"></i> ${escapeHtml(SITE_DATA.notices.scheduleNotice)}`;
+      document.getElementById('scheduleNoticeText').innerHTML = `<i class="fa-solid fa-circle-info" style="color:var(--teal);margin-right:6px"></i> ${escapeHtml(SITE_DATA.notices.scheduleNotice)}`;
       document.getElementById('posterLinkLabel').textContent = SITE_DATA.notices.posterLabel || '프로그램 포스터 보기';
       document.getElementById('reviewNoteText').textContent = SITE_DATA.notices.reviewNote || '';
 
-      const tbody = document.getElementById('scheduleTableBody');
-      tbody.innerHTML = SITE_DATA.schedules.map(item => `
-        <tr>
-          <td>${escapeHtml(item.day)}</td>
-          <td>${escapeHtml(item.time)}</td>
-          <td>${escapeHtml(item.title)}</td>
-          <td>${escapeHtml(item.target)}</td>
-          <td><span class="tag ${item.style === 'gold' ? 'gold' : ''}">${escapeHtml(item.tag)}</span></td>
-        </tr>
-      `).join('');
-
+      renderSchedules();
       renderReviews();
       renderScience();
       refreshAdminLists();
@@ -1017,7 +1113,7 @@
 
       document.getElementById('admScheduleList').innerHTML = SITE_DATA.schedules.map((s, i) => `
         <div class="item-row">
-          <span><b>[${escapeHtml(s.day)} ${escapeHtml(s.time)}]</b> ${escapeHtml(s.title)} (${escapeHtml(s.target)})</span>
+          <span><b>[${escapeHtml(s.section || '중등 과정')}]</b> ${escapeHtml(s.target)} · ${escapeHtml(s.subject || s.title)} (${escapeHtml(s.book || '-')}) / ${escapeHtml(s.day)} ${escapeHtml(s.time)}</span>
           <button type="button" onclick="removeScheduleItem(${i})">삭제</button>
         </div>
       `).join('');
@@ -1050,18 +1146,21 @@
     }
 
     function addScheduleItem() {
+      const section = document.getElementById('admSchSection').value || '중등 과정';
+      const target = document.getElementById('admSchTarget').value.trim();
+      const subject = document.getElementById('admSchSubject').value.trim();
+      const book = document.getElementById('admSchBook').value.trim();
       const day = document.getElementById('admSchDay').value.trim();
       const time = document.getElementById('admSchTime').value.trim();
-      const title = document.getElementById('admSchTitle').value.trim();
-      const target = document.getElementById('admSchTarget').value.trim();
-      const tag = document.getElementById('admSchTag').value.trim() || '상담 후 입반';
+      const tag = document.getElementById('admSchTag').value.trim() || '계속반';
       const style = document.getElementById('admSchStyle').value;
-      if (!day || !time || !title) return alert('요일, 시간, 수업명을 입력해 주세요.');
-      SITE_DATA.schedules.push({ day, time, title, target, tag, style });
+      if (!target || !subject || !day || !time) return alert('대상, 과목, 요일, 수업시간을 모두 입력해 주세요.');
+      SITE_DATA.schedules.push({ section, target, subject, book, day, time, tag, style });
+      document.getElementById('admSchTarget').value = '';
+      document.getElementById('admSchSubject').value = '';
+      document.getElementById('admSchBook').value = '';
       document.getElementById('admSchDay').value = '';
       document.getElementById('admSchTime').value = '';
-      document.getElementById('admSchTitle').value = '';
-      document.getElementById('admSchTarget').value = '';
       document.getElementById('admSchTag').value = '';
       renderSite();
     }
