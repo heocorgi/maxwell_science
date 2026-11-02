@@ -19,7 +19,7 @@
   <style>
     :root{--navy:#101e35;--navy2:#1b2d49;--teal:#117f99;--gold:#c49a56;--kakao:#FEE500;--kakao-ink:#191919;--paper:#f7f7f4;--ink:#19283d;--muted:#718096;--line:#e4e8ec;--white:#fff;--shadow:0 18px 52px rgba(16,30,53,.09);--max:1160px}
     *{box-sizing:border-box}
-    /* [로고 수정 가이드 2] 헤더 높이가 커진 만큼 스크롤 여백(scroll-padding-top)도 96px로 맞춤 조정 */
+    /* [로고 수정 가이드 2] 헤더 높이가 커진 만큼 스크롤 여백(scroll-padding-top)도 맞춤 조정 */
     html{scroll-behavior:smooth;scroll-padding-top:112px}
     body{margin:0;color:var(--ink);background:var(--white);font-family:"DM Sans","Noto Sans KR",sans-serif;line-height:1.7;word-break:keep-all}
     a{color:inherit;text-decoration:none}
@@ -55,13 +55,27 @@
     .button.kakao:hover,.nav-cta.kakao:hover{background:#f5dc00;color:#000;transform:translateY(-1px)}
     .hamb{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--navy)}
 
-    /* 메인 히어로 배너 */
-    .hero{position:relative;overflow:hidden;min-height:570px;display:flex;align-items:center;background:linear-gradient(110deg,#0d1a2f 0%,#112b42 58%,#104152 100%);color:white}
+    /* [업그레이드 1] 메인 히어로 배너 - 풀스크린 높이(100svh - 헤더 104px) 적용 */
+    .hero{position:relative;overflow:hidden;min-height:max(560px,calc(100vh - 104px));min-height:max(560px,calc(100svh - 104px));padding-bottom:56px;display:flex;align-items:center;background:linear-gradient(110deg,#0d1a2f 0%,#112b42 58%,#104152 100%);color:white}
     .hero:after{content:"";position:absolute;right:-140px;top:-200px;width:600px;height:600px;border:1px solid rgba(196,154,86,.28);border-radius:50%;box-shadow:0 0 0 42px rgba(196,154,86,.05),0 0 0 90px rgba(196,154,86,.035);pointer-events:none}
     .hero-content{position:relative;z-index:1;max-width:720px;padding:78px 0}.hero .eyebrow{color:#dfbd82}.hero h1{margin:20px 0 17px;font-size:clamp(43px,6.6vw,76px);line-height:1.16;letter-spacing:-.06em}.hero h1 em{font-style:normal;color:#73c0d0}.hero p{max-width:590px;margin-bottom:28px;color:rgba(255,255,255,.77);font-size:17px}.hero-notice{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;padding:10px 16px;border:1px solid rgba(223,189,130,.4);border-radius:8px;background:rgba(16,30,53,.65);color:#f3dfb9;font-size:13px;font-weight:600}.hero-actions{display:flex;flex-wrap:wrap;gap:12px}.hero .button{padding:14px 20px;background:var(--gold);color:#102039}.hero .button.outline{border-color:rgba(255,255,255,.35);background:transparent;color:white}.hero-meta{display:flex;gap:21px;flex-wrap:wrap;margin-top:28px;color:rgba(255,255,255,.72);font-size:12px}.hero-meta i{margin-right:6px;color:#77c7d0}
+
+    /* [업그레이드 2] 히어로 하단 스크롤 유도 버튼 (Scroll Down Indicator) */
+    .scroll-down{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;display:inline-flex;flex-direction:column;align-items:center;gap:6px;color:rgba(255,255,255,.68);font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:color .25s ease,opacity .25s ease}
+    .scroll-down:hover{color:#dfbd82}
+    .scroll-down i{font-size:14px;color:#dfbd82;animation:heroBounce 1.8s infinite ease-in-out}
+    @keyframes heroBounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(7px)}60%{transform:translateY(3px)}}
+
+    /* [업그레이드 3] 섹션 전환 스크롤 리빌(Scroll Reveal) 애니메이션 */
+    .reveal-item{opacity:0;transform:translateY(32px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1);will-change:opacity,transform}
+    .reveal-item.is-visible{opacity:1;transform:translateY(0)}
+    .reveal-delay-1{transition-delay:.08s}
+    .reveal-delay-2{transition-delay:.16s}
+    .reveal-delay-3{transition-delay:.24s}
+    .reveal-delay-4{transition-delay:.32s}
     
     /* 학원 소개 및 선생님 섹션 */
-    .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:55px;align-items:center}.about-copy h2{margin:12px 0 18px;font-size:clamp(31px,4vw,47px);line-height:1.32;letter-spacing:-.05em;color:var(--navy)}.about-copy p{color:var(--muted)}.quote{margin-top:24px;padding:16px 19px;border-left:3px solid var(--gold);background:#f7f6f1;color:var(--navy2);font-weight:700}.pillars{display:grid;grid-template-columns:1fr 1fr;gap:13px}.pillar{padding:22px 20px;border:1px solid var(--line);border-radius:12px;background:#fff;transition:.2s}.pillar:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.pillar i{color:var(--teal);font-size:18px}.pillar h3{margin:13px 0 5px;font-size:15px;color:var(--navy)}.pillar p{margin:0;color:var(--muted);font-size:12px}
+    .about-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:55px;align-items:center}.about-copy h2{margin:12px 0 18px;font-size:clamp(31px,4vw,47px);line-height:1.32;letter-spacing:-.05em;color:var(--navy)}.about-copy p{color:var(--muted)}.quote{margin-top:24px;padding:16px 19px;border-left:3px solid var(--gold);background:#f7f6f1;color:var(--navy2);font-weight:700}.pillars{display:grid;grid-template-columns:1fr 1fr;gap:13px}.pillar{padding:22px 20px;border:1px solid var(--line);border-radius:12px;background:#fff;transition:transform .25s ease,box-shadow .25s ease,opacity .75s cubic-bezier(.22,1,.36,1)}.pillar:hover{transform:translateY(-3px);box-shadow:var(--shadow)}.pillar i{color:var(--teal);font-size:18px}.pillar h3{margin:13px 0 5px;font-size:15px;color:var(--navy)}.pillar p{margin:0;color:var(--muted);font-size:12px}
     .location{display:grid;grid-template-columns:.78fr 1.22fr;gap:22px;margin-top:36px;padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff}.location-info{padding:8px}.location-info h3{margin:5px 0 13px;color:var(--navy);font-size:19px}.location-info p{display:flex;gap:10px;margin:9px 0;color:#617086;font-size:13px}.location-info i{width:17px;margin-top:5px;color:var(--teal)}.map-frame{min-height:260px;overflow:hidden;border-radius:10px;background:#edf1f5}.map-frame iframe{display:block;width:100%;height:100%;min-height:260px;border:0}
     .teacher-grid{display:grid;grid-template-columns:.85fr 1.15fr;max-width:870px;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:white;box-shadow:var(--shadow)}.teacher-photo{min-height:360px;background:#1b263e}.teacher-photo img{display:block;width:100%;height:100%;min-height:360px;object-fit:cover;object-position:54% 20%}.teacher-info{align-self:center;padding:38px}.teacher-info .role{display:inline-block;padding:5px 10px;border-radius:5px;background:#e8f4f5;color:var(--teal);font-size:11px;font-weight:800}.teacher-info h3{margin:14px 0 18px;color:var(--navy);font-size:33px;line-height:1.2}.teacher-info ul{margin:0;padding:0;list-style:none}.teacher-info li{position:relative;margin:11px 0;padding-left:20px;color:#59697f;font-size:14px}.teacher-info li:before{content:"";position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--gold)}.teacher-motto{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);color:var(--navy);font-size:14px;font-weight:800}
 
@@ -73,7 +87,7 @@
 
     /* 업그레이드된 수강 후기 (후기·편지·시상) 카드 그리드 */
     .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .review{display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:#fff;transition:.22s;cursor:pointer}
+    .review{display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:#fff;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease,opacity .75s cubic-bezier(.22,1,.36,1);cursor:pointer}
     .review:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#cbd5e1}
     .review-thumb{width:100%;height:190px;overflow:hidden;background:#f1f5f9;border-bottom:1px solid var(--line);position:relative}
     .review-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .35s ease}
@@ -177,7 +191,7 @@
       .reviews,.science-grid,.admin-grid{grid-template-columns:1fr 1fr}
       .science-card.featured{grid-column:1/-1}
     }
-    /* [로고 수정 가이드 3] 모바일 화면(660px 이하)에서의 헤더 및 로고 크기 */
+    /* [로고 수정 가이드 3] 모바일 화면(660px 이하)에서의 헤더 및 풀스크린 히어로 높이 */
     @media(max-width:660px){
       html{scroll-padding-top:90px}
       .container{width:calc(100% - 34px)}
@@ -187,7 +201,9 @@
       .nav-links{position:absolute;display:none;top:83px;left:0;right:0;align-items:stretch;gap:0;padding:8px 20px 14px;background:white;border-bottom:1px solid var(--line);box-shadow:0 14px 24px rgba(16,30,53,.09)}
       .nav-links.open{display:flex;flex-direction:column}
       .nav-links a{display:block;padding:10px 0;font-size:14px}
-      .hero{min-height:500px}.hero-content{padding:66px 0}.hero h1{font-size:clamp(39px,11vw,57px)}.hero p{font-size:15px}
+      .hero{min-height:max(500px,calc(100vh - 84px));min-height:max(500px,calc(100svh - 84px));padding-bottom:48px}
+      .hero-content{padding:56px 0}.hero h1{font-size:clamp(39px,11vw,57px)}.hero p{font-size:15px}
+      .scroll-down{bottom:18px;font-size:10px}
       .section{padding:70px 0}
       .about-grid,.location,.teacher-grid,.reviews,.science-grid,.admin-grid{grid-template-columns:1fr}
       .pillars{gap:9px}.pillar{padding:17px 15px}.location{padding:15px}.map-frame,.map-frame iframe{min-height:230px}
@@ -197,7 +213,10 @@
       .floating-kakao{right:16px;bottom:16px;padding:11px 15px;font-size:12px}
       .modal-box{padding:24px 20px}
     }
-    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important}}
+    @media(prefers-reduced-motion:reduce){
+      *,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
+      .reveal-item{opacity:1!important;transform:none!important}
+    }
   </style>
 </head>
 <body>
@@ -235,12 +254,22 @@
           </div>
           <div class="hero-meta"><span><i class="fa-solid fa-location-dot"></i> 목동 현대월드타워 603호 맥스웰과학교습소</span><span><i class="fa-solid fa-flask"></i> 중등 · 고등 과학</span></div>
         </div></div>
+        <!-- [업그레이드 2] 히어로 하단 스크롤 유도 버튼 -->
+        <a class="scroll-down" href="#teacher" data-scroll="teacher" aria-label="선생님 소개 섹션으로 스크롤">
+          <span></span>
+          <i class="fa-solid fa-chevron-down"></i>
+        </a>
       </section>
 
       <!-- [순서 변경 반영] 1순위: 선생님 소개 섹션 -->
       <section class="section soft" id="teacher">
-        <div class="container"><div class="heading"><span class="eyebrow">Teacher</span><h2>김보연 선생님</h2><p>학생이 과학을 재미있게 이해하고, 배운 내용을 실력으로 연결하도록 지도합니다.</p></div>
-          <article class="teacher-grid">
+        <div class="container">
+          <div class="heading reveal-item">
+            <span class="eyebrow">Teacher</span>
+            <h2>김보연 선생님</h2>
+            <p>학생이 과학을 재미있게 이해하고, 배운 내용을 실력으로 연결하도록 지도합니다.</p>
+          </div>
+          <article class="teacher-grid reveal-item reveal-delay-1">
             <div class="teacher-photo"><img id="teacherImg" src="assets/teacher.jpg" alt="맥스웰 과학 김보연 선생님"></div>
             <div class="teacher-info">
               <span class="role">중등 · 고등 과학</span>
@@ -262,16 +291,21 @@
       <section class="section" id="about">
         <div class="container">
           <div class="about-grid">
-            <div class="about-copy"><span class="eyebrow">About Maxwell</span><h2>한 명 한 명에게 집중하고,<br>과학의 기초부터 탄탄하게</h2><p>맥스웰 과학은 학생이 개념을 이해하고 자기 것으로 만들도록 돕습니다. 꼼꼼한 학습 관리와 중등·고등 과학 학습을 통해, 배움이 실제 실력으로 이어지는 수업을 지향합니다.</p><div class="quote">“ 재미가 이해로, 이해가 실력으로. ”</div></div>
+            <div class="about-copy reveal-item">
+              <span class="eyebrow">About Maxwell</span>
+              <h2>한 명 한 명에게 집중하고,<br>과학의 기초부터 탄탄하게</h2>
+              <p>맥스웰 과학은 학생이 개념을 이해하고 자기 것으로 만들도록 돕습니다. 꼼꼼한 학습 관리와 중등·고등 과학 학습을 통해, 배움이 실제 실력으로 이어지는 수업을 지향합니다.</p>
+              <div class="quote">“ 재미가 이해로, 이해가 실력으로. ”</div>
+            </div>
             <div class="pillars">
-              <article class="pillar"><i class="fa-solid fa-bullseye"></i><h3>학생 집중 관리</h3><p>학습 흐름과 이해도를 살피며 필요한 부분을 챙깁니다.</p></article>
-              <article class="pillar"><i class="fa-solid fa-layer-group"></i><h3>중등 · 고등 과학</h3><p>중등 과정부터 고등 과학의 기초를 준비합니다.</p></article>
-              <article class="pillar"><i class="fa-solid fa-lightbulb"></i><h3>이해 중심 수업</h3><p>외우는 데 그치지 않고 원리를 파악하도록 돕습니다.</p></article>
-              <article class="pillar"><i class="fa-solid fa-chart-line"></i><h3>이해를 실력으로</h3><p>배운 개념을 문제에 적용하는 연습을 이어갑니다.</p></article>
+              <article class="pillar reveal-item reveal-delay-1"><i class="fa-solid fa-bullseye"></i><h3>학생 집중 관리</h3><p>학습 흐름과 이해도를 살피며 필요한 부분을 챙깁니다.</p></article>
+              <article class="pillar reveal-item reveal-delay-2"><i class="fa-solid fa-layer-group"></i><h3>중등 · 고등 과학</h3><p>중등 과정부터 고등 과학의 기초를 준비합니다.</p></article>
+              <article class="pillar reveal-item reveal-delay-2"><i class="fa-solid fa-lightbulb"></i><h3>이해 중심 수업</h3><p>외우는 데 그치지 않고 원리를 파악하도록 돕습니다.</p></article>
+              <article class="pillar reveal-item reveal-delay-3"><i class="fa-solid fa-chart-line"></i><h3>이해를 실력으로</h3><p>배운 개념을 문제에 적용하는 연습을 이어갑니다.</p></article>
             </div>
           </div>
           <!-- 지도 영역 -->
-          <div class="location">
+          <div class="location reveal-item reveal-delay-1">
             <div class="location-info">
               <span class="eyebrow">Location</span>
               <h3>맥스웰과학교습소 오시는 길</h3>
@@ -289,13 +323,13 @@
       <!-- [업그레이드] 수강 후기 · 편지 · 시상 내역 섹션 -->
       <section class="section soft" id="reviews">
         <div class="container">
-          <div class="heading">
+          <div class="heading reveal-item">
             <span class="eyebrow">Reviews &amp; Achievements</span>
             <h2>수업에서 시작되는 작은 변화</h2>
             <p>학생들의 생생한 수강 후기와 정성 어린 손편지, 학교 시험 및 교내외 시상 소식을 전합니다.</p>
           </div>
           <!-- 카테고리 필터 버튼 -->
-          <div class="filter-tabs" id="reviewFilterTabs">
+          <div class="filter-tabs reveal-item reveal-delay-1" id="reviewFilterTabs">
             <button class="filter-tab active" type="button" data-rev-filter="all">전체 보기</button>
             <button class="filter-tab" type="button" data-rev-filter="수강생·학부모 후기"><i class="fa-solid fa-comment-dots"></i> 수강생·학부모 후기</button>
             <button class="filter-tab" type="button" data-rev-filter="손편지·메시지"><i class="fa-solid fa-envelope-open-text"></i> 손편지·메시지</button>
@@ -308,7 +342,7 @@
 
       <!-- 맨 아래 상담 영역 -->
       <section class="cta">
-        <div class="container cta-inner">
+        <div class="container cta-inner reveal-item">
           <div>
             <h2>과학 수업 상담이 필요하신가요?</h2>
             <p>학생의 학년과 학습 목표에 맞춰 카카오톡 또는 전화로 친절히 안내해 드립니다.</p>
@@ -553,11 +587,21 @@
             {
                   "section": "중등 과정",
                   "target": "초5,6",
-                  "subject": "중1 과학",
+                  "subject": "영과고 특별반 (중등 물화생지)",
                   "book": "하이탑",
                   "day": "일",
                   "time": "오후 1시-4시",
-                  "tag": "11/8 개강",
+                  "tag": "11/8 개강 예정",
+                  "style": "gold"
+            },
+            {
+                  "section": "중등 과정",
+                  "target": "초5,6",
+                  "subject": "중1 과학",
+                  "book": "하이탑",
+                  "day": "토",
+                  "time": "오전 10시-1시",
+                  "tag": "12/5 개강 예정",
                   "style": "gold"
             },
             {
@@ -664,6 +708,43 @@
 
     let currentReviewFilter = 'all';
     let currentScienceFilter = 'all';
+    let revealObserver = null;
+
+    // [업그레이드 3] IntersectionObserver 기반 스크롤 리빌 초기화 및 동적 요소 안전 감시
+    function initScrollReveal() {
+      if (!('IntersectionObserver' in window)) {
+        document.querySelectorAll('.reveal-item').forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+      if (!revealObserver) {
+        revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              revealObserver.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+      }
+      observeRevealItems();
+    }
+
+    function observeRevealItems() {
+      const items = document.querySelectorAll('.reveal-item:not(.is-visible)');
+      if (!('IntersectionObserver' in window) || !revealObserver) {
+        items.forEach(el => el.classList.add('is-visible'));
+        return;
+      }
+      items.forEach(el => {
+        const rect = el.getBoundingClientRect();
+        // 이미 화면 안에 들어와 있는 요소(예: 후기 필터 탭 클릭 시)는 즉시 부드럽게 노출
+        if (rect.top < window.innerHeight - 20 && rect.bottom > 0) {
+          requestAnimationFrame(() => el.classList.add('is-visible'));
+        } else {
+          revealObserver.observe(el);
+        }
+      });
+    }
 
     function safeUrl(path) {
       if (!path) return '';
@@ -834,11 +915,12 @@
         return;
       }
 
-      reviewsList.innerHTML = filtered.map(r => {
+      reviewsList.innerHTML = filtered.map((r, i) => {
         const badge = getReviewBadgeInfo(r.category);
         const hasImg = r.image && r.image.trim() !== '';
+        const delayCls = `reveal-delay-${(i % 3) + 1}`;
         return `
-          <article class="review" onclick="openReviewModal(${r._idx})">
+          <article class="review reveal-item ${delayCls}" onclick="openReviewModal(${r._idx})">
             <div>
               ${hasImg ? `
                 <div class="review-thumb">
@@ -864,6 +946,8 @@
           </article>
         `;
       }).join('');
+
+      observeRevealItems();
     }
 
     function renderScience() {
@@ -990,6 +1074,7 @@
       renderReviews();
       renderScience();
       refreshAdminLists();
+      initScrollReveal();
     }
 
     function escapeHtml(str) {
@@ -1080,6 +1165,9 @@
       const current = document.querySelector(`[data-view="${name}"]`);
       if (current) current.classList.add('current');
       closeMenu();
+      if (name === 'home') {
+        setTimeout(() => observeRevealItems(), 30);
+      }
       if (name === 'home' && anchor) {
         setTimeout(() => document.getElementById(anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 20);
       } else {
