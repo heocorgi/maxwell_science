@@ -799,7 +799,7 @@
 };
     /* ================= [SITE_DATA 영역 끝] ================= */
 
-    let currentReviewFilter = 'all';
+let currentReviewFilter = 'all';
     let currentScienceFilter = 'all';
     let revealObserver = null;
 
@@ -843,11 +843,10 @@
       return encodeURI(path).replace(/\(/g, '%28').replace(/\)/g, '%29');
     }
 
-    // [신규 추가] 네이버 이미지 핫링크(엑박) 방지용 안전 이미지 URL 변환기
+    // 네이버 이미지 핫링크(엑박) 방지용 안전 이미지 URL 변환기
     function safeBlogThumbUrl(rawPath) {
       if (!rawPath) return safeUrl(SITE_DATA.images.logo || 'assets/logo.png');
       if (rawPath.startsWith('data:')) return rawPath;
-      // 외부 네이버 이미지 URL이 직접 들어있는 경우 wsrv.nl 프록시를 경유해 핫링크 차단 우회
       if (/^https?:\/\//i.test(rawPath) && (rawPath.includes('pstatic.net') || rawPath.includes('naver.net') || rawPath.includes('naver.com'))) {
         return `https://wsrv.nl/?url=${encodeURIComponent(rawPath)}&w=640&q=82`;
       }
@@ -1049,7 +1048,6 @@
       observeRevealItems();
     }
 
-    // [신규 추가] 수강 후기 하단 네이버 블로그 이야기 3열 카드 렌더링
     function renderBlogStories() {
       const wrap = document.getElementById('blogStoriesWrap');
       const listEl = document.getElementById('blogStoriesList');
@@ -1126,7 +1124,6 @@
       }).join('');
     }
 
-    // 포스터 디자인 및 모바일 스크롤 고정 타이틀 적용 렌더링 함수
     function renderSchedules() {
       const container = document.getElementById('scheduleGroupsContainer');
       if (!container) return;
@@ -1198,8 +1195,7 @@
       if (!SITE_DATA.blogStories) SITE_DATA.blogStories = [];
       applyCleanLogo(SITE_DATA.images.logo);
       bindImgWithFallback(document.getElementById('teacherImg'), SITE_DATA.images.teacher);
-      const posterUrl = safeUrl(SITE_DATA.images.heroPoster);
-      document.getElementById('posterLinkBtn').href = posterUrl;
+      document.getElementById('posterLinkBtn').href = '#poster';
 
       const heroNoticeBox = document.getElementById('heroNoticeBox');
       if (SITE_DATA.notices.heroBanner && SITE_DATA.notices.heroBanner.trim() !== '') {
@@ -1224,10 +1220,31 @@
       return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
-/* =========================================================================
-       [오류 해결] 모바일 뒤로 가기(History API) 완벽 연동 & 포스터 내부 뷰어
+    /* =========================================================================
+       [모바일 뒤로 가기(History API) 완벽 연동 & 포스터 내부 뷰어]
        ========================================================================= */
     let isHandlingPopState = false;
+
+    const views = {
+      home: document.getElementById('homeView'),
+      schedule: document.getElementById('scheduleView'),
+      science: document.getElementById('scienceView'),
+      admin: document.getElementById('adminView')
+    };
+    const nav = document.getElementById('navLinks'), menuButton = document.getElementById('menuButton');
+
+    function getCurrentActiveView() {
+      for (const [k, v] of Object.entries(views)) {
+        if (v && v.classList.contains('active')) return k;
+      }
+      return 'home';
+    }
+
+    function closeMenu() {
+      nav.classList.remove('open');
+      menuButton.setAttribute('aria-expanded', 'false');
+      menuButton.innerHTML = '<i class="fa-solid fa-bars"></i>';
+    }
 
     function openModalWithContent(metaHtml, titleText, bodyText, imageUrl, skipHistory = false) {
       document.getElementById('modalMeta').innerHTML = metaHtml;
@@ -1250,21 +1267,18 @@
       const wasOpen = modal.classList.contains('open');
       modal.classList.add('open');
 
-      // 모달이 열릴 때 히스토리 기록 추가 (모바일에서 뒤로 가기 누르면 모달만 닫히고 페이지 유지)
-      if (!skipHistory && ! isHandlingPopState && !wasOpen) {
+      if (!skipHistory && !isHandlingPopState && !wasOpen) {
         const baseState = history.state || { view: getCurrentActiveView(), anchor: null };
         history.pushState({ ...baseState, modalOpen: true }, '', window.location.hash || '#home');
       }
     }
 
-    // [신규 추가] 포스터를 새 탭으로 튕기지 않고 시간표 위에서 바로 띄우는 함수
     function openPosterModal(e) {
       if (e) e.preventDefault();
       const posterUrl = SITE_DATA.images.heroPoster || 'assets/maxwell.program.nov2.png';
       const label = SITE_DATA.notices.posterLabel || '프로그램 포스터';
-      const metaHtml = `<span class="sci-cat-badge"><i class="fa-solid fa-image"></i> 학원 안내 포스터</span> <a href="${safeUrl(posterUrl)}" target="_blank" rel="noopener" style="color:var(--teal);font-weight:800;text-decoration:underline">원본 이미지 새창 확대 <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
+      const metaHtml = `<span class="sci-cat-badge"><i class="fa-solid fa-image"></i> 학원 안내 포스터</span> <a href="${safeUrl(posterUrl)}" target="_blank" rel="noopener" style="color:var(--teal);font-weight:800;text-decoration:underline">원본 이미지 확대 <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
       openModalWithContent(metaHtml, label, '', posterUrl);
-      // 포스터는 세로로 길 수 있으므로 높이 제한 해제
       document.getElementById('modalImage').style.maxHeight = 'none';
     }
 
@@ -1292,63 +1306,13 @@
       if (!modal.classList.contains('open')) return;
       modal.classList.remove('open');
 
-      // 닫기(X) 버튼이나 배경을 눌러 닫았을 때도 추가했던 모달 히스토리를 한 칸 되돌려 꼬임 방지
       if (!fromPopState && !isHandlingPopState && history.state && history.state.modalOpen) {
         history.back();
       }
     }
 
-    function handleImageUpload(fileInput, targetInputId, previewImgId) {
-      const file = fileInput.files && fileInput.files[0];
-      if (!file) return;
-      const reader = new FileReader();
-      reader.onload = function (e) {
-        const img = new Image();
-        img.onload = function () {
-          const maxDim = 900;
-          let w = img.naturalWidth, h = img.naturalHeight;
-          if (w > maxDim || h > maxDim) {
-            if (w > h) { h = Math.round(h * (maxDim / w)); w = maxDim; }
-            else { w = Math.round(w * (maxDim / h)); h = maxDim; }
-          }
-          const canvas = document.createElement('canvas');
-          canvas.width = w; canvas.height = h;
-          const ctx = canvas.getContext('2d');
-          ctx.drawImage(img, 0, 0, w, h);
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
-          document.getElementById(targetInputId).value = dataUrl;
-          const prev = document.getElementById(previewImgId);
-          if (prev) { prev.src = dataUrl; prev.style.display = 'inline-block'; }
-        };
-        img.src = e.target.result;
-      };
-      reader.readAsDataURL(file);
-    }
-
-    const views = {
-      home: document.getElementById('homeView'),
-      schedule: document.getElementById('scheduleView'),
-      science: document.getElementById('scienceView'),
-      admin: document.getElementById('adminView')
-    };
-    const nav = document.getElementById('navLinks'), menuButton = document.getElementById('menuButton');
-
-    function getCurrentActiveView() {
-      for (const [k, v] of Object.entries(views)) {
-        if (v && v.classList.contains('active')) return k;
-      }
-      return 'home';
-    }
-
-    function closeMenu() {
-      nav.classList.remove('open');
-      menuButton.setAttribute('aria-expanded', 'false');
-      menuButton.innerHTML = '<i class="fa-solid fa-bars"></i>';
-    }
-
     function showView(name, anchor, skipPushState = false) {
       const targetView = views[name] ? name : 'home';
-      // 열려 있는 모달이 있다면 먼저 닫기
       document.getElementById('scienceModal').classList.remove('open');
 
       Object.values(views).forEach(v => v.classList.remove('active'));
@@ -1360,7 +1324,6 @@
 
       closeMenu();
 
-      // 브라우저 방문 기록(History) 저장 -> 모바일 뒤로 가기 시 이전 화면으로 복귀
       if (!skipPushState && !isHandlingPopState) {
         const hashStr = targetView === 'home' ? (anchor ? `#${anchor}` : '#home') : `#${targetView}`;
         const curState = history.state || {};
@@ -1379,19 +1342,16 @@
       }
     }
 
-    // 모바일/브라우저 '뒤로 가기' 및 '앞으로 가기' 버튼 감지 이벤트
     window.addEventListener('popstate', (e) => {
       isHandlingPopState = true;
       const modal = document.getElementById('scienceModal');
 
-      // 1) 포스터나 후기 모달이 열려 있던 상태에서 뒤로 가기를 누른 경우 -> 모달만 닫고 현재 페이지 유지!
       if (modal.classList.contains('open') && (!e.state || !e.state.modalOpen)) {
         closeScienceModal(true);
         isHandlingPopState = false;
         return;
       }
 
-      // 2) 시간표/과학정보/수강후기 등에서 뒤로 가기를 누른 경우 -> 이전 뷰(메인 홈 등)로 이동!
       if (e.state && e.state.view) {
         showView(e.state.view, e.state.anchor, true);
       } else {
@@ -1407,7 +1367,6 @@
       isHandlingPopState = false;
     });
 
-    // 최초 접속 시 현재 위치를 기본 히스토리로 등록
     (function initHistoryState() {
       const initialHash = (window.location.hash || '').replace('#', '');
       if (initialHash === 'schedule' || initialHash === 'science') {
@@ -1430,27 +1389,6 @@
       menuButton.innerHTML = open ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
     });
     document.getElementById('year').textContent = new Date().getFullYear();
-
-    function openReviewModal(idx) {
-      const r = SITE_DATA.reviews[idx];
-      if (!r) return;
-      const badge = getReviewBadgeInfo(r.category);
-      const metaHtml = `<span class="review-badge ${badge.cls}"><i class="fa-solid ${badge.icon}"></i> ${escapeHtml(badge.label)}</span> <span>${escapeHtml(r.author)}${r.date ? ' · ' + escapeHtml(r.date) : ''}</span>`;
-      const titleText = r.title || `${r.author}님의 ${badge.label}`;
-      openModalWithContent(metaHtml, titleText, r.text, r.image);
-    }
-
-    function openScienceModal(idx) {
-      const post = SITE_DATA.sciencePosts[idx];
-      if (!post) return;
-      const badgeCls = getScienceBadgeClass(post.category);
-      const metaHtml = `<span class="sci-cat-badge ${badgeCls}">${escapeHtml(post.category)}</span> <span>${escapeHtml(post.date)}</span>`;
-      openModalWithContent(metaHtml, post.title, post.body || post.summary, post.image);
-    }
-
-    function closeScienceModal() {
-      document.getElementById('scienceModal').classList.remove('open');
-    }
 
     function handleImageUpload(fileInput, targetInputId, previewImgId) {
       const file = fileInput.files && fileInput.files[0];
@@ -1480,10 +1418,7 @@
     }
 
     /* =========================================================================
-       [업그레이드] 네이버 봇 차단 완벽 우회:
-       1순위: 오픈그래프 전용 API (Microlink)
-       2순위: 네이버 공식 RSS 피드 역추적
-       3순위: 멀티 프록시 JSON 파싱
+       [네이버 블로그 자동 추출 엔진]
        ========================================================================= */
     function parseNaverBlogInfo(rawUrl) {
       let blogId = 'maxwell_science';
@@ -1518,7 +1453,6 @@
     }
 
     async function extractNaverBlogData(info) {
-      // [엔진 1] Microlink 오픈그래프 전용 API (네이버 WAF 차단 우회율이 가장 높음)
       try {
         const mlRes = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(info.mobileUrl)}`);
         if (mlRes.ok) {
@@ -1532,7 +1466,6 @@
         }
       } catch (e) {}
 
-      // [엔진 2] AllOrigins JSON 래퍼 방식 (상태 코드 에러 우회)
       try {
         const aoRes = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(info.mobileUrl)}`);
         if (aoRes.ok) {
@@ -1547,7 +1480,6 @@
         }
       } catch (e) {}
 
-      // [엔진 3] 네이버 공식 RSS 피드 API 활용 (네이버가 공식 허용한 외부 연동 경로)
       if (info.blogId) {
         try {
           const rssUrl = `https://rss.blog.naver.com/${info.blogId}.xml`;
@@ -1611,7 +1543,6 @@
       if (!rawUrl) return alert('네이버 블로그 글 주소를 입력해 주세요.');
 
       const info = parseNaverBlogInfo(rawUrl);
-      // 입력창의 주소도 깔끔한 표준 주소로 자동 정리
       urlInput.value = info.standardUrl;
 
       statusEl.style.color = 'var(--teal)';
@@ -1654,7 +1585,6 @@
       }
     }
 
-
     function addBlogStoryItem() {
       const url = document.getElementById('admBlogUrl').value.trim();
       const title = document.getElementById('admBlogTitle').value.trim();
@@ -1664,7 +1594,6 @@
       if (!url || !title) return alert('블로그 URL과 글 제목을 모두 입력해 주세요.');
       if (!SITE_DATA.blogStories) SITE_DATA.blogStories = [];
 
-      // 맨 앞에 추가하고 최대 3개까지만 유지 (밀어내기)
       SITE_DATA.blogStories.unshift({ title, url, image, date });
       if (SITE_DATA.blogStories.length > 3) {
         SITE_DATA.blogStories = SITE_DATA.blogStories.slice(0, 3);
@@ -1686,44 +1615,6 @@
       SITE_DATA.blogStories.splice(idx, 1);
       renderSite();
     }
-
-    const views = {
-      home: document.getElementById('homeView'),
-      schedule: document.getElementById('scheduleView'),
-      science: document.getElementById('scienceView'),
-      admin: document.getElementById('adminView')
-    };
-    const nav = document.getElementById('navLinks'), menuButton = document.getElementById('menuButton');
-    function closeMenu() {
-      nav.classList.remove('open');
-      menuButton.setAttribute('aria-expanded', 'false');
-      menuButton.innerHTML = '<i class="fa-solid fa-bars"></i>';
-    }
-    function showView(name, anchor) {
-      Object.values(views).forEach(v => v.classList.remove('active'));
-      (views[name] || views.home).classList.add('active');
-      document.querySelectorAll('.nav-links a').forEach(a => a.classList.remove('current'));
-      const current = document.querySelector(`[data-view="${name}"]`);
-      if (current) current.classList.add('current');
-      closeMenu();
-      if (name === 'home') {
-        setTimeout(() => observeRevealItems(), 30);
-      }
-      if (name === 'home' && anchor) {
-        setTimeout(() => document.getElementById(anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 20);
-      } else {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      }
-    }
-    document.querySelectorAll('[data-home]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); showView('home'); }));
-    document.querySelectorAll('[data-view]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); showView(a.dataset.view); }));
-    document.querySelectorAll('[data-scroll]').forEach(a => a.addEventListener('click', e => { e.preventDefault(); showView('home', a.dataset.scroll); }));
-    menuButton.addEventListener('click', () => {
-      const open = nav.classList.toggle('open');
-      menuButton.setAttribute('aria-expanded', String(open));
-      menuButton.innerHTML = open ? '<i class="fa-solid fa-xmark"></i>' : '<i class="fa-solid fa-bars"></i>';
-    });
-    document.getElementById('year').textContent = new Date().getFullYear();
 
     function openAdminMode() {
       const pin = prompt('관리자 비밀번호를 입력하세요');
