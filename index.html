@@ -1289,46 +1289,98 @@
     }
 
     /* =========================================================================
-       [신규 추가] 네이버 블로그 모바일 주소(m.blog.naver.com) 자동 변환 및
-       오픈그래프 파싱 + 썸네일 Base64 압축 변환 (핫링크 엑박 완벽 방지)
+       [업그레이드] 네이버 봇 차단 완벽 우회:
+       1순위: 오픈그래프 전용 API (Microlink)
+       2순위: 네이버 공식 RSS 피드 역추적
+       3순위: 멀티 프록시 JSON 파싱
        ========================================================================= */
-    function toMobileNaverBlogUrl(rawUrl) {
+    function parseNaverBlogInfo(rawUrl) {
+      let blogId = 'maxwell_science';
+      let logNo = '';
+      let cleanStr = rawUrl.trim();
+      if (!/^https?:\/\//i.test(cleanStr)) cleanStr = 'https://' + cleanStr;
+
       try {
-        const u = new URL(rawUrl.trim());
-        // PC 주소(blog.naver.com)인 경우 프레임(iframe) 우회를 위해 m.blog.naver.com 으로 변환
-        if (u.hostname === 'blog.naver.com') {
-          const blogId = u.searchParams.get('blogId');
-          const logNo = u.searchParams.get('logNo');
-          if (blogId && logNo) {
-            return `https://m.blog.naver.com/${blogId}/${logNo}`;
+        const u = new URL(cleanStr);
+        if (u.searchParams.get('blogId')) blogId = u.searchParams.get('blogId');
+        if (u.searchParams.get('logNo')) logNo = u.searchParams.get('logNo');
+
+        const pathParts = u.pathname.split('/').filter(Boolean);
+        if (u.hostname.includes('blog.naver.com')) {
+          if (pathParts.length >= 2 && /^\d+$/.test(pathParts[1])) {
+            blogId = pathParts[0];
+            logNo = pathParts[1];
+          } else if (pathParts.length === 1 && !pathParts[0].endsWith('.naver')) {
+            blogId = pathParts[0];
           }
-          u.hostname = 'm.blog.naver.com';
-          return u.toString();
         }
-        return u.toString();
-      } catch (e) {
-        return rawUrl.trim();
-      }
+      } catch (e) {}
+
+      const mobileUrl = logNo
+        ? `https://m.blog.naver.com/${blogId}/${logNo}`
+        : cleanStr.replace('://blog.naver.com', '://m.blog.naver.com');
+      const standardUrl = logNo
+        ? `https://blog.naver.com/${blogId}/${logNo}`
+        : cleanStr;
+
+      return { blogId, logNo, mobileUrl, standardUrl };
     }
 
-    async function fetchHtmlViaCorsProxy(targetUrl) {
-      const proxies = [
-        `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
-        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`,
-        `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`
-      ];
-      for (const p of proxies) {
-        try {
-          const res = await fetch(p);
-          if (res.ok) {
-            const text = await res.text();
-            if (text && text.includes('<meta')) return text;
+    async function extractNaverBlogData(info) {
+      // [엔진 1] Microlink 오픈그래프 전용 API (네이버 WAF 차단 우회율이 가장 높음)
+      try {
+        const mlRes = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(info.mobileUrl)}`);
+        if (mlRes.ok) {
+          const mlJson = await mlRes.json();
+          if (mlJson.status === 'success' && mlJson.data && mlJson.data.title) {
+            return {
+              title: mlJson.data.title,
+              image: mlJson.data.image?.url || mlJson.data.logo?.url || ''
+            };
           }
-        } catch (err) {
-          // 다음 프록시로 폴백
         }
+      } catch (e) {}
+
+      // [엔진 2] AllOrigins JSON 래퍼 방식 (상태 코드 에러 우회)
+      try {
+        const aoRes = await fetch(`https://api.allorigins.win/get?url=${encodeURIComponent(info.mobileUrl)}`);
+        if (aoRes.ok) {
+          const aoJson = await aoRes.json();
+          const html = aoJson.contents || '';
+          if (html && html.includes('og:title')) {
+            const doc = new DOMParser().parseFromString(html, 'text/html');
+            const title = doc.querySelector('meta[property="og:title"]')?.getAttribute('content') || '';
+            const image = doc.querySelector('meta[property="og:image"]')?.getAttribute('content') || '';
+            if (title) return { title, image };
+          }
+        }
+      } catch (e) {}
+
+      // [엔진 3] 네이버 공식 RSS 피드 API 활용 (네이버가 공식 허용한 외부 연동 경로)
+      if (info.blogId) {
+        try {
+          const rssUrl = `https://rss.blog.naver.com/${info.blogId}.xml`;
+          const rssRes = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(rssUrl)}`);
+          if (rssRes.ok) {
+            const rssData = await rssRes.json();
+            if (rssData.status === 'ok' && Array.isArray(rssData.items)) {
+              const matched = info.logNo
+                ? rssData.items.find(item => (item.link && item.link.includes(info.logNo)) || (item.guid && item.guid.includes(info.logNo)))
+                : rssData.items[0];
+              if (matched) {
+                let thumb = matched.thumbnail || '';
+                if (!thumb && matched.description) {
+                  const m = matched.description.match(/<img[^>]+src=["']([^"']+)["']/i);
+                  if (m) thumb = m[1];
+                }
+                return { title: matched.title, image: thumb };
+              }
+            }
+          }
+        } catch (e) {}
       }
-      throw new Error('블로그 페이지에 접근할 수 없습니다. 주소를 확인해 주세요.');
+
+      throw new Error('글이 전체 공개 상태인지 또는 주소가 정확한지 확인해 주세요.');
     }
 
     function convertRemoteImageToDataUrl(rawImgUrl) {
@@ -1367,20 +1419,21 @@
       const rawUrl = urlInput.value.trim();
       if (!rawUrl) return alert('네이버 블로그 글 주소를 입력해 주세요.');
 
-      const mobileUrl = toMobileNaverBlogUrl(rawUrl);
+      const info = parseNaverBlogInfo(rawUrl);
+      // 입력창의 주소도 깔끔한 표준 주소로 자동 정리
+      urlInput.value = info.standardUrl;
+
       statusEl.style.color = 'var(--teal)';
-      statusEl.textContent = '⏳ 모바일 주소(m.blog.naver.com)로 변환하여 제목과 대표 사진을 추출하고 있습니다...';
+      statusEl.textContent = '⏳ 네이버 보안 차단을 우회하여 제목과 대표 사진을 추출하고 있습니다...';
 
       try {
-        const htmlText = await fetchHtmlViaCorsProxy(mobileUrl);
-        const doc = new DOMParser().parseFromString(htmlText, 'text/html');
+        const meta = await extractNaverBlogData(info);
+        const cleanTitle = (meta.title || '')
+          .replace(/\s*:\s*네이버 블로그\s*$/i, '')
+          .replace(/&quot;/g, '"')
+          .replace(/&amp;/g, '&')
+          .trim();
 
-        const ogTitle = doc.querySelector('meta[property="og:title"]')?.getAttribute('content')
-          || doc.querySelector('title')?.textContent
-          || '';
-        const ogImage = doc.querySelector('meta[property="og:image"]')?.getAttribute('content') || '';
-
-        const cleanTitle = ogTitle.replace(/\s*:\s*네이버 블로그\s*$/i, '').trim();
         if (cleanTitle) {
           document.getElementById('admBlogTitle').value = cleanTitle;
         }
@@ -1391,9 +1444,9 @@
           document.getElementById('admBlogDate').value = defaultDate;
         }
 
-        if (ogImage) {
+        if (meta.image) {
           statusEl.textContent = '⏳ 이미지 엑박 방지를 위해 대표 사진을 최적화하여 내장하고 있습니다...';
-          const embeddedImg = await convertRemoteImageToDataUrl(ogImage);
+          const embeddedImg = await convertRemoteImageToDataUrl(meta.image);
           document.getElementById('admBlogImg').value = embeddedImg;
           const prev = document.getElementById('admBlogPreview');
           if (prev) {
@@ -1406,9 +1459,10 @@
         statusEl.textContent = '✅ 추출 완료! 제목을 확인하신 후 아래 [+ 맨 앞에 추가] 버튼을 눌러주세요.';
       } catch (err) {
         statusEl.style.color = '#e53e3e';
-        statusEl.textContent = '⚠️ 자동 추출 실패: 제목을 직접 입력해 주시거나 사진을 파일로 선택해 주세요. (' + err.message + ')';
+        statusEl.textContent = '⚠️ 자동 추출 실패: ' + err.message;
       }
     }
+
 
     function addBlogStoryItem() {
       const url = document.getElementById('admBlogUrl').value.trim();
