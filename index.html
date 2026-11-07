@@ -17,7 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <style>
-    :root{--navy:#101e35;--navy2:#1b2d49;--teal:#117f99;--gold:#c49a56;--kakao:#FEE500;--kakao-ink:#191919;--paper:#f7f7f4;--ink:#19283d;--muted:#718096;--line:#e4e8ec;--white:#fff;--shadow:0 18px 52px rgba(16,30,53,.09);--max:1160px}
+    :root{--navy:#101e35;--navy2:#1b2d49;--teal:#117f99;--gold:#c49a56;--kakao:#FEE500;--kakao-ink:#191919;--naver:#03C75A;--paper:#f7f7f4;--ink:#19283d;--muted:#718096;--line:#e4e8ec;--white:#fff;--shadow:0 18px 52px rgba(16,30,53,.09);--max:1160px}
     *{box-sizing:border-box}
     /* [로고 수정 가이드 2] 헤더 높이가 커진 만큼 스크롤 여백(scroll-padding-top)도 맞춤 조정 */
     html{scroll-behavior:smooth;scroll-padding-top:112px}
@@ -106,6 +106,29 @@
     .review-foot strong{color:var(--navy2);font-weight:700}
     .review-more{color:var(--teal);font-weight:800;font-size:11px;display:inline-flex;align-items:center;gap:4px}
     .review-note{margin-top:18px;color:#8a94a1;font-size:11.5px}
+
+    /* =========================================================================
+       [신규 추가] 수강 후기 파트 하단 - 네이버 블로그 이야기 3열 카드 레이아웃
+       ========================================================================= */
+    .blog-stories-wrap{margin-top:52px;padding-top:42px;border-top:1px solid var(--line)}
+    .blog-stories-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+    .blog-stories-title{display:flex;align-items:center;gap:10px;margin:0;color:var(--navy);font-size:clamp(20px,2.6vw,25px);font-weight:800;letter-spacing:-.03em}
+    .naver-n-badge{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;background:var(--naver);color:#fff;font-family:"DM Sans",sans-serif;font-size:13px;font-weight:900;flex-shrink:0}
+    .blog-stories-sub{margin:4px 0 0;color:var(--muted);font-size:13px}
+    .blog-visit-link{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border:1px solid var(--line);border-radius:50px;background:#fff;color:var(--navy);font-size:12px;font-weight:800;transition:.2s}
+    .blog-visit-link:hover{border-color:var(--naver);color:var(--naver);transform:translateY(-1px)}
+    .blog-stories-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .blog-story-card{display:flex;flex-direction:column;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:#fff;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease,opacity .75s cubic-bezier(.22,1,.36,1)}
+    .blog-story-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#cbd5e1}
+    .blog-story-thumb{position:relative;width:100%;aspect-ratio:4/3;overflow:hidden;background:#edf2f7;border-bottom:1px solid var(--line)}
+    .blog-story-thumb img{width:100%;height:100%;object-fit:cover;transition:transform .38s ease}
+    .blog-story-card:hover .blog-story-thumb img{transform:scale(1.05)}
+    .blog-story-tag{position:absolute;left:12px;top:12px;display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:6px;background:rgba(16,30,53,.82);color:#fff;font-size:11px;font-weight:800;backdrop-filter:blur(4px)}
+    .blog-story-tag .n-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--naver)}
+    .blog-story-body{padding:18px 20px;display:flex;flex-direction:column;justify-content:space-between;flex:1;gap:12px}
+    .blog-story-body h4{margin:0;color:var(--navy);font-size:15.5px;font-weight:800;line-height:1.45;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+    .blog-story-foot{display:flex;align-items:center;justify-content:space-between;padding-top:11px;border-top:1px dashed var(--line);color:var(--muted);font-size:11.5px;font-weight:700}
+    .blog-story-go{color:var(--teal);font-weight:800;display:inline-flex;align-items:center;gap:4px}
 
     /* 하단 상담 CTA & 푸터 */
     .cta{padding:57px 0;background:var(--navy);color:white}.cta-inner{display:flex;align-items:center;justify-content:space-between;gap:28px}.cta h2{margin:0 0 6px;font-size:clamp(24px,3vw,34px);letter-spacing:-.04em}.cta p{margin:0;color:rgba(255,255,255,.68);font-size:13px}.cta-buttons{display:flex;gap:10px;flex-wrap:wrap}
@@ -201,7 +224,7 @@
     @media(max-width:920px){
       .nav-links{gap:16px}.nav-links a{font-size:13px}.nav-cta{padding:10px 13px;font-size:12px}
       .about-grid{gap:30px}.location{grid-template-columns:1fr 1.2fr}
-      .reviews,.science-grid,.admin-grid{grid-template-columns:1fr 1fr}
+      .reviews,.blog-stories-grid,.science-grid,.admin-grid{grid-template-columns:1fr 1fr}
       .science-card.featured{grid-column:1/-1}
     }
     /* [로고 수정 가이드 3] 모바일 화면(660px 이하)에서의 헤더 및 풀스크린 히어로 높이 */
@@ -218,7 +241,7 @@
       .hero-content{padding:56px 0}.hero h1{font-size:clamp(39px,11vw,57px)}.hero p{font-size:15px}
       .scroll-down{bottom:18px;font-size:10px}
       .section{padding:70px 0}
-      .about-grid,.location,.teacher-grid,.reviews,.science-grid,.admin-grid{grid-template-columns:1fr}
+      .about-grid,.location,.teacher-grid,.reviews,.blog-stories-grid,.science-grid,.admin-grid{grid-template-columns:1fr}
       .pillars{gap:9px}.pillar{padding:17px 15px}.location{padding:15px}.map-frame,.map-frame iframe{min-height:230px}
       .teacher-photo{min-height:320px;max-height:420px}.teacher-photo img{min-height:320px;max-height:420px;object-position:54% 17%}.teacher-info{padding:26px}
       .cta-inner,.footer-inner{align-items:flex-start;flex-direction:column}.cta-buttons,.cta .button{width:100%}.footer-info{line-height:1.7}
@@ -347,6 +370,18 @@
           </div>
           <div class="reviews" id="reviewsList"></div>
           <p class="review-note" id="reviewNoteText"></p>
+
+          <!-- [신규 추가] 네이버 블로그 이야기 (3열 카드 영역) -->
+          <div class="blog-stories-wrap reveal-item" id="blogStoriesWrap">
+            <div class="blog-stories-head">
+              <div>
+                <h3 class="blog-stories-title"><span class="naver-n-badge">N</span> 맥스웰 블로그 이야기</h3>
+                <p class="blog-stories-sub">네이버 공식 블로그에 올라온 생생한 학원 소식과 시상·수업 이야기를 만나보세요.</p>
+              </div>
+              <a class="blog-visit-link" href="https://blog.naver.com/maxwell_science" target="_blank" rel="noopener">공식 블로그 전체보기 <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+            </div>
+            <div class="blog-stories-grid" id="blogStoriesList"></div>
+          </div>
         </div>
       </section>
 
@@ -396,7 +431,7 @@
 
     <!-- 관리자(Admin) 스튜디오 -->
     <section class="view" id="adminView">
-      <div class="page-hero"><div class="container"><span class="eyebrow" style="color:#e5c588">ADMIN STUDIO</span><h1>콘텐츠 관리 및 글 작성</h1><p>코드를 직접 수정하지 않고 학원 일정, 시간표, 수강 후기(사진·편지·시상), 과학 정보(커리큘럼·시험분석·입시)를 작성하고 반영할 수 있습니다.</p></div></div>
+      <div class="page-hero"><div class="container"><span class="eyebrow" style="color:#e5c588">ADMIN STUDIO</span><h1>콘텐츠 관리 및 글 작성</h1><p>코드를 직접 수정하지 않고 학원 일정, 시간표, 수강 후기(사진·편지·시상), 네이버 블로그 이야기, 과학 정보를 작성하고 반영할 수 있습니다.</p></div></div>
       <div class="section soft"><div class="container">
         <div class="admin-grid">
           <div class="admin-card">
@@ -513,12 +548,40 @@
             <div class="item-list" id="admScienceList"></div>
           </div>
 
+          <!-- [신규 추가] 5. 네이버 블로그 이야기 (3열 카드) 자동 추출 및 관리 -->
           <div class="admin-card full">
-            <h3><i class="fa-solid fa-cloud-arrow-up" style="color:var(--teal)"></i> 5. 변경사항 저장 및 반영하기</h3>
+            <h3><span class="naver-n-badge">N</span> 5. 네이버 블로그 이야기 관리 (수강 후기 하단 3열 카드 노출)</h3>
+            <p style="margin:-6px 0 14px;color:var(--muted);font-size:12.5px">네이버 블로그 글 주소를 입력하고 <b>[자동 추출]</b>을 누르면 모바일 경로(<code>m.blog.naver.com</code>)로 우회하여 제목과 대표 사진을 가져오며, 이미지 엑박(핫링크 차단) 방지를 위해 사진을 자동으로 압축 내장합니다.</p>
+            <div class="form-row">
+              <label>네이버 블로그 포스팅 URL 입력</label>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <input type="text" id="admBlogUrl" placeholder="예: https://blog.naver.com/maxwell_science/224438771028" style="flex:1;min-width:240px">
+                <button class="button" type="button" style="background:var(--naver);color:#fff" onclick="fetchNaverBlogMeta()"><i class="fa-solid fa-wand-magic-sparkles"></i> 제목/사진 자동 추출</button>
+              </div>
+              <p id="admBlogFetchStatus" style="margin:6px 0 0;font-size:12px;font-weight:700;color:var(--teal)"></p>
+            </div>
+            <div style="display:grid;grid-template-columns:2fr 1fr;gap:10px">
+              <div class="form-row"><label>추출된 글 제목 (직접 다듬기 가능)</label><input type="text" id="admBlogTitle" placeholder="블로그 글 제목이 이곳에 표시됩니다."></div>
+              <div class="form-row"><label>표시 날짜 / 태그 (선택)</label><input type="text" id="admBlogDate" placeholder="예: 2026.11 또는 공식 블로그"></div>
+            </div>
+            <div class="form-row">
+              <label>추출된 미리보기 사진 (자동 압축 내장됨 · 직접 사진 파일 선택 교체도 가능)</label>
+              <div class="upload-box">
+                <input type="text" id="admBlogImg" placeholder="자동 추출 시 이곳에 이미지 데이터가 채워집니다." style="flex:1">
+                <label class="upload-btn"><i class="fa-solid fa-image"></i> 직접 사진 선택<input type="file" accept="image/*" style="display:none" onchange="handleImageUpload(this, 'admBlogImg', 'admBlogPreview')"></label>
+                <img id="admBlogPreview" class="upload-preview" alt="미리보기">
+              </div>
+            </div>
+            <button class="button" type="button" onclick="addBlogStoryItem()">+ 맨 앞에 추가 (최신 3개 유지)</button>
+            <div class="item-list" id="admBlogStoryList"></div>
+          </div>
+
+          <div class="admin-card full">
+            <h3><i class="fa-solid fa-cloud-arrow-up" style="color:var(--teal)"></i> 6. 변경사항 저장 및 반영하기</h3>
             <textarea class="code-Export" id="exportCodeBox" readonly></textarea>
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
               <button class="button" type="button" onclick="copyExportCode()"><i class="fa-solid fa-copy"></i> 관리자 전달용 데이터 복사</button>
-              <button class="button outline" type="button" onclick="showView('home')">홈 화면에서 미리보기 확인</button>
+              <button class="button outline" type="button" onclick="showView('home', 'reviews')">홈 화면(수강 후기)에서 미리보기 확인</button>
             </div>
             <hr style="border:0;border-top:1px solid var(--line);margin:24px 0">
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px">
@@ -574,7 +637,7 @@
     </div>
   </footer>
 
-   <script>
+  <script>
     /* =========================================================================
        [관리자 데이터 영역 - SITE_DATA]
        ========================================================================= */
@@ -684,6 +747,26 @@
                   "image": "assets/review.2.jpg"
             }
       ],
+      "blogStories": [
+            {
+                  "title": "[맥스웰 과학] 자랑스러운 성적 우수상 & 장학 상금 수여식! (feat. 노력의 결실)",
+                  "url": "https://blog.naver.com/maxwell_science/224438771028",
+                  "image": "assets/review.2.jpg",
+                  "date": "2026.11"
+            },
+            {
+                  "title": "즐거운 실험과 원리 이해로 과학의 재미를 깨우는 맥스웰 과학 수업 현장",
+                  "url": "https://blog.naver.com/maxwell_science/224438771028",
+                  "image": "assets/review.1.jpg",
+                  "date": "2026.10"
+            },
+            {
+                  "title": "맥스웰 과학 학원 11월 정규반 및 내신 대비 프로그램 개강 안내",
+                  "url": "https://blog.naver.com/maxwell_science/224438771028",
+                  "image": "assets/maxwell.program.nov2.png",
+                  "date": "2026.11"
+            }
+      ],
       "sciencePosts": [
             {
                   "category": "선행 커리큘럼",
@@ -758,6 +841,17 @@
       if (!path) return '';
       if (path.startsWith('data:')) return path;
       return encodeURI(path).replace(/\(/g, '%28').replace(/\)/g, '%29');
+    }
+
+    // [신규 추가] 네이버 이미지 핫링크(엑박) 방지용 안전 이미지 URL 변환기
+    function safeBlogThumbUrl(rawPath) {
+      if (!rawPath) return safeUrl(SITE_DATA.images.logo || 'assets/logo.png');
+      if (rawPath.startsWith('data:')) return rawPath;
+      // 외부 네이버 이미지 URL이 직접 들어있는 경우 wsrv.nl 프록시를 경유해 핫링크 차단 우회
+      if (/^https?:\/\//i.test(rawPath) && (rawPath.includes('pstatic.net') || rawPath.includes('naver.net') || rawPath.includes('naver.com'))) {
+        return `https://wsrv.nl/?url=${encodeURIComponent(rawPath)}&w=640&q=82`;
+      }
+      return safeUrl(rawPath);
     }
 
     function bindImgWithFallback(imgEl, rawPath) {
@@ -955,6 +1049,43 @@
       observeRevealItems();
     }
 
+    // [신규 추가] 수강 후기 하단 네이버 블로그 이야기 3열 카드 렌더링
+    function renderBlogStories() {
+      const wrap = document.getElementById('blogStoriesWrap');
+      const listEl = document.getElementById('blogStoriesList');
+      if (!wrap || !listEl) return;
+
+      const stories = (SITE_DATA.blogStories || []).slice(0, 3);
+      if (stories.length === 0) {
+        wrap.style.display = 'none';
+        return;
+      }
+      wrap.style.display = 'block';
+
+      listEl.innerHTML = stories.map((item, i) => {
+        const delayCls = `reveal-delay-${(i % 3) + 1}`;
+        const thumbSrc = safeBlogThumbUrl(item.image);
+        const postUrl = item.url && item.url.trim() !== '' ? item.url.trim() : 'https://blog.naver.com/maxwell_science';
+        return `
+          <a class="blog-story-card reveal-item ${delayCls}" href="${escapeHtml(postUrl)}" target="_blank" rel="noopener">
+            <div class="blog-story-thumb">
+              <img src="${thumbSrc}" alt="${escapeHtml(item.title)}" loading="lazy" referrerpolicy="no-referrer" onerror="this.onerror=null;this.src='${safeUrl(SITE_DATA.images.logo || 'assets/logo.png')}';this.style.objectFit='contain';this.style.padding='24px';">
+              <span class="blog-story-tag"><span class="n-dot"></span> NAVER BLOG</span>
+            </div>
+            <div class="blog-story-body">
+              <h4>${escapeHtml(item.title)}</h4>
+              <div class="blog-story-foot">
+                <span>${escapeHtml(item.date || '맥스웰 과학 블로그')}</span>
+                <span class="blog-story-go">블로그 글 보기 <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+              </div>
+            </div>
+          </a>
+        `;
+      }).join('');
+
+      observeRevealItems();
+    }
+
     function renderScience() {
       const scienceGrid = document.getElementById('scienceGrid');
       const allPosts = (SITE_DATA.sciencePosts || []).map((p, idx) => ({ ...p, _idx: idx }));
@@ -1064,6 +1195,7 @@
     }
 
     function renderSite() {
+      if (!SITE_DATA.blogStories) SITE_DATA.blogStories = [];
       applyCleanLogo(SITE_DATA.images.logo);
       bindImgWithFallback(document.getElementById('teacherImg'), SITE_DATA.images.teacher);
       const posterUrl = safeUrl(SITE_DATA.images.heroPoster);
@@ -1082,6 +1214,7 @@
 
       renderSchedules();
       renderReviews();
+      renderBlogStories();
       renderScience();
       refreshAdminLists();
       initScrollReveal();
@@ -1153,6 +1286,160 @@
         img.src = e.target.result;
       };
       reader.readAsDataURL(file);
+    }
+
+    /* =========================================================================
+       [신규 추가] 네이버 블로그 모바일 주소(m.blog.naver.com) 자동 변환 및
+       오픈그래프 파싱 + 썸네일 Base64 압축 변환 (핫링크 엑박 완벽 방지)
+       ========================================================================= */
+    function toMobileNaverBlogUrl(rawUrl) {
+      try {
+        const u = new URL(rawUrl.trim());
+        // PC 주소(blog.naver.com)인 경우 프레임(iframe) 우회를 위해 m.blog.naver.com 으로 변환
+        if (u.hostname === 'blog.naver.com') {
+          const blogId = u.searchParams.get('blogId');
+          const logNo = u.searchParams.get('logNo');
+          if (blogId && logNo) {
+            return `https://m.blog.naver.com/${blogId}/${logNo}`;
+          }
+          u.hostname = 'm.blog.naver.com';
+          return u.toString();
+        }
+        return u.toString();
+      } catch (e) {
+        return rawUrl.trim();
+      }
+    }
+
+    async function fetchHtmlViaCorsProxy(targetUrl) {
+      const proxies = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
+        `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(targetUrl)}`,
+        `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`
+      ];
+      for (const p of proxies) {
+        try {
+          const res = await fetch(p);
+          if (res.ok) {
+            const text = await res.text();
+            if (text && text.includes('<meta')) return text;
+          }
+        } catch (err) {
+          // 다음 프록시로 폴백
+        }
+      }
+      throw new Error('블로그 페이지에 접근할 수 없습니다. 주소를 확인해 주세요.');
+    }
+
+    function convertRemoteImageToDataUrl(rawImgUrl) {
+      return new Promise((resolve) => {
+        if (!rawImgUrl) return resolve('');
+        const proxiedImgUrl = `https://wsrv.nl/?url=${encodeURIComponent(rawImgUrl)}&w=720&q=85`;
+        const img = new Image();
+        img.crossOrigin = 'anonymous';
+        img.onload = function () {
+          try {
+            const maxDim = 640;
+            let w = img.naturalWidth, h = img.naturalHeight;
+            if (w > maxDim || h > maxDim) {
+              if (w > h) { h = Math.round(h * (maxDim / w)); w = maxDim; }
+              else { w = Math.round(w * (maxDim / h)); h = maxDim; }
+            }
+            const canvas = document.createElement('canvas');
+            canvas.width = w; canvas.height = h;
+            const ctx = canvas.getContext('2d');
+            ctx.drawImage(img, 0, 0, w, h);
+            resolve(canvas.toDataURL('image/jpeg', 0.82));
+          } catch (err) {
+            resolve(proxiedImgUrl);
+          }
+        };
+        img.onerror = function () {
+          resolve(proxiedImgUrl);
+        };
+        img.src = proxiedImgUrl;
+      });
+    }
+
+    async function fetchNaverBlogMeta() {
+      const urlInput = document.getElementById('admBlogUrl');
+      const statusEl = document.getElementById('admBlogFetchStatus');
+      const rawUrl = urlInput.value.trim();
+      if (!rawUrl) return alert('네이버 블로그 글 주소를 입력해 주세요.');
+
+      const mobileUrl = toMobileNaverBlogUrl(rawUrl);
+      statusEl.style.color = 'var(--teal)';
+      statusEl.textContent = '⏳ 모바일 주소(m.blog.naver.com)로 변환하여 제목과 대표 사진을 추출하고 있습니다...';
+
+      try {
+        const htmlText = await fetchHtmlViaCorsProxy(mobileUrl);
+        const doc = new DOMParser().parseFromString(htmlText, 'text/html');
+
+        const ogTitle = doc.querySelector('meta[property="og:title"]')?.getAttribute('content')
+          || doc.querySelector('title')?.textContent
+          || '';
+        const ogImage = doc.querySelector('meta[property="og:image"]')?.getAttribute('content') || '';
+
+        const cleanTitle = ogTitle.replace(/\s*:\s*네이버 블로그\s*$/i, '').trim();
+        if (cleanTitle) {
+          document.getElementById('admBlogTitle').value = cleanTitle;
+        }
+
+        const now = new Date();
+        const defaultDate = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}`;
+        if (!document.getElementById('admBlogDate').value.trim()) {
+          document.getElementById('admBlogDate').value = defaultDate;
+        }
+
+        if (ogImage) {
+          statusEl.textContent = '⏳ 이미지 엑박 방지를 위해 대표 사진을 최적화하여 내장하고 있습니다...';
+          const embeddedImg = await convertRemoteImageToDataUrl(ogImage);
+          document.getElementById('admBlogImg').value = embeddedImg;
+          const prev = document.getElementById('admBlogPreview');
+          if (prev) {
+            prev.src = embeddedImg;
+            prev.style.display = 'inline-block';
+          }
+        }
+
+        statusEl.style.color = 'var(--naver)';
+        statusEl.textContent = '✅ 추출 완료! 제목을 확인하신 후 아래 [+ 맨 앞에 추가] 버튼을 눌러주세요.';
+      } catch (err) {
+        statusEl.style.color = '#e53e3e';
+        statusEl.textContent = '⚠️ 자동 추출 실패: 제목을 직접 입력해 주시거나 사진을 파일로 선택해 주세요. (' + err.message + ')';
+      }
+    }
+
+    function addBlogStoryItem() {
+      const url = document.getElementById('admBlogUrl').value.trim();
+      const title = document.getElementById('admBlogTitle').value.trim();
+      const date = document.getElementById('admBlogDate').value.trim() || '공식 블로그';
+      const image = document.getElementById('admBlogImg').value.trim();
+
+      if (!url || !title) return alert('블로그 URL과 글 제목을 모두 입력해 주세요.');
+      if (!SITE_DATA.blogStories) SITE_DATA.blogStories = [];
+
+      // 맨 앞에 추가하고 최대 3개까지만 유지 (밀어내기)
+      SITE_DATA.blogStories.unshift({ title, url, image, date });
+      if (SITE_DATA.blogStories.length > 3) {
+        SITE_DATA.blogStories = SITE_DATA.blogStories.slice(0, 3);
+      }
+
+      document.getElementById('admBlogUrl').value = '';
+      document.getElementById('admBlogTitle').value = '';
+      document.getElementById('admBlogDate').value = '';
+      document.getElementById('admBlogImg').value = '';
+      document.getElementById('admBlogFetchStatus').textContent = '';
+      const prev = document.getElementById('admBlogPreview');
+      if (prev) prev.style.display = 'none';
+
+      renderSite();
+    }
+
+    function removeBlogStoryItem(idx) {
+      if (!SITE_DATA.blogStories) return;
+      SITE_DATA.blogStories.splice(idx, 1);
+      renderSite();
     }
 
     const views = {
@@ -1228,6 +1515,16 @@
           <button type="button" onclick="removeScienceItem(${i})">삭제</button>
         </div>
       `).join('');
+
+      const blogListEl = document.getElementById('admBlogStoryList');
+      if (blogListEl) {
+        blogListEl.innerHTML = (SITE_DATA.blogStories || []).map((b, i) => `
+          <div class="item-row">
+            <span><b>[${i + 1}번 카드 · ${escapeHtml(b.date || '블로그')}]</b> ${escapeHtml(b.title)}</span>
+            <button type="button" onclick="removeBlogStoryItem(${i})">삭제</button>
+          </div>
+        `).join('');
+      }
 
       const exportStr = `    const SITE_DATA = ${JSON.stringify(SITE_DATA, null, 6)};`;
       document.getElementById('exportCodeBox').value = exportStr;
