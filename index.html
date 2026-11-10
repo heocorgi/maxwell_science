@@ -309,8 +309,8 @@
               <span class="role">중등 · 고등 과학</span>
               <h3>김보연 선생님</h3>
               <ul>
-                <li>서강대 화공생명공학과 / 경영학 학사</li>
-                <li>현) 메가스터디 엘리하이 과학 강사</li>
+                <li><strong>서강대 화공생명공학과 / 경영학 학사</strong>strong></li>
+                <li>현) <strong>메가스터디 엘리하이 과학 강사</strong>strong></li>
                 <li>전) 목동 시대인재 과학 강사</li>
                 <li>전) 반포 파인만 부원장</li>
                 <li>전) 대치 아카로드 과학 강사</li>
@@ -652,7 +652,7 @@
       },
       "notices": {
             "heroBanner": "11월 신규 개강반 모집 중입니다",
-            "scheduleNotice": "평일 그룹 수업 : 상담 후 개설 · 입반 전 상담 필수 (02-2646-1879 / 현대월드타워 603호)",
+            "scheduleNotice": "평일 그룹 수업 : 상담 후 개설 · 입반 전 상담 필수 <br>(02-2646-1879 / 현대월드타워 603호)",
             "posterLabel": "11월 프로그램 포스터 보기",
             "reviewNote": "※ 카드를 클릭하면 전체 내용과 첨부된 사진을 자세히 보실 수 있습니다."
       },
@@ -1204,7 +1204,7 @@ let currentReviewFilter = 'all';
       } else {
         heroNoticeBox.style.display = 'none';
       }
-      document.getElementById('scheduleNoticeText').innerHTML = `<i class="fa-solid fa-circle-info" style="color:var(--teal);margin-right:6px"></i> ${escapeHtml(SITE_DATA.notices.scheduleNotice)}`;
+      document.getElementById('scheduleNoticeText').innerHTML = `<i class="fa-solid fa-circle-info" style="color:var(--teal);margin-right:6px"></i> ${SITE_DATA.notices.scheduleNotice}`;
       document.getElementById('posterLinkLabel').textContent = SITE_DATA.notices.posterLabel || '프로그램 포스터 보기';
       document.getElementById('reviewNoteText').textContent = SITE_DATA.notices.reviewNote || '';
 
