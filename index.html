@@ -151,6 +151,7 @@
     /* [수정 반영] 모바일 가로 스크롤 및 제목 바 고정(Sticky) 레이아웃 적용 */
     .schedule-box{border:1px solid var(--line);border-top:2.5px solid var(--navy);border-bottom:2px solid var(--navy);border-radius:10px;background:white;box-shadow:0 8px 24px rgba(16,30,53,.04);position:relative}
     .schedule-group-header{padding:14px 20px;font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.03em;border-bottom:1px solid var(--line);position:sticky;left:0;z-index:3;width:100%}
+    .schedule-group-header.type-first{background:#ffcd4a}
     .schedule-group-header.type-middle{background:#e4f5fc}
     .schedule-group-header.type-high{background:#fdf1d6}
     .schedule-group-header.type-exam{background:#e5f3e6}
@@ -449,6 +450,7 @@
               <label>과정 구분 및 대상</label>
               <div style="display:flex;gap:8px">
                 <select id="admSchSection" style="width:140px">
+                  <option value="초등 과정">초등 과정</option>
                   <option value="중등 과정">중등 과정</option>
                   <option value="고등 과정">고등 과정</option>
                   <option value="내신">내신</option>
@@ -658,18 +660,28 @@
       },
       "schedules": [
             {
-                  "section": "중등 과정",
-                  "target": "초등학생",
+                  "section": "초등 과정",
+                  "target": "초등 3·4",
                   "subject": "초등 과학 실험",
                   "book": "자체 교재",
-                  "day": "화",
-                  "time": "오후 5시-8시",
-                  "tag": "계속반",
-                  "style": "normal"
+                  "day": "월·수",
+                  "time": "오후 1시-3시",
+                  "tag": "겨울 방학 개강 예정",
+                  "style": "gold"
             },
             {
-                  "section": "중등 과정",
-                  "target": "초5,6",
+                  "section": "초등 과정",
+                  "target": "초등 5·6",
+                  "subject": "중등 과학 실험",
+                  "book": "자체 교재",
+                  "day": "월·수",
+                  "time": "오후 1시-3시",
+                  "tag": "겨울 방학 개강 예정",
+                  "style": "gold"
+            },
+            {
+                  "section": "초등 과정",
+                  "target": "초5·6",
                   "subject": "영과고 특별반 (중등 물화생지)",
                   "book": "하이탑",
                   "day": "일",
@@ -1139,6 +1151,7 @@ let currentReviewFilter = 'all';
       if (!container) return;
 
       const groupDefs = [
+        { key: '초등 과정', headerCls: 'type-first'}
         { key: '중등 과정', headerCls: 'type-middle' },
         { key: '고등 과정', headerCls: 'type-high' },
         { key: '내신', headerCls: 'type-exam' }
