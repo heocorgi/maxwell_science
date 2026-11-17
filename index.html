@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#101e35">
-  <meta name="description" content="맥스웰 과학 — 재미가 이해로, 이해가 실력으로. 중등·고등 과학 수업과 학습 상담.">
+  <meta name="theme-color" content="#0b1528">
+  <meta name="description" content="맥스웰 과학 — 재미가 이해로, 이해가 실력으로. 초등·중등·고등 과학 수업과 학습 상담.">
   <title>맥스웰 과학 | 재미가 이해로, 이해가 실력으로</title>
   <meta property="og:type" content="website">
   <meta property="og:title" content="맥스웰 과학 | 재미가 이해로, 이해가 실력으로">
-  <meta property="og:description" content="중등·고등 과학 수업과 학습 상담. 목동 현대월드타워 603호 맥스웰과학교습소">
+  <meta property="og:description" content="초등·중등·고등 과학 수업과 학습 상담. 목동 현대월드타워 603호 맥스웰과학교습소">
   <meta property="og:image" content="https://heocorgi.github.io/maxwell_science/assets/og-logo.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
@@ -19,7 +19,6 @@
   <style>
     :root{--navy:#101e35;--navy2:#1b2d49;--teal:#117f99;--gold:#c49a56;--kakao:#FEE500;--kakao-ink:#191919;--naver:#03C75A;--paper:#f7f7f4;--ink:#19283d;--muted:#718096;--line:#e4e8ec;--white:#fff;--shadow:0 18px 52px rgba(16,30,53,.09);--max:1160px}
     *{box-sizing:border-box}
-    /* [로고 수정 가이드 2] 헤더 높이가 커진 만큼 스크롤 여백(scroll-padding-top)도 맞춤 조정 */
     html{scroll-behavior:smooth;scroll-padding-top:112px}
     body{margin:0;color:var(--ink);background:var(--white);font-family:"DM Sans","Noto Sans KR",sans-serif;line-height:1.7;word-break:keep-all}
     a{color:inherit;text-decoration:none}
@@ -34,11 +33,8 @@
     .heading h2{margin:10px 0;color:var(--navy);font-size:clamp(29px,4vw,43px);line-height:1.3;letter-spacing:-.045em}
     .heading p{margin-bottom:0;color:var(--muted)}
     
-    /* =========================================================================
-       [로고 수정 가이드 1] 헤더 및 상단 로고 크기 설정
-       - .nav 의 height(헤더 높이)와 .brand img 의 width/height 를 함께 조절하세요.
-       ========================================================================= */
-    .header{position:sticky;top:0;z-index:20;background:#ffffff;border-bottom:1px solid var(--line)}
+    /* 헤더 및 상단 로고 */
+    .header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
     .nav{height:104px;display:flex;align-items:center;justify-content:space-between;gap:24px}
     .brand{display:flex;align-items:center;gap:10px;padding:4px 0}
     .brand img{display:block;width:240px;height:86px;object-fit:contain;object-position:left center}
@@ -55,18 +51,119 @@
     .button.kakao:hover,.nav-cta.kakao:hover{background:#f5dc00;color:#000;transform:translateY(-1px)}
     .hamb{display:none;width:42px;height:42px;border:1px solid var(--line);border-radius:8px;background:#fff;color:var(--navy)}
 
-    /* [업그레이드 1] 메인 히어로 배너 - 풀스크린 높이(100svh - 헤더 104px) 적용 */
-    .hero{position:relative;overflow:hidden;min-height:max(560px,calc(100vh - 104px));min-height:max(560px,calc(100svh - 104px));padding-bottom:56px;display:flex;align-items:center;background:linear-gradient(110deg,#0d1a2f 0%,#112b42 58%,#104152 100%);color:white}
-    .hero:after{content:"";position:absolute;right:-140px;top:-200px;width:600px;height:600px;border:1px solid rgba(196,154,86,.28);border-radius:50%;box-shadow:0 0 0 42px rgba(196,154,86,.05),0 0 0 90px rgba(196,154,86,.035);pointer-events:none}
-    .hero-content{position:relative;z-index:1;max-width:720px;padding:78px 0}.hero .eyebrow{color:#dfbd82}.hero h1{margin:20px 0 17px;font-size:clamp(43px,6.6vw,76px);line-height:1.16;letter-spacing:-.06em}.hero h1 em{font-style:normal;color:#73c0d0}.hero p{max-width:590px;margin-bottom:28px;color:rgba(255,255,255,.77);font-size:17px}.hero-notice{display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;padding:10px 16px;border:1px solid rgba(223,189,130,.4);border-radius:8px;background:rgba(16,30,53,.65);color:#f3dfb9;font-size:13px;font-weight:600}.hero-actions{display:flex;flex-wrap:wrap;gap:12px}.hero .button{padding:14px 20px;background:var(--gold);color:#102039}.hero .button.outline{border-color:rgba(255,255,255,.35);background:transparent;color:white}.hero-meta{display:flex;gap:21px;flex-wrap:wrap;margin-top:28px;color:rgba(255,255,255,.72);font-size:12px}.hero-meta i{margin-right:6px;color:#77c7d0}
+    /* =========================================================================
+       [개선 1] 프리미엄 메인 히어로 배너 (입체 그리드 + 맥스웰 웨이브 + 2단 쇼케이스)
+       ========================================================================= */
+    .hero{
+      position:relative;overflow:hidden;
+      min-height:max(600px,calc(100vh - 104px));
+      min-height:max(600px,calc(100svh - 104px));
+      padding:64px 0 76px;
+      display:flex;align-items:center;
+      background:
+        radial-gradient(circle at 18% 22%, rgba(17,127,153,.32) 0%, transparent 45%),
+        radial-gradient(circle at 84% 72%, rgba(196,154,86,.20) 0%, transparent 48%),
+        linear-gradient(125deg, #07101e 0%, #0d1e36 52%, #0f3446 100%);
+      color:white;
+    }
+    /* 과학 모눈(Grid) 텍스처 오버레이 */
+    .hero:before{
+      content:"";position:absolute;inset:0;
+      background-image:
+        linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:44px 44px;
+      mask-image:radial-gradient(ellipse at center, rgba(0,0,0,.85) 20%, transparent 80%);
+      -webkit-mask-image:radial-gradient(ellipse at center, rgba(0,0,0,.85) 20%, transparent 80%);
+      pointer-events:none;
+    }
+    /* 우측 상단 오비탈 링 장식 */
+    .hero:after{
+      content:"";position:absolute;right:-160px;top:-180px;width:620px;height:620px;
+      border:1px solid rgba(196,154,86,.22);border-radius:50%;
+      box-shadow:0 0 0 48px rgba(196,154,86,.04), 0 0 0 105px rgba(17,127,153,.05);
+      pointer-events:none;
+    }
+    .hero-wave-svg{
+      position:absolute;left:0;right:0;bottom:0;width:100%;height:180px;
+      pointer-events:none;opacity:.35;z-index:0;
+    }
+    .hero-layout{
+      position:relative;z-index:1;
+      display:grid;grid-template-columns:1.12fr .88fr;gap:48px;align-items:center;
+    }
+    .hero-content{max-width:650px}
+    .hero-badges{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:18px}
+    .hero-pill{
+      display:inline-flex;align-items:center;gap:7px;padding:6px 13px;
+      border-radius:50px;font-size:12px;font-weight:800;letter-spacing:-.01em;
+      background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);color:#e2e8f0;
+      backdrop-filter:blur(6px);
+    }
+    .hero-pill.gold{background:rgba(196,154,86,.18);border-color:rgba(223,189,130,.45);color:#f5deb3}
+    .hero-pill i{color:#73c0d0}
+    .hero-pill.gold i{color:#e6c17a}
+    .hero h1{margin:0 0 18px;font-size:clamp(40px,5.6vw,68px);line-height:1.16;letter-spacing:-.055em}
+    .hero h1 em{
+      font-style:normal;
+      background:linear-gradient(135deg,#7be0f2 0%,#dfbd82 100%);
+      -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    }
+    .hero p{max-width:560px;margin-bottom:26px;color:rgba(255,255,255,.80);font-size:16.5px;line-height:1.75}
+    .hero-notice{
+      display:inline-flex;align-items:center;gap:10px;margin-bottom:22px;padding:10px 16px;
+      border:1px solid rgba(223,189,130,.45);border-radius:10px;
+      background:rgba(16,30,53,.75);color:#f3dfb9;font-size:13px;font-weight:700;
+      box-shadow:0 8px 24px rgba(0,0,0,.2);
+    }
+    .hero-actions{display:flex;flex-wrap:wrap;gap:12px}
+    .hero .button{padding:14px 22px;background:linear-gradient(135deg,#d4ab66 0%,#b88a44 100%);color:#0b1628;font-size:14px;box-shadow:0 10px 24px rgba(196,154,86,.28)}
+    .hero .button:hover{filter:brightness(1.06);transform:translateY(-2px)}
+    .hero .button.outline{border-color:rgba(255,255,255,.35);background:rgba(255,255,255,.04);color:white;box-shadow:none}
+    .hero .button.outline:hover{border-color:#7be0f2;color:#7be0f2;background:rgba(255,255,255,.08)}
+    .hero-meta{display:flex;gap:20px;flex-wrap:wrap;margin-top:26px;color:rgba(255,255,255,.72);font-size:12.5px}
+    .hero-meta i{margin-right:6px;color:#77c7d0}
 
-    /* [업그레이드 2] 히어로 하단 스크롤 유도 버튼 (Scroll Down Indicator) */
-    .scroll-down{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;display:inline-flex;flex-direction:column;align-items:center;gap:6px;color:rgba(255,255,255,.68);font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:color .25s ease,opacity .25s ease}
+    /* 히어로 우측 글래스모피즘 쇼케이스 패널 */
+    .hero-showcase{
+      position:relative;padding:28px 26px;border-radius:20px;
+      background:linear-gradient(145deg, rgba(255,255,255,.10) 0%, rgba(255,255,255,.03) 100%);
+      border:1px solid rgba(255,255,255,.16);
+      backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+      box-shadow:0 24px 60px rgba(0,0,0,.32);
+    }
+    .showcase-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-bottom:16px;margin-bottom:16px;border-bottom:1px solid rgba(255,255,255,.12)}
+    .showcase-title{font-size:15px;font-weight:800;color:#fff;display:flex;align-items:center;gap:8px}
+    .showcase-title i{color:#dfbd82}
+    .showcase-tag{font-size:11px;font-weight:800;padding:4px 10px;border-radius:50px;background:rgba(17,127,153,.35);color:#9be7f7;border:1px solid rgba(115,192,208,.3)}
+    .showcase-list{display:flex;flex-direction:column;gap:11px}
+    .showcase-item{
+      display:flex;align-items:flex-start;gap:13px;padding:13px 15px;border-radius:12px;
+      background:rgba(10,21,38,.55);border:1px solid rgba(255,255,255,.08);transition:.25s;
+    }
+    .showcase-item:hover{border-color:rgba(223,189,130,.4);transform:translateX(3px)}
+    .showcase-icon{
+      width:36px;height:36px;border-radius:9px;flex-shrink:0;
+      display:flex;align-items:center;justify-content:center;
+      background:rgba(17,127,153,.22);color:#7be0f2;font-size:15px;
+    }
+    .showcase-item.gold .showcase-icon{background:rgba(196,154,86,.22);color:#e8c686}
+    .showcase-item h4{margin:0 0 2px;font-size:14px;font-weight:800;color:#fff}
+    .showcase-item p{margin:0;font-size:12px;color:rgba(255,255,255,.68);line-height:1.45}
+    .showcase-foot{
+      margin-top:16px;padding-top:14px;border-top:1px dashed rgba(255,255,255,.15);
+      display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12px;color:#dfbd82;font-weight:700;
+    }
+    .showcase-foot a{color:#fff;display:inline-flex;align-items:center;gap:5px;font-weight:800}
+    .showcase-foot a:hover{color:#7be0f2}
+
+    /* 히어로 하단 스크롤 유도 버튼 */
+    .scroll-down{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:2;display:inline-flex;flex-direction:column;align-items:center;gap:6px;color:rgba(255,255,255,.68);font-size:11px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;cursor:pointer;transition:color .25s ease,opacity .25s ease}
     .scroll-down:hover{color:#dfbd82}
     .scroll-down i{font-size:14px;color:#dfbd82;animation:heroBounce 1.8s infinite ease-in-out}
     @keyframes heroBounce{0%,20%,50%,80%,100%{transform:translateY(0)}40%{transform:translateY(7px)}60%{transform:translateY(3px)}}
 
-    /* [업그레이드 3] 섹션 전환 스크롤 리빌(Scroll Reveal) 애니메이션 */
+    /* 스크롤 리빌 애니메이션 */
     .reveal-item{opacity:0;transform:translateY(32px);transition:opacity .75s cubic-bezier(.22,1,.36,1),transform .75s cubic-bezier(.22,1,.36,1);will-change:opacity,transform}
     .reveal-item.is-visible{opacity:1;transform:translateY(0)}
     .reveal-delay-1{transition-delay:.08s}
@@ -79,13 +176,13 @@
     .location{display:grid;grid-template-columns:.78fr 1.22fr;gap:22px;margin-top:36px;padding:22px;border:1px solid var(--line);border-radius:14px;background:#fff}.location-info{padding:8px}.location-info h3{margin:5px 0 13px;color:var(--navy);font-size:19px}.location-info p{display:flex;gap:10px;margin:9px 0;color:#617086;font-size:13px}.location-info i{width:17px;margin-top:5px;color:var(--teal)}.map-frame{min-height:260px;overflow:hidden;border-radius:10px;background:#edf1f5}.map-frame iframe{display:block;width:100%;height:100%;min-height:260px;border:0}
     .teacher-grid{display:grid;grid-template-columns:.85fr 1.15fr;max-width:870px;overflow:hidden;border:1px solid var(--line);border-radius:16px;background:white;box-shadow:var(--shadow)}.teacher-photo{min-height:360px;background:#1b263e}.teacher-photo img{display:block;width:100%;height:100%;min-height:360px;object-fit:cover;object-position:54% 20%}.teacher-info{align-self:center;padding:38px}.teacher-info .role{display:inline-block;padding:5px 10px;border-radius:5px;background:#e8f4f5;color:var(--teal);font-size:11px;font-weight:800}.teacher-info h3{margin:14px 0 18px;color:var(--navy);font-size:33px;line-height:1.2}.teacher-info ul{margin:0;padding:0;list-style:none}.teacher-info li{position:relative;margin:11px 0;padding-left:20px;color:#59697f;font-size:14px}.teacher-info li:before{content:"";position:absolute;left:0;top:11px;width:6px;height:6px;border-radius:50%;background:var(--gold)}.teacher-motto{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);color:var(--navy);font-size:14px;font-weight:800}
 
-    /* 카테고리 필터 탭 공통 (수강 후기 & 과학 정보) */
+    /* 카테고리 필터 탭 공통 */
     .filter-tabs{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
     .filter-tab{padding:9px 16px;border:1px solid var(--line);border-radius:50px;background:#fff;color:var(--muted);font-size:13px;font-weight:700;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:6px}
     .filter-tab:hover{border-color:var(--teal);color:var(--teal)}
     .filter-tab.active{background:var(--navy);border-color:var(--navy);color:#fff}
 
-    /* 업그레이드된 수강 후기 (후기·편지·시상) 카드 그리드 */
+    /* 수강 후기 카드 그리드 */
     .reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
     .review{display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:#fff;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease,opacity .75s cubic-bezier(.22,1,.36,1);cursor:pointer}
     .review:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#cbd5e1}
@@ -107,9 +204,7 @@
     .review-more{color:var(--teal);font-weight:800;font-size:11px;display:inline-flex;align-items:center;gap:4px}
     .review-note{margin-top:18px;color:#8a94a1;font-size:11.5px}
 
-    /* =========================================================================
-       [신규 추가] 수강 후기 파트 하단 - 네이버 블로그 이야기 3열 카드 레이아웃
-       ========================================================================= */
+    /* 네이버 블로그 이야기 3열 카드 레이아웃 */
     .blog-stories-wrap{margin-top:52px;padding-top:42px;border-top:1px solid var(--line)}
     .blog-stories-head{display:flex;align-items:flex-end;justify-content:space-between;gap:16px;margin-bottom:22px;flex-wrap:wrap}
     .blog-stories-title{display:flex;align-items:center;gap:10px;margin:0;color:var(--navy);font-size:clamp(20px,2.6vw,25px);font-weight:800;letter-spacing:-.03em}
@@ -144,42 +239,73 @@
     .toast-popup.show{display:block;animation:fadeIn .2s ease}
     @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
 
-    /* 서브 뷰 (시간표 & 과학 정보) - 포스터형 3단 분리 시간표 스타일 */
-    .view{display:none;min-height:70vh}.view.active{display:block}.page-hero{padding:74px 0 62px;color:#fff;background:linear-gradient(110deg,#101e35,#155d70)}.page-hero h1{margin:11px 0;font-size:clamp(35px,5vw,54px);letter-spacing:-.05em}.page-hero p{max-width:640px;margin:0;color:rgba(255,255,255,.78)}
-    .schedule-groups{display:flex;flex-direction:column;gap:34px}
-    
-    /* [수정 반영] 모바일 가로 스크롤 및 제목 바 고정(Sticky) 레이아웃 적용 */
-    .schedule-box{border:1px solid var(--line);border-top:2.5px solid var(--navy);border-bottom:2px solid var(--navy);border-radius:10px;background:white;box-shadow:0 8px 24px rgba(16,30,53,.04);position:relative}
-    .schedule-group-header{padding:14px 20px;font-size:19px;font-weight:800;color:var(--navy);letter-spacing:-.03em;border-bottom:1px solid var(--line);position:sticky;left:0;z-index:3;width:100%}
-    .schedule-group-header.type-middle{background:#e4f5fc}
-    .schedule-group-header.type-high{background:#fdf1d6}
-    .schedule-group-header.type-ultra{background:#e0bfe6}
-    .schedule-group-header.type-exam{background:#e5f3e6}
-    
-    .schedule-table-scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;width:100%}
-    .schedule-table{width:100%;min-width:680px;border-collapse:collapse;table-layout:fixed}
-    .schedule-table th,.schedule-table td{padding:16px 12px;border-bottom:1px solid var(--line);text-align:center;vertical-align:middle}
-    .schedule-table th{background:#f3f5f7;color:var(--navy);font-size:13.5px;font-weight:800;letter-spacing:-.02em}
-    .schedule-table td{font-size:14px;color:#334155;font-weight:500;line-height:1.45}
-    .schedule-table tr:last-child td{border-bottom:0}
-    .schedule-table td.col-target{font-weight:700;color:var(--navy2)}
-    .schedule-table td.col-subject{font-weight:800;color:var(--navy)}
-    .schedule-table td.col-book{white-space:pre-line;font-size:13px;color:#475569}
-    .tag{display:inline-block;padding:5px 11px;border-radius:6px;background:#f1f5f9;color:#334155;font-size:12.5px;font-weight:800}
-    .tag.gold{background:#e6f3f8;color:#1d6fa5}
-    
-    /* [신규 추가] 모바일 전용 가로 스크롤 안내 가이드 버튼 */
-    .table-scroll-hint{display:none}
-    @media(max-width:660px){
-      .table-scroll-hint{display:flex;align-items:center;justify-content:flex-end;gap:6px;padding:6px 12px 2px;color:var(--teal);font-size:11.5px;font-weight:700;animation:hintPulse 2s infinite}
-      .table-scroll-hint i{font-size:13px}
-      @keyframes hintPulse{0%,100%{opacity:.6}50%{opacity:1}}
-    }
+    /* =========================================================================
+       [개선 2] 시간표 뷰 - A4 포스터 2장 전용 반응형 레이아웃 (PC 좌우 2열 / 모바일 상하 1열)
+       ========================================================================= */
+    .view{display:none;min-height:70vh}.view.active{display:block}
+    .page-hero{padding:74px 0 62px;color:#fff;background:linear-gradient(110deg,#101e35,#155d70)}
+    .page-hero h1{margin:11px 0;font-size:clamp(35px,5vw,54px);letter-spacing:-.05em}
+    .page-hero p{max-width:640px;margin:0;color:rgba(255,255,255,.78)}
 
-    .notice{margin-top:20px;color:var(--navy2);font-size:13.5px;font-weight:700}
-    .poster-link{display:inline-flex;margin-top:18px;align-items:center;gap:8px;color:var(--teal);font-size:13px;font-weight:800}
-    
-    /* 업그레이드된 과학 정보 (선행 커리큘럼 / 시험 분석 / 영과고 입시) 카드 그리드 */
+    .poster-guide-bar{
+      display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;
+      margin-bottom:24px;padding:14px 20px;border-radius:12px;
+      background:#f1f6f9;border:1px solid #d8e6ee;color:var(--navy2);font-size:13.5px;font-weight:700;
+    }
+    .poster-guide-bar i{color:var(--teal);margin-right:6px}
+    .poster-guide-hint{font-size:12px;color:var(--teal);font-weight:800;display:inline-flex;align-items:center;gap:5px}
+
+    /* PC 화면: 좌우 2열 배치 */
+    .poster-showcase-grid{
+      display:grid;
+      grid-template-columns:repeat(2, 1fr);
+      gap:28px;
+      align-items:start;
+    }
+    .poster-card{
+      border:1px solid var(--line);border-radius:16px;background:#fff;
+      overflow:hidden;box-shadow:var(--shadow);
+      transition:transform .28s ease, box-shadow .28s ease, border-color .28s ease;
+      cursor:pointer;
+    }
+    .poster-card:hover{
+      transform:translateY(-5px);
+      box-shadow:0 24px 58px rgba(16,30,53,.15);
+      border-color:var(--teal);
+    }
+    .poster-card-head{
+      display:flex;align-items:center;justify-content:space-between;gap:10px;
+      padding:15px 20px;background:#fff;border-bottom:1px solid var(--line);
+    }
+    .poster-card-title{
+      display:inline-flex;align-items:center;gap:8px;
+      font-size:15px;font-weight:800;color:var(--navy);
+    }
+    .poster-num-badge{
+      display:inline-flex;align-items:center;justify-content:center;
+      width:24px;height:24px;border-radius:6px;
+      background:var(--navy);color:#fff;font-size:12px;font-weight:800;
+    }
+    .poster-zoom-btn{
+      display:inline-flex;align-items:center;gap:5px;
+      padding:6px 12px;border-radius:50px;
+      background:#e8f4f6;color:var(--teal);font-size:12px;font-weight:800;transition:.2s;
+    }
+    .poster-card:hover .poster-zoom-btn{background:var(--teal);color:#fff}
+    /* A4 세로 비율 (210 : 297 = 1 : 1.414) 컨테이너 */
+    .poster-a4-frame{
+      position:relative;width:100%;aspect-ratio:210 / 297;
+      background:#f8fafc;overflow:hidden;display:flex;align-items:center;justify-content:center;
+    }
+    .poster-a4-frame img{
+      width:100%;height:100%;object-fit:contain;display:block;
+      transition:transform .38s ease;
+    }
+    .poster-card:hover .poster-a4-frame img{transform:scale(1.015)}
+
+    .notice{margin-top:26px;padding:16px 20px;border-radius:12px;background:var(--paper);border-left:4px solid var(--teal);color:var(--navy2);font-size:14px;font-weight:700}
+
+    /* 과학 정보 카드 그리드 */
     .science-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
     .science-card{min-height:260px;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;border:1px solid var(--line);border-radius:14px;background:white;transition:.22s;cursor:pointer}
     .science-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:#cbd5e1}
@@ -205,10 +331,10 @@
     .empty-news{grid-column:1/-1;padding:48px 24px;text-align:center;border:1px dashed #cad4dd;border-radius:14px;background:#fff;color:var(--muted)}
     .empty-news i{display:block;margin-bottom:12px;color:var(--teal);font-size:28px}
 
-    /* 상세 보기 모달 (사진 + 본문 지원) */
-    .modal-backdrop{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(16,30,53,.68);backdrop-filter:blur(4px)}
+    /* 상세 보기 모달 */
+    .modal-backdrop{position:fixed;inset:0;z-index:50;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(16,30,53,.72);backdrop-filter:blur(4px)}
     .modal-backdrop.open{display:flex}
-    .modal-box{width:min(720px,100%);max-height:88vh;overflow-y:auto;padding:34px;border-radius:16px;background:#fff;box-shadow:var(--shadow)}
+    .modal-box{width:min(780px,100%);max-height:90vh;overflow-y:auto;padding:30px;border-radius:16px;background:#fff;box-shadow:var(--shadow)}
     .modal-head{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:18px;padding-bottom:16px;border-bottom:1px solid var(--line)}
     .modal-close{border:1px solid var(--line);background:#fff;border-radius:8px;width:36px;height:36px;cursor:pointer;color:var(--navy);flex-shrink:0}
     .modal-image-wrap{margin-bottom:20px;border-radius:12px;overflow:hidden;border:1px solid var(--line);background:#f8fafc;text-align:center}
@@ -222,14 +348,16 @@
     .upload-preview{width:44px;height:44px;border-radius:6px;object-fit:cover;border:1px solid var(--line);display:none}
     .item-list{margin-top:16px;border-top:1px solid var(--line);padding-top:12px;max-height:240px;overflow-y:auto}.item-row{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:12px}.item-row button{padding:4px 9px;border:1px solid #e53e3e;border-radius:5px;background:#fff;color:#e53e3e;font-size:11px;cursor:pointer;flex-shrink:0}.code-Export{width:100%;height:180px;padding:12px;border:1px solid var(--line);border-radius:8px;background:#0f172a;color:#e2e8f0;font-family:monospace;font-size:12px}
 
-    @media(max-width:920px){
+    @media(max-width:960px){
       .nav-links{gap:16px}.nav-links a{font-size:13px}.nav-cta{padding:10px 13px;font-size:12px}
+      .hero-layout{grid-template-columns:1fr;gap:34px}
+      .hero-content{max-width:100%}
       .about-grid{gap:30px}.location{grid-template-columns:1fr 1.2fr}
       .reviews,.blog-stories-grid,.science-grid,.admin-grid{grid-template-columns:1fr 1fr}
       .science-card.featured{grid-column:1/-1}
     }
-    /* [로고 수정 가이드 3] 모바일 화면(660px 이하)에서의 헤더 및 풀스크린 히어로 높이 */
-    @media(max-width:660px){
+    /* 모바일 화면(720px 이하): 포스터 위·아래 1열 배치 및 모바일 헤더 최적화 */
+    @media(max-width:720px){
       html{scroll-padding-top:90px}
       .container{width:calc(100% - 34px)}
       .nav{height:84px}
@@ -238,17 +366,20 @@
       .nav-links{position:absolute;display:none;top:83px;left:0;right:0;align-items:stretch;gap:0;padding:8px 20px 14px;background:white;border-bottom:1px solid var(--line);box-shadow:0 14px 24px rgba(16,30,53,.09)}
       .nav-links.open{display:flex;flex-direction:column}
       .nav-links a{display:block;padding:10px 0;font-size:14px}
-      .hero{min-height:max(500px,calc(100vh - 84px));min-height:max(500px,calc(100svh - 84px));padding-bottom:48px}
-      .hero-content{padding:56px 0}.hero h1{font-size:clamp(39px,11vw,57px)}.hero p{font-size:15px}
-      .scroll-down{bottom:18px;font-size:10px}
+      .hero{min-height:max(540px,calc(100vh - 84px));min-height:max(540px,calc(100svh - 84px));padding:42px 0 64px}
+      .hero h1{font-size:clamp(35px,10vw,52px)}.hero p{font-size:15px}
+      .hero-showcase{padding:20px 18px}
+      .scroll-down{bottom:14px;font-size:10px}
       .section{padding:70px 0}
+      /* 모바일에서 A4 포스터 위·아래(1열) 자동 전환 */
+      .poster-showcase-grid{grid-template-columns:1fr;gap:22px}
       .about-grid,.location,.teacher-grid,.reviews,.blog-stories-grid,.science-grid,.admin-grid{grid-template-columns:1fr}
       .pillars{gap:9px}.pillar{padding:17px 15px}.location{padding:15px}.map-frame,.map-frame iframe{min-height:230px}
       .teacher-photo{min-height:320px;max-height:420px}.teacher-photo img{min-height:320px;max-height:420px;object-position:54% 17%}.teacher-info{padding:26px}
       .cta-inner,.footer-inner{align-items:flex-start;flex-direction:column}.cta-buttons,.cta .button{width:100%}.footer-info{line-height:1.7}
       .science-card.featured{grid-column:auto}.page-hero{padding:58px 0 48px}
       .floating-kakao{right:16px;bottom:16px;padding:11px 15px;font-size:12px}
-      .modal-box{padding:24px 20px}
+      .modal-box{padding:22px 16px}
     }
     @media(prefers-reduced-motion:reduce){
       *,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}
@@ -263,7 +394,6 @@
         <img id="headerLogo" src="assets/logo.png" alt="MAXWELL SCIENCE">
       </a>
       <button class="hamb" id="menuButton" aria-label="메뉴 열기" aria-expanded="false"><i class="fa-solid fa-bars"></i></button>
-      <!-- 상단 메뉴 순서 -->
       <ul class="nav-links" id="navLinks">
         <li><a href="#teacher" data-scroll="teacher">선생님</a></li>
         <li><a href="#about" data-scroll="about">학원 소개</a></li>
@@ -279,19 +409,84 @@
     <!-- 홈 뷰 -->
     <div class="view active" id="homeView">
       <section class="hero" id="home">
-        <div class="container"><div class="hero-content">
-          <span class="eyebrow">MAXWELL SCIENCE · MOKDONG</span>
-          <h1>재미가 <em>이해</em>로,<br>이해가 <em>실력</em>으로</h1>
-          <p>중등부터 고등까지, 과학을 정확히 이해하고 스스로 문제를 풀어내는 힘을 기릅니다. 학생에게 집중하는 수업과 체계적인 학습으로 함께하겠습니다.</p>
-          <div class="hero-notice" id="heroNoticeBox" style="display:none"><i class="fa-solid fa-bullhorn"></i> <span id="heroNoticeText"></span></div>
-          <div class="hero-actions">
-            <a class="button" href="tel:0226461879" data-phone="02-2646-1879"><i class="fa-solid fa-phone"></i> 수업 상담 02-2646-1879</a>
-            <a class="button outline" href="#schedule" data-view="schedule">시간표 확인 <i class="fa-solid fa-arrow-right"></i></a>
+        <!-- 배경 맥스웰 전자기파 웨이브 그래픽 -->
+        <svg class="hero-wave-svg" viewBox="0 0 1440 200" fill="none" preserveAspectRatio="none">
+          <path d="M-100 130 C 260 20, 520 210, 900 95 C 1180 15, 1340 140, 1540 70" stroke="url(#goldGrad)" stroke-width="2" fill="none"/>
+          <path d="M-100 165 C 300 70, 620 200, 980 65 C 1220 -10, 1380 120, 1540 95" stroke="url(#tealGrad)" stroke-width="1.5" stroke-dasharray="6 6" fill="none"/>
+          <defs>
+            <linearGradient id="goldGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#c49a56" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#dfbd82" stop-opacity="0.75"/>
+              <stop offset="100%" stop-color="#7be0f2" stop-opacity="0"/>
+            </linearGradient>
+            <linearGradient id="tealGrad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#117f99" stop-opacity="0"/>
+              <stop offset="50%" stop-color="#7be0f2" stop-opacity="0.6"/>
+              <stop offset="100%" stop-color="#c49a56" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+        </svg>
+
+        <div class="container">
+          <div class="hero-layout">
+            <!-- 좌측: 메인 카피 & 액션 버튼 -->
+            <div class="hero-content">
+              <div class="hero-badges">
+                <span class="hero-pill gold"><i class="fa-solid fa-star"></i> 대치 · 반포 · 목동이 선택한 과학</span>
+                <span class="hero-pill"><i class="fa-solid fa-chalkboard-user"></i> 메가스터디 엘리하이 강사 직강</span>
+              </div>
+              <h1>재미가 <em>이해</em>로,<br>이해가 <em>실력</em>으로</h1>
+              <p>초등 실험부터 중등·고등 내신, 영과고 입시까지. 단순 암기가 아닌 과학적 원리를 스스로 꿰뚫고 문제로 풀어내는 진짜 실력을 만듭니다.</p>
+              <div class="hero-notice" id="heroNoticeBox" style="display:none"><i class="fa-solid fa-bullhorn"></i> <span id="heroNoticeText"></span></div>
+              <div class="hero-actions">
+                <a class="button" href="#schedule" data-view="schedule"><i class="fa-regular fa-calendar-check"></i> 개강 시간표 · 포스터 보기</a>
+                <a class="button outline" href="tel:0226461879" data-phone="02-2646-1879"><i class="fa-solid fa-phone"></i> 수업 상담 02-2646-1879</a>
+              </div>
+              <div class="hero-meta">
+                <span><i class="fa-solid fa-location-dot"></i> 목동 현대월드타워 603호 맥스웰과학교습소</span>
+                <span><i class="fa-solid fa-flask"></i> 초등 · 중등 · 고등 과학 전문</span>
+              </div>
+            </div>
+
+            <!-- 우측: 핵심 프로그램 쇼케이스 카드 -->
+            <aside class="hero-showcase" aria-label="맥스웰 과학 핵심 과정">
+              <div class="showcase-head">
+                <span class="showcase-title"><i class="fa-solid fa-atom"></i> MAXWELL CURRICULUM</span>
+                <span class="showcase-tag">소수정예 밀착 관리</span>
+              </div>
+              <div class="showcase-list">
+                <div class="showcase-item">
+                  <div class="showcase-icon"><i class="fa-solid fa-vial-circle-check"></i></div>
+                  <div>
+                    <h4>초등 과학 실험 · 영과고 특별반</h4>
+                    <p>직접 탐구하는 실험 수업부터 중등 물·화·생·지 하이탑 심화 완성</p>
+                  </div>
+                </div>
+                <div class="showcase-item gold">
+                  <div class="showcase-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+                  <div>
+                    <h4>중등 과학 개념 · 학교별 내신 만점 대비</h4>
+                    <p>목동권 주요 중학교 기출 변형 훈련 및 1:1 서술형 집중 첨삭</p>
+                  </div>
+                </div>
+                <div class="showcase-item">
+                  <div class="showcase-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+                  <div>
+                    <h4>고등 통합과학 · 물리학 1등급 완성</h4>
+                    <p>원리 구조화와 킬러 문항 풀이로 흔들리지 않는 고등 상위권 도약</p>
+                  </div>
+                </div>
+              </div>
+              <div class="showcase-foot">
+                <span><i class="fa-regular fa-clock"></i> 평일·주말반 상시 입반 상담</span>
+                <a href="#schedule" data-view="schedule">시간표 안내 <i class="fa-solid fa-arrow-right"></i></a>
+              </div>
+            </aside>
           </div>
-          <div class="hero-meta"><span><i class="fa-solid fa-location-dot"></i> 목동 현대월드타워 603호 맥스웰과학교습소</span><span><i class="fa-solid fa-flask"></i> 중등 · 고등 과학</span></div>
-        </div></div>
+        </div>
+
         <a class="scroll-down" href="#teacher" data-scroll="teacher" aria-label="선생님 소개 섹션으로 스크롤">
-          <span></span>
+          <span>SCROLL</span>
           <i class="fa-solid fa-chevron-down"></i>
         </a>
       </section>
@@ -307,7 +502,7 @@
           <article class="teacher-grid reveal-item reveal-delay-1">
             <div class="teacher-photo"><img id="teacherImg" src="assets/teacher.jpg" alt="맥스웰 과학 김보연 선생님"></div>
             <div class="teacher-info">
-              <span class="role">중등 · 고등 과학</span>
+              <span class="role">초등 · 중등 · 고등 과학</span>
               <h3>김보연 선생님</h3>
               <ul>
                 <li><strong>서강대 화공생명공학과 / 경영학 학사</strong></li>
@@ -329,17 +524,17 @@
             <div class="about-copy reveal-item">
               <span class="eyebrow">About Maxwell</span>
               <h2>한 명 한 명에게 집중하고,<br>과학의 기초부터 탄탄하게</h2>
-              <p>맥스웰 과학은 학생이 개념을 이해하고 자기 것으로 만들도록 돕습니다. 꼼꼼한 학습 관리와 중등·고등 과학 학습을 통해, 배움이 실제 실력으로 이어지는 수업을 지향합니다.</p>
+              <p>맥스웰 과학은 학생이 개념을 이해하고 자기 것으로 만들도록 돕습니다. 꼼꼼한 학습 관리와 체계적인 과학 학습을 통해, 배움이 실제 실력으로 이어지는 수업을 지향합니다.</p>
               <div class="quote">“ 재미가 이해로, 이해가 실력으로. ”</div>
             </div>
             <div class="pillars">
               <article class="pillar reveal-item reveal-delay-1"><i class="fa-solid fa-bullseye"></i><h3>학생 집중 관리</h3><p>학습 흐름과 이해도를 살피며 필요한 부분을 챙깁니다.</p></article>
-              <article class="pillar reveal-item reveal-delay-2"><i class="fa-solid fa-layer-group"></i><h3>중등 · 고등 과학</h3><p>중등 과정부터 고등 과학의 기초를 준비합니다.</p></article>
+              <article class="pillar reveal-item reveal-delay-2"><i class="fa-solid fa-layer-group"></i><h3>초 · 중 · 고 연계</h3><p>초등 실험·중등 과정부터 고등 과학의 기초를 준비합니다.</p></article>
               <article class="pillar reveal-item reveal-delay-2"><i class="fa-solid fa-lightbulb"></i><h3>이해 중심 수업</h3><p>외우는 데 그치지 않고 원리를 파악하도록 돕습니다.</p></article>
               <article class="pillar reveal-item reveal-delay-3"><i class="fa-solid fa-chart-line"></i><h3>이해를 실력으로</h3><p>배운 개념을 문제에 적용하는 연습을 이어갑니다.</p></article>
             </div>
           </div>
-          <!-- 지도 영역 (현대월드타워 단독 정확한 위치 매칭 적용) -->
+          <!-- 지도 영역 -->
           <div class="location reveal-item reveal-delay-1">
             <div class="location-info">
               <span class="eyebrow">Location</span>
@@ -349,7 +544,7 @@
               <a class="button outline" href="https://map.naver.com/p/search/%EB%A7%A5%EC%8A%A4%EC%9B%B0%EA%B3%BC%ED%95%99%EA%B5%90%EC%8A%B5%EC%86%8C?c=15.00,0,0,0,dh&placePath=%2Fhome%3Ffrom%3Dmap%3FfromPanelNum%3D1%26additionalHeight%3D76%26timestamp%3D202610211414%26locale%3Dko%26svcName%3Dmap_pcv5%26searchText%3D%EB%A7%A5%EC%8A%A4%EC%9B%B0%EA%B3%BC%ED%95%99%EA%B5%90%EC%8A%B5%EC%86%8C" target="_blank" rel="noopener">네이버 지도에서 보기 <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
             </div>
             <div class="map-frame">
-              <iframe title="목동 현대월드타워 지도" src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%20%EC%96%91%EC%B2%9C%EA%B5%AC%20%EB%AA%A9%EB%8F%99%20%EB%A7%A5%EC%8A%A4%EC%9B%B0%20%EA%B3%BC%ED%95%99&t=&z=17&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+              <iframe title="목동 현대월드타워 지도" src="https://maps.google.com/maps?q=%EC%84%9C%EC%9A%B8%20%EC%96%91%EC%B2%9C%EA%B5%AC%20%EB%AA%A9%EB%8F%99%EC%84%9C%EB%A1%9C%2077%20%ED%98%84%EB%8C%80%EC%9B%94%EB%93%9C%ED%83%80%EC%9B%8C&t=&z=17&ie=UTF8&iwloc=&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>
         </div>
@@ -372,7 +567,7 @@
           <div class="reviews" id="reviewsList"></div>
           <p class="review-note" id="reviewNoteText"></p>
 
-          <!-- [신규 추가] 네이버 블로그 이야기 (3열 카드 영역) -->
+          <!-- 네이버 블로그 이야기 (3열 카드 영역) -->
           <div class="blog-stories-wrap reveal-item" id="blogStoriesWrap">
             <div class="blog-stories-head">
               <div>
@@ -401,18 +596,35 @@
       </section>
     </div>
 
-    <!-- 시간표 뷰 (모바일 스크롤 고정 헤더 & 스크롤 유도 힌트 적용) -->
+    <!-- =========================================================================
+         시간표 뷰 (A4 포스터 2장 전용 뷰어: PC 좌우 2열 / 모바일 상하 1열)
+         ========================================================================= -->
     <section class="view" id="scheduleView">
-      <div class="page-hero"><div class="container"><span class="eyebrow" style="color:#e5c588">CLASS SCHEDULE</span><h1>수업 시간표</h1><p>평일 그룹 수업 모집 중입니다! 문의 부탁드립니다!</p></div></div>
-      <div class="section"><div class="container">
-        <div class="schedule-groups" id="scheduleGroupsContainer"></div>
-        <p class="notice" id="scheduleNoticeText"></p>
-        <a class="poster-link" id="posterLinkBtn" href="#poster" onclick="openPosterModal(event)"><span id="posterLinkLabel">11월 프로그램 포스터 보기</span> <i class="fa-solid fa-magnifying-glass-plus"></i></a>
-        <div style="margin-top:32px;display:flex;gap:10px;flex-wrap:wrap">
-          <a class="button kakao" href="#" data-kakao><i class="fa-solid fa-comment"></i> 카카오톡 개강 문의</a>
-          <a class="button" href="tel:0226461879" data-phone="02-2646-1879"><i class="fa-solid fa-phone"></i> 전화 문의 (02-2646-1879)</a>
+      <div class="page-hero">
+        <div class="container">
+          <span class="eyebrow" style="color:#e5c588">CLASS SCHEDULE &amp; POSTERS</span>
+          <h1>수업 시간표 안내</h1>
+          <p>맥스웰 과학의 과정별 상세 시간표 및 개강 안내 포스터입니다. 이미지를 클릭하시면 크게 확대해 보실 수 있습니다.</p>
         </div>
-      </div></div>
+      </div>
+      <div class="section">
+        <div class="container">
+          <div class="poster-guide-bar">
+            <span><i class="fa-solid fa-bullhorn"></i> 평일 및 주말 그룹 수업 모집 중입니다! 입반 전 학습 상담을 진행합니다.</span>
+            <span class="poster-guide-hint"><i class="fa-solid fa-magnifying-glass-plus"></i> 포스터를 터치하면 고화질로 확대됩니다</span>
+          </div>
+
+          <!-- A4 포스터 2장 그리드 (PC: 좌우 2장 / 모바일: 상하 2장) -->
+          <div class="poster-showcase-grid" id="schedulePostersGrid"></div>
+
+          <p class="notice" id="scheduleNoticeText"></p>
+
+          <div style="margin-top:28px;display:flex;gap:10px;flex-wrap:wrap">
+            <a class="button kakao" href="#" data-kakao><i class="fa-solid fa-comment"></i> 카카오톡 개강 문의</a>
+            <a class="button" href="tel:0226461879" data-phone="02-2646-1879"><i class="fa-solid fa-phone"></i> 전화 문의 (02-2646-1879)</a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- 과학 정보 뷰 -->
@@ -432,7 +644,7 @@
 
     <!-- 관리자(Admin) 스튜디오 -->
     <section class="view" id="adminView">
-      <div class="page-hero"><div class="container"><span class="eyebrow" style="color:#e5c588">ADMIN STUDIO</span><h1>콘텐츠 관리 및 글 작성</h1><p>코드를 직접 수정하지 않고 학원 일정, 시간표, 수강 후기(사진·편지·시상), 네이버 블로그 이야기, 과학 정보를 작성하고 반영할 수 있습니다.</p></div></div>
+      <div class="page-hero"><div class="container"><span class="eyebrow" style="color:#e5c588">ADMIN STUDIO</span><h1>콘텐츠 관리 및 글 작성</h1><p>코드를 직접 수정하지 않고 학원 일정, 시간표 포스터 2장, 수강 후기, 네이버 블로그 이야기, 과학 정보를 관리할 수 있습니다.</p></div></div>
       <div class="section soft"><div class="container">
         <div class="admin-grid">
           <div class="admin-card">
@@ -440,50 +652,37 @@
             <div class="form-row"><label>카카오톡 오픈채팅 또는 채널 주소 (URL)</label><input type="text" id="admKakaoUrl" placeholder="예: https://pf.kakao.com/_xiAsxjX"></div>
             <div class="form-row"><label>메인 화면 상단 한 줄 공지 (비워두면 숨김)</label><input type="text" id="admHeroNotice" placeholder="예: 11월 신규 개강반 모집 중입니다."></div>
             <div class="form-row"><label>시간표 하단 운영 안내 문구</label><textarea id="admScheduleNotice"></textarea></div>
-            <div class="form-row"><label>포스터 버튼 이름</label><input type="text" id="admPosterLabel" placeholder="예: 11월 프로그램 포스터 보기"></div>
             <button class="button" type="button" onclick="saveNotices()">설정 적용 (미리보기)</button>
           </div>
 
           <div class="admin-card">
-            <h3><i class="fa-solid fa-clock" style="color:var(--teal)"></i> 2. 시간표 관리 (과정별 분리)</h3>
+            <h3><i class="fa-solid fa-file-image" style="color:var(--teal)"></i> 2. 시간표 A4 포스터 2장 관리</h3>
+            <p style="margin:-6px 0 12px;color:var(--muted);font-size:12px">기본 파일명은 <code>assets/poster1.png</code>, <code>assets/poster2.png</code> 입니다. GitHub에 같은 이름으로 덮어쓰거나 아래에서 제목·사진을 변경할 수 있습니다.</p>
             <div class="form-row">
-              <label>과정 구분 및 대상</label>
-              <div style="display:flex;gap:8px">
-                <select id="admSchSection" style="width:140px">
-                  <option value="초등 과정">초등 과정</option>
-                  <option value="중등 과정">중등 과정</option>
-		  <option value="고등">고등 과정</option>
-                  <option value="내신">내신</option>
-                </select>
-                <input type="text" id="admSchTarget" placeholder="대상 (예: 초5,6)">
+              <label>포스터 1 제목 (PC 좌측 / 모바일 상단)</label>
+              <input type="text" id="admPoster1Title" placeholder="예: 11월 개강 프로그램 안내 (1)">
+            </div>
+            <div class="form-row">
+              <label>포스터 1 이미지 경로 또는 파일 선택</label>
+              <div class="upload-box">
+                <input type="text" id="admPoster1Img" placeholder="assets/poster1.png" style="flex:1">
+                <label class="upload-btn"><i class="fa-solid fa-image"></i> 파일 선택<input type="file" accept="image/*" style="display:none" onchange="handleImageUpload(this, 'admPoster1Img', 'admPoster1Preview')"></label>
+                <img id="admPoster1Preview" class="upload-preview" alt="미리보기">
               </div>
             </div>
             <div class="form-row">
-              <label>과목 및 교재</label>
-              <div style="display:flex;gap:8px">
-                <input type="text" id="admSchSubject" placeholder="과목 (예: 중1 과학)">
-                <input type="text" id="admSchBook" placeholder="교재 (예: 하이탑)">
-              </div>
+              <label>포스터 2 제목 (PC 우측 / 모바일 하단)</label>
+              <input type="text" id="admPoster2Title" placeholder="예: 11월 수업 시간표 안내 (2)">
             </div>
             <div class="form-row">
-              <label>요일 및 수업시간</label>
-              <div style="display:flex;gap:8px">
-                <input type="text" id="admSchDay" placeholder="요일 (예: 일)" style="width:110px">
-                <input type="text" id="admSchTime" placeholder="수업시간 (예: 오후 1시-4시)">
+              <label>포스터 2 이미지 경로 또는 파일 선택</label>
+              <div class="upload-box">
+                <input type="text" id="admPoster2Img" placeholder="assets/poster2.png" style="flex:1">
+                <label class="upload-btn"><i class="fa-solid fa-image"></i> 파일 선택<input type="file" accept="image/*" style="display:none" onchange="handleImageUpload(this, 'admPoster2Img', 'admPoster2Preview')"></label>
+                <img id="admPoster2Preview" class="upload-preview" alt="미리보기">
               </div>
             </div>
-            <div class="form-row">
-              <label>개강 문구 및 강조 색상</label>
-              <div style="display:flex;gap:8px">
-                <input type="text" id="admSchTag" placeholder="예: 11/8 개강 또는 계속반">
-                <select id="admSchStyle" style="width:140px">
-                  <option value="normal">일반(계속반)</option>
-                  <option value="gold">파란강조(신규개강)</option>
-                </select>
-              </div>
-            </div>
-            <button class="button" type="button" onclick="addScheduleItem()">+ 시간표 행 추가</button>
-            <div class="item-list" id="admScheduleList"></div>
+            <button class="button" type="button" onclick="savePosters()">포스터 설정 적용</button>
           </div>
 
           <div class="admin-card">
@@ -550,10 +749,10 @@
             <div class="item-list" id="admScienceList"></div>
           </div>
 
-          <!-- [신규 추가] 5. 네이버 블로그 이야기 (3열 카드) 자동 추출 및 관리 -->
+          <!-- 5. 네이버 블로그 이야기 관리 -->
           <div class="admin-card full">
             <h3><span class="naver-n-badge">N</span> 5. 네이버 블로그 이야기 관리 (수강 후기 하단 3열 카드 노출)</h3>
-            <p style="margin:-6px 0 14px;color:var(--muted);font-size:12.5px">네이버 블로그 글 주소를 입력하고 <b>[자동 추출]</b>을 누르면 모바일 경로(<code>m.blog.naver.com</code>)로 우회하여 제목과 대표 사진을 가져오며, 이미지 엑박(핫링크 차단) 방지를 위해 사진을 자동으로 압축 내장합니다.</p>
+            <p style="margin:-6px 0 14px;color:var(--muted);font-size:12.5px">네이버 블로그 글 주소를 입력하고 <b>[자동 추출]</b>을 누르면 모바일 경로(<code>m.blog.naver.com</code>)로 우회하여 제목과 대표 사진을 가져오며, 이미지 엑박 방지를 위해 사진을 자동으로 압축 내장합니다.</p>
             <div class="form-row">
               <label>네이버 블로그 포스팅 URL 입력</label>
               <div style="display:flex;gap:8px;flex-wrap:wrap">
@@ -583,7 +782,7 @@
             <textarea class="code-Export" id="exportCodeBox" readonly></textarea>
             <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px">
               <button class="button" type="button" onclick="copyExportCode()"><i class="fa-solid fa-copy"></i> 관리자 전달용 데이터 복사</button>
-              <button class="button outline" type="button" onclick="showView('home', 'reviews')">홈 화면(수강 후기)에서 미리보기 확인</button>
+              <button class="button outline" type="button" onclick="showView('schedule')">시간표 포스터 미리보기 확인</button>
             </div>
             <hr style="border:0;border-top:1px solid var(--line);margin:24px 0">
             <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:12px">
@@ -607,7 +806,7 @@
   <!-- PC용 전화번호 복사 안내 토스트 -->
   <div class="toast-popup" id="phoneToast"></div>
 
-  <!-- 통합 상세 읽기 모달 -->
+  <!-- 통합 상세 읽기 모달 (포스터 고화질 확대 포함) -->
   <div class="modal-backdrop" id="scienceModal" onclick="if(event.target===this)closeScienceModal()">
     <div class="modal-box">
       <div class="modal-head">
@@ -642,6 +841,7 @@
   <script>
     /* =========================================================================
        [관리자 데이터 영역 - SITE_DATA]
+       - 포스터 2장은 기본적으로 assets/poster1.png , assets/poster2.png 를 불러옵니다.
        ========================================================================= */
     const SITE_DATA = {
       "adminPin": "0824",
@@ -649,97 +849,17 @@
       "kakaoUrl": "https://pf.kakao.com/_xiAsxjX",
       "images": {
             "logo": "assets/logo.png",
-            "heroPoster": "assets/maxwell.program.nov2.png",
-            "teacher": "assets/teacher.jpg"
+            "teacher": "assets/teacher.jpg",
+            "poster1": "assets/poster1.png",
+            "poster2": "assets/poster2.png"
       },
       "notices": {
             "heroBanner": "11월 신규 개강반 모집 중입니다",
             "scheduleNotice": "평일 그룹 수업 : 상담 후 개설 · 입반 전 상담 필수 <br>(02-2646-1879 / 현대월드타워 603호)",
-            "posterLabel": "11월 프로그램 포스터 보기",
+            "poster1Title": "11월 프로그램 및 개강 안내 (1)",
+            "poster2Title": "11월 과정별 상세 시간표 (2)",
             "reviewNote": "※ 카드를 클릭하면 전체 내용과 첨부된 사진을 자세히 보실 수 있습니다."
       },
-      "schedules": [
-            {
-                  "section": "초등 과정",
-                  "target": "초등 3·4",
-                  "subject": "초등 과학 실험",
-                  "book": "자체 교재",
-                  "day": "월·수",
-                  "time": "오전 10시-12시",
-                  "tag": "겨울 방학 개강 예정",
-                  "style": "gold"
-            },
-            {
-                  "section": "초등 과정",
-                  "target": "초등 5·6",
-                  "subject": "중등 과학 실험",
-                  "book": "자체 교재",
-                  "day": "화·목",
-                  "time": "오전 10시-12시",
-                  "tag": "겨울 방학 개강 예정",
-                  "style": "gold"
-            },
-            {
-                  "section": "초등 과정",
-                  "target": "초등 5·6",
-                  "subject": "영과고 특별반 (중등 물화생지)",
-                  "book": "하이탑",
-                  "day": "일",
-                  "time": "오후 1시-4시",
-                  "tag": "계속반",
-                  "style": "normal"
-            },
-            {
-                  "section": "중등 과정",
-                  "target": "예비 중 1",
-                  "subject": "중 1 과학",
-                  "book": "하이탑",
-                  "day": "토",
-                  "time": "오전 10시-1시",
-                  "tag": "12/19 개강 예정",
-                  "style": "gold"
-            },
-            {
-                  "section": "중등 과정",
-                  "target": "초 6 · 중 1",
-                  "subject": "중 2 과학",
-                  "book": "하이탑\n(+세페이드)",
-                  "day": "토",
-                  "time": "오후 2시-5시",
-                  "tag": "계속반",
-                  "style": "normal"
-            },
-            {
-                  "section": "중등 과정",
-                  "target": "중 2",
-                  "subject": "중 3 과학",
-                  "book": "하이탑",
-                  "day": "토",
-                  "time": "오후 5:30-8:30",
-                  "tag": "계속반",
-                  "style": "normal"
-            },
-            {
-                  "section": "고등 과정",
-                  "target": "중 2·3",
-                  "subject": "고등 물리학",
-                  "book": "완자",
-                  "day": "일",
-                  "time": "오전 10시-1시",
-                  "tag": "계속반",
-                  "style": "normal"
-            },
-            {
-                  "section": "내신",
-                  "target": "중 2",
-                  "subject": "중 2 내신 대비",
-                  "book": "오투 + 자체교재",
-                  "day": "토",
-                  "time": "오후 5:30-8:30",
-                  "tag": "11/14 개강 예정",
-                  "style": "gold"
-            }
-      ],
       "reviews": [
             {
                   "category": "수강생·학부모 후기",
@@ -769,7 +889,7 @@
                   "image": "assets/review.2.jpg"
             }
       ],
-      "blogStories": [
+   "blogStories": [
             {
                   "title": "[목동 맥스웰 과학] 자랑스러운 성적 우수상 & 상금 수여식!",
                   "url": "https://blog.naver.com/maxwell_science/224468366760",
@@ -818,10 +938,10 @@
                   "featured": false
             }
       ]
-};
+    };
     /* ================= [SITE_DATA 영역 끝] ================= */
 
-let currentReviewFilter = 'all';
+    let currentReviewFilter = 'all';
     let currentScienceFilter = 'all';
     let revealObserver = null;
 
@@ -865,7 +985,6 @@ let currentReviewFilter = 'all';
       return encodeURI(path).replace(/\(/g, '%28').replace(/\)/g, '%29');
     }
 
-    // 네이버 이미지 핫링크(엑박) 방지용 안전 이미지 URL 변환기
     function safeBlogThumbUrl(rawPath) {
       if (!rawPath) return safeUrl(SITE_DATA.images.logo || 'assets/logo.png');
       if (rawPath.startsWith('data:')) return rawPath;
@@ -1075,7 +1194,7 @@ let currentReviewFilter = 'all';
       const listEl = document.getElementById('blogStoriesList');
       if (!wrap || !listEl) return;
 
-      const stories = (SITE_DATA.blogStories || []).slice(0, 3);
+      const stories = (SITE_DATA.blogStories || []).filter(s => s && s.title && s.title.trim() !== '').slice(0, 3);
       if (stories.length === 0) {
         wrap.style.display = 'none';
         return;
@@ -1146,79 +1265,75 @@ let currentReviewFilter = 'all';
       }).join('');
     }
 
-    function renderSchedules() {
-      const container = document.getElementById('scheduleGroupsContainer');
-      if (!container) return;
+    /* =========================================================================
+       [A4 포스터 2장 렌더링 & 확장자 자동 폴백(.png -> .jpg)]
+       ========================================================================= */
+    function handlePosterImgError(imgEl, baseName) {
+      const tried = imgEl.getAttribute('data-tried') || '';
+      if (!tried.includes('jpg')) {
+        imgEl.setAttribute('data-tried', tried + 'jpg,');
+        imgEl.src = `assets/${baseName}.jpg`;
+      } else if (!tried.includes('root')) {
+        imgEl.setAttribute('data-tried', tried + 'root,');
+        imgEl.src = `${baseName}.png`;
+      } else if (!tried.includes('legacy') && baseName === 'poster1') {
+        imgEl.setAttribute('data-tried', tried + 'legacy,');
+        imgEl.src = 'assets/maxwell.program.nov2.png';
+      } else {
+        imgEl.onerror = null;
+      }
+    }
 
-      const groupDefs = [
-        { key: '초등 과정', headerCls: 'type-middle' },
-        { key: '중등 과정', headerCls: 'type-high' },
-	{ key: '고등 과정', headerCls: 'type-ultra' },
-        { key: '내신', headerCls: 'type-exam' }
+    function renderSchedulePosters() {
+      const grid = document.getElementById('schedulePostersGrid');
+      if (!grid) return;
+
+      const posters = [
+        {
+          num: 1,
+          title: SITE_DATA.notices.poster1Title || '개강 프로그램 안내 포스터 (1)',
+          src: SITE_DATA.images.poster1 || 'assets/poster1.png',
+          baseName: 'poster1'
+        },
+        {
+          num: 2,
+          title: SITE_DATA.notices.poster2Title || '과정별 상세 시간표 포스터 (2)',
+          src: SITE_DATA.images.poster2 || 'assets/poster2.png',
+          baseName: 'poster2'
+        }
       ];
 
-      const allSchedules = SITE_DATA.schedules || [];
-      const knownKeys = groupDefs.map(g => g.key);
-      const extraKeys = [...new Set(allSchedules.map(s => s.section || '중등 과정'))].filter(k => !knownKeys.includes(k));
-      const finalGroups = [
-        ...groupDefs,
-        ...extraKeys.map(k => ({ key: k, headerCls: 'type-middle' }))
-      ];
-
-      container.innerHTML = finalGroups.map(group => {
-        const rows = allSchedules.filter(item => (item.section || '중등 과정') === group.key);
-        if (rows.length === 0) return '';
-
-        return `
-          <div class="schedule-box">
-            <div class="schedule-group-header ${group.headerCls}">${escapeHtml(group.key)}</div>
-            <div class="table-scroll-hint">
-              <i class="fa-solid fa-arrows-left-right"></i> <span>좌우로 밀어서 전체 시간표 보기</span>
-            </div>
-            <div class="schedule-table-scroll">
-              <table class="schedule-table">
-                <colgroup>
-                  <col style="width:15%">
-                  <col style="width:20%">
-                  <col style="width:19%">
-                  <col style="width:10%">
-                  <col style="width:20%">
-                  <col style="width:16%">
-                </colgroup>
-                <thead>
-                  <tr>
-                    <th>대상</th>
-                    <th>과목</th>
-                    <th>교재</th>
-                    <th>요일</th>
-                    <th>수업시간</th>
-                    <th>개강</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  ${rows.map(item => `
-                    <tr>
-                      <td class="col-target">${escapeHtml(item.target)}</td>
-                      <td class="col-subject">${escapeHtml(item.subject || item.title)}</td>
-                      <td class="col-book">${escapeHtml(item.book || '-')}</td>
-                      <td>${escapeHtml(item.day)}</td>
-                      <td>${escapeHtml(item.time)}</td>
-                      <td><span class="tag ${item.style === 'gold' ? 'gold' : ''}">${escapeHtml(item.tag)}</span></td>
-                    </tr>
-                  `).join('')}
-                </tbody>
-              </table>
-            </div>
+      grid.innerHTML = posters.map(p => `
+        <article class="poster-card" onclick="openPosterModalByIndex(${p.num})">
+          <div class="poster-card-head">
+            <span class="poster-card-title">
+              <span class="poster-num-badge">${p.num}</span>
+              ${escapeHtml(p.title)}
+            </span>
+            <span class="poster-zoom-btn"><i class="fa-solid fa-magnifying-glass-plus"></i> 크게 보기</span>
           </div>
-        `;
-      }).join('');
+          <div class="poster-a4-frame">
+            <img id="schedulePosterImg${p.num}" src="${safeUrl(p.src)}" alt="${escapeHtml(p.title)}" loading="lazy" onerror="handlePosterImgError(this, '${p.baseName}')">
+          </div>
+        </article>
+      `).join('');
+    }
+
+    function openPosterModalByIndex(num) {
+      const imgEl = document.getElementById(`schedulePosterImg${num}`);
+      const resolvedSrc = (imgEl && imgEl.src) ? imgEl.src : (num === 1 ? SITE_DATA.images.poster1 : SITE_DATA.images.poster2);
+      const label = num === 1
+        ? (SITE_DATA.notices.poster1Title || '개강 프로그램 안내 포스터 (1)')
+        : (SITE_DATA.notices.poster2Title || '과정별 상세 시간표 포스터 (2)');
+      const metaHtml = `<span class="sci-cat-badge"><i class="fa-solid fa-file-image"></i> 시간표 포스터 ${num}</span> <a href="${safeUrl(resolvedSrc)}" target="_blank" rel="noopener" style="color:var(--teal);font-weight:800;text-decoration:underline">원본 새 창으로 열기 <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
+      openModalWithContent(metaHtml, label, '', resolvedSrc);
+      document.getElementById('modalImage').style.maxHeight = 'none';
     }
 
     function renderSite() {
       if (!SITE_DATA.blogStories) SITE_DATA.blogStories = [];
       applyCleanLogo(SITE_DATA.images.logo);
       bindImgWithFallback(document.getElementById('teacherImg'), SITE_DATA.images.teacher);
-      document.getElementById('posterLinkBtn').href = '#poster';
 
       const heroNoticeBox = document.getElementById('heroNoticeBox');
       if (SITE_DATA.notices.heroBanner && SITE_DATA.notices.heroBanner.trim() !== '') {
@@ -1228,10 +1343,9 @@ let currentReviewFilter = 'all';
         heroNoticeBox.style.display = 'none';
       }
       document.getElementById('scheduleNoticeText').innerHTML = `<i class="fa-solid fa-circle-info" style="color:var(--teal);margin-right:6px"></i> ${SITE_DATA.notices.scheduleNotice}`;
-      document.getElementById('posterLinkLabel').textContent = SITE_DATA.notices.posterLabel || '프로그램 포스터 보기';
       document.getElementById('reviewNoteText').textContent = SITE_DATA.notices.reviewNote || '';
 
-      renderSchedules();
+      renderSchedulePosters();
       renderReviews();
       renderBlogStories();
       renderScience();
@@ -1243,9 +1357,7 @@ let currentReviewFilter = 'all';
       return String(str || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
     }
 
-    /* =========================================================================
-       [모바일 뒤로 가기(History API) 완벽 연동 & 포스터 내부 뷰어]
-       ========================================================================= */
+    /* 모바일 뒤로 가기(History API) 연동 */
     let isHandlingPopState = false;
 
     const views = {
@@ -1294,15 +1406,6 @@ let currentReviewFilter = 'all';
         const baseState = history.state || { view: getCurrentActiveView(), anchor: null };
         history.pushState({ ...baseState, modalOpen: true }, '', window.location.hash || '#home');
       }
-    }
-
-    function openPosterModal(e) {
-      if (e) e.preventDefault();
-      const posterUrl = SITE_DATA.images.heroPoster || 'assets/maxwell.program.nov2.png';
-      const label = SITE_DATA.notices.posterLabel || '프로그램 포스터';
-      const metaHtml = `<span class="sci-cat-badge"><i class="fa-solid fa-image"></i> 학원 안내 포스터</span> <a href="${safeUrl(posterUrl)}" target="_blank" rel="noopener" style="color:var(--teal);font-weight:800;text-decoration:underline">원본 이미지 확대 <i class="fa-solid fa-arrow-up-right-from-square"></i></a>`;
-      openModalWithContent(metaHtml, label, '', posterUrl);
-      document.getElementById('modalImage').style.maxHeight = 'none';
     }
 
     function openReviewModal(idx) {
@@ -1420,7 +1523,7 @@ let currentReviewFilter = 'all';
       reader.onload = function (e) {
         const img = new Image();
         img.onload = function () {
-          const maxDim = 900;
+          const maxDim = 1400;
           let w = img.naturalWidth, h = img.naturalHeight;
           if (w > maxDim || h > maxDim) {
             if (w > h) { h = Math.round(h * (maxDim / w)); w = maxDim; }
@@ -1430,7 +1533,7 @@ let currentReviewFilter = 'all';
           canvas.width = w; canvas.height = h;
           const ctx = canvas.getContext('2d');
           ctx.drawImage(img, 0, 0, w, h);
-          const dataUrl = canvas.toDataURL('image/jpeg', 0.82);
+          const dataUrl = canvas.toDataURL('image/jpeg', 0.86);
           document.getElementById(targetInputId).value = dataUrl;
           const prev = document.getElementById(previewImgId);
           if (prev) { prev.src = dataUrl; prev.style.display = 'inline-block'; }
@@ -1440,9 +1543,7 @@ let currentReviewFilter = 'all';
       reader.readAsDataURL(file);
     }
 
-    /* =========================================================================
-       [네이버 블로그 자동 추출 엔진]
-       ========================================================================= */
+    /* 네이버 블로그 자동 추출 엔진 */
     function parseNaverBlogInfo(rawUrl) {
       let blogId = 'maxwell_science';
       let logNo = '';
@@ -1617,6 +1718,7 @@ let currentReviewFilter = 'all';
       if (!url || !title) return alert('블로그 URL과 글 제목을 모두 입력해 주세요.');
       if (!SITE_DATA.blogStories) SITE_DATA.blogStories = [];
 
+      SITE_DATA.blogStories = SITE_DATA.blogStories.filter(s => s && s.title && s.title.trim() !== '');
       SITE_DATA.blogStories.unshift({ title, url, image, date });
       if (SITE_DATA.blogStories.length > 3) {
         SITE_DATA.blogStories = SITE_DATA.blogStories.slice(0, 3);
@@ -1652,14 +1754,11 @@ let currentReviewFilter = 'all';
       document.getElementById('admKakaoUrl').value = SITE_DATA.kakaoUrl || '';
       document.getElementById('admHeroNotice').value = SITE_DATA.notices.heroBanner || '';
       document.getElementById('admScheduleNotice').value = SITE_DATA.notices.scheduleNotice || '';
-      document.getElementById('admPosterLabel').value = SITE_DATA.notices.posterLabel || '';
 
-      document.getElementById('admScheduleList').innerHTML = SITE_DATA.schedules.map((s, i) => `
-        <div class="item-row">
-          <span><b>[${escapeHtml(s.section || '중등 과정')}]</b> ${escapeHtml(s.target)} · ${escapeHtml(s.subject || s.title)} (${escapeHtml(s.book || '-')}) / ${escapeHtml(s.day)} ${escapeHtml(s.time)}</span>
-          <button type="button" onclick="removeScheduleItem(${i})">삭제</button>
-        </div>
-      `).join('');
+      document.getElementById('admPoster1Title').value = SITE_DATA.notices.poster1Title || '11월 프로그램 및 개강 안내 (1)';
+      document.getElementById('admPoster1Img').value = SITE_DATA.images.poster1 || 'assets/poster1.png';
+      document.getElementById('admPoster2Title').value = SITE_DATA.notices.poster2Title || '11월 과정별 상세 시간표 (2)';
+      document.getElementById('admPoster2Img').value = SITE_DATA.images.poster2 || 'assets/poster2.png';
 
       document.getElementById('admReviewList').innerHTML = SITE_DATA.reviews.map((r, i) => `
         <div class="item-row">
@@ -1677,7 +1776,8 @@ let currentReviewFilter = 'all';
 
       const blogListEl = document.getElementById('admBlogStoryList');
       if (blogListEl) {
-        blogListEl.innerHTML = (SITE_DATA.blogStories || []).map((b, i) => `
+        const validBlogs = (SITE_DATA.blogStories || []).filter(b => b && b.title && b.title.trim() !== '');
+        blogListEl.innerHTML = validBlogs.map((b, i) => `
           <div class="item-row">
             <span><b>[${i + 1}번 카드 · ${escapeHtml(b.date || '블로그')}]</b> ${escapeHtml(b.title)}</span>
             <button type="button" onclick="removeBlogStoryItem(${i})">삭제</button>
@@ -1693,31 +1793,18 @@ let currentReviewFilter = 'all';
       SITE_DATA.kakaoUrl = document.getElementById('admKakaoUrl').value.trim();
       SITE_DATA.notices.heroBanner = document.getElementById('admHeroNotice').value.trim();
       SITE_DATA.notices.scheduleNotice = document.getElementById('admScheduleNotice').value.trim();
-      SITE_DATA.notices.posterLabel = document.getElementById('admPosterLabel').value.trim();
       renderSite();
-      alert('설정이 미리보기에 반영되었습니다. 하단의 코드 복사 또는 GitHub 업로드를 진행해 주세요.');
+      alert('설정이 미리보기에 반영되었습니다.');
     }
 
-    function addScheduleItem() {
-      const section = document.getElementById('admSchSection').value || '중등 과정';
-      const target = document.getElementById('admSchTarget').value.trim();
-      const subject = document.getElementById('admSchSubject').value.trim();
-      const book = document.getElementById('admSchBook').value.trim();
-      const day = document.getElementById('admSchDay').value.trim();
-      const time = document.getElementById('admSchTime').value.trim();
-      const tag = document.getElementById('admSchTag').value.trim() || '계속반';
-      const style = document.getElementById('admSchStyle').value;
-      if (!target || !subject || !day || !time) return alert('대상, 과목, 요일, 수업시간을 모두 입력해 주세요.');
-      SITE_DATA.schedules.push({ section, target, subject, book, day, time, tag, style });
-      document.getElementById('admSchTarget').value = '';
-      document.getElementById('admSchSubject').value = '';
-      document.getElementById('admSchBook').value = '';
-      document.getElementById('admSchDay').value = '';
-      document.getElementById('admSchTime').value = '';
-      document.getElementById('admSchTag').value = '';
+    function savePosters() {
+      SITE_DATA.notices.poster1Title = document.getElementById('admPoster1Title').value.trim() || '시간표 포스터 (1)';
+      SITE_DATA.images.poster1 = document.getElementById('admPoster1Img').value.trim() || 'assets/poster1.png';
+      SITE_DATA.notices.poster2Title = document.getElementById('admPoster2Title').value.trim() || '시간표 포스터 (2)';
+      SITE_DATA.images.poster2 = document.getElementById('admPoster2Img').value.trim() || 'assets/poster2.png';
       renderSite();
+      alert('포스터 2장 설정이 반영되었습니다. [시간표] 탭에서 확인해 보세요!');
     }
-    function removeScheduleItem(idx) { SITE_DATA.schedules.splice(idx, 1); renderSite(); }
 
     function addReviewItem() {
       const category = document.getElementById('admRevCat').value || '수강생·학부모 후기';
